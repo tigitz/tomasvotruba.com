@@ -271,7 +271,7 @@ private function unwrapExpression(Node $node): Node
 <h3 id="1-get-a-href-https-github-com-symplify-phpstan-rules-symplify-phpstan-rules-a">1. Get <a href="https://github.com/symplify/phpstan-rules">symplify/phpstan-rules</a>:</h3>
 <pre><code class="language-bash">composer require symplify/phpstan-rules --dev</code></pre>
 <h3 id="2-add-it-to-code-phpstan-neon-code">2. Add it to <code>phpstan.neon</code></h3>
-<pre><code class="language-neon">includes:
+<pre><code class="language-yaml">includes:
     # set services that are needed by PHPStan rules
     - vendor/symplify/phpstan-rules/config/services/services.neon
 
