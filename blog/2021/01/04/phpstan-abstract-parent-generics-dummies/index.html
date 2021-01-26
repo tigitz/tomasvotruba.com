@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <title>PHPStan Abstract Parent Generics for Dummies | Tomas Votruba</title>
+    <meta charset="utf-8">
+    <meta name="robots" content="index, follow">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
+    
+    <link rel="alternate" type="application/rss+xml" title="Tomas Votruba Blog RSS" href="/rss.xml">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/solid.css" integrity="sha384-wnAC7ln+XN0UKdcPvJvtqIH3jOjs9pnKnq9qX68ImXvOGz2JuFoEiCjT8jyZQX2z" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/brands.css" integrity="sha384-nT8r1Kzllf71iZl81CdFzObMsaLOhqBU1JD2+XoAALbdtWaXDOlWOZTR4v1ktjPE" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/fontawesome.css" integrity="sha384-HbmWTHay9psM8qyzEKPc8odH4DsOuzdejtnr+OFtDmOcIVnhgReQ4GZBH7uwcjf6" crossorigin="anonymous">
+
+        <link href="/assets/bootstrap/bootstrap.min.css" rel="stylesheet" type="text/css" />
+
+    <link href="/assets/prism/prism.css" rel="stylesheet" type="text/css" />
+
+        <link href="/assets/css/style.css" rel="stylesheet" type="text/css" />
+
+
+        <link href="/assets/css/checklist.css" rel="stylesheet" type="text/css" />
+</head>
+    <body>
+                <!-- post_id: 297 -->
+
+        
+<div class="hidden-sm-down">
+    <nav class="navbar">
+        <div class="container-fluid">
+            <ul>
+                <li id="logo">
+                    <img src="https://avatars1.githubusercontent.com/u/924196?s=60&v=4" class="me_avatar">
+                    Tomas Votruba
+                </li>
+                <li class="active">
+                    <a href="/">Blog</a>
+                </li>
+                <li class="">
+                    <a href="/php-framework-trends">Trends</a>
+                </li>
+                <li class="">
+                    <a href="/clusters">Clusters</a>
+                </li>
+                <li class="">
+                    <a href="/projects">Projects</a>
+                </li>
+                <li class="">
+                    <a href="/mission">Mission</a>
+                </li>
+                <li class="">
+                    <a href="/contact">Contact</a>
+                </li>
+                <li id="top-menu-search">
+                    <form method="get" action="https://www.google.com/search" itemprop="potentialAction" itemscope="" itemtype="https://schema.org/SearchAction">
+    <meta itemprop="target" content="https://www.google.com/search?q={q}"/>
+    <input name="sitesearch" value="tomasvotruba.com" type="hidden"/>
+    <input itemprop="query-input" type="text" id="search-query" class="form-control" required="required" name="q" placeholder="Search..." autocomplete="off"/>
+</form>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>
+
+<div class="hidden-md-up">
+    <nav class="navbar" id="mobile-menu">
+        <div class="container">
+            <a href="/" class="col-3 col-sm-3 active">
+                <em class="fas fa-book"></em>
+                <br>
+                Blog
+            </a>
+
+
+            <a href="/clusters" class="col-3 col-sm-3 ">
+                <em class="fas fa-share-alt"></em>
+                <br>
+                Clusters
+            </a>
+
+            <a href="/projects" class="col-3 col-sm-3 ">
+                <em class="fas fa-chart-bar"></em>
+                <br>
+                Trends
+            </a>
+
+            <a href="/contact" class="col-3 col-sm-3 ">
+                <em class="fas fa-phone"></em>
+                <br>
+                Contact
+            </a>
+        </div>
+    </nav>
+
+    <div class="hidden-md-up text-center" id="top-menu-search-mobile">
+        <form method="get" action="https://www.google.com/search" itemprop="potentialAction" itemscope="" itemtype="https://schema.org/SearchAction">
+    <meta itemprop="target" content="https://www.google.com/search?q={q}"/>
+    <input name="sitesearch" value="tomasvotruba.com" type="hidden"/>
+    <input itemprop="query-input" type="text" id="search-query" class="form-control" required="required" name="q" placeholder="Search..." autocomplete="off"/>
+</form>
+    </div>
+</div>
+
+        <div class="container-fluid" id="post">
+            <h1>PHPStan Abstract Parent Generics for Dummies</h1>
+
+            <ul class="list-inline post-metadata">
+    <li class="list-inline-item mr-3">
+        <em class="fas fa-clock fa-fw"></em>
+        <strong>4 min</strong>
+    </li>
+
+    <li class="list-inline-item mr-3">
+        <em class="fas fa-calendar fa-fw"></em>
+        <time datetime="2021-01-Mon">
+            
+                                            Mon, Jan 4
+            
+            </strike>        </time>
+    </li>
+
+    
+            <li class="list-inline-item mr-3">
+            <em class="fas fa-fw fa-comments"></em>
+            <a href="/blog/2021/01/04/phpstan-abstract-parent-generics-dummies/#disqus_thread">X</a> comments
+        </li>
+    
+    
+            <li class="list-inline-item mr-3 text-primary">
+            <em class="fab fa-fw fa-github"></em>
+            <a href="https://github.com/tomasvotruba/tomasvotruba.com/edit/master/packages/blog/data/2021/2021-01-04-phpstan-abstract-parent-generics-dummies.md">Found a typo? Edit me</a>
+        </li>
+    </ul>
+
+            
+            
+            <div class="card card-bigger mb-5">
+                <div class="card-body pb-2">
+                    <p>I'm trying to write code that is independent of abstract classes. Type-juggling can create n-matrix complexity in both directions and remind me of stringy static code where everything is one type - <code>mixed</code>.
+<br><br>
+But we cannot always avoid it. Do you use repositories with one abstract repository? Projects <a href="https://getrector.org/">I upgrade</a> do.
+<br><br>
+So I tried to use <a href="https://phpstan.org/blog/generics-in-php-using-phpdocs">PHPStan generics</a> and failed hard.</p>
+                </div>
+            </div>
+
+            <blockquote class="blockquote text-center">
+    "If you can't explain it to a six-year-old,<br>
+    you don't understand it yourself."
+    <footer class="blockquote-footer">Albert Einstein</footer></blockquote>
+<p>The documentation <a href="https://phpstan.org/blog/generics-in-php-using-phpdocs">barely scratches this topic</a> and examples are not very clear. Neither were responses on GitHub issues.</p>
+<p><br></p>
+<p>What is the use case? We have two classes - an abstract repository:</p>
+<pre><code class="language-php">abstract class AbstractRepository
+{
+    public function get(int $id): object
+    {
+        // ...
+    }
+}</code></pre>
+<p>and children classes that extend it:</p>
+<pre><code class="language-php">final class ProductRepository extends AbstractRepository
+{
+}</code></pre>
+<p><br></p>
+<p>In the controller, we use <code>ProductRepository</code> to display product detail:</p>
+<pre><code class="language-php">final class ProductDetailController
+{
+    public function __construct(
+        private ProductRepository $productRepository
+    ) {
+    }
+
+    public function __invoke(int $id)
+    {
+        $product = $this-&gt;productRepository-&gt;get($id);
+    }
+}</code></pre>
+<p>Pretty straightforward, right?</p>
+<p>Now we'll try to solve the hard question...</p>
+<h2 id="what-type-is-code-product-code">What Type is <code>$product</code>?</h2>
+<pre><code class="language-php">$product = $this-&gt;productRepository-&gt;get($id);</code></pre>
+<p>The class method <code>AbstractRepository-&gt;get()</code> returns and <code>object</code>, so for PHP, PHPStan, Rector and IDE it's an <code>object</code>. Nothing less, nothing more.</p>
+<p>But what <strong>do you see</strong>? You probably assume it's a specific <code>object</code> with a specific type - <code>Product</code>. How can we get this knowledge to the code?</p>
+<p><br></p>
+<ol>
+<li>We could add a method to <code>ProductRepository</code></li>
+</ol>
+<pre><code class="language-diff"> final class ProductRepository extends AbstractRepository
+ {
++    public function get(int $id): Product
++    {
++        return parent::get($id);
++    }
+ }</code></pre>
+<ol start="2">
+<li>We could add magic <code>@method</code> docblock</li>
+</ol>
+<pre><code class="language-diff">+/**
++ * @method Product get(int $id)
++ */
+ final class ProductRepository extends AbstractRepository
+ {
+ }</code></pre>
+<ol start="3">
+<li>We could add <code>@var</code> annotation to every <code>$product</code> variable</li>
+</ol>
+<pre><code class="language-diff">+/** @var Product $product */
+ $product = $this-&gt;productRepository-&gt;get($id);</code></pre>
+<ol start="4">
+<li>We could add <code>assert()</code> to <code>$product</code> variables</li>
+</ol>
+<pre><code class="language-diff"> $product = $this-&gt;productRepository-&gt;get($id);
++assert($product instanceof Product);</code></pre>
+<ol start="5">
+<li>We could add <code>instanceof</code> check</li>
+</ol>
+<pre><code class="language-diff"> $product = $this-&gt;productRepository-&gt;get($id);
++if (! $product instanceof Product) {
++    throw new ShouldNotHappenException('$product is not a ' . Product:class);
++}</code></pre>
+<p>We can see these solutions out in the wild. All of them are valid. They verify an assumption - is object a <code>Product</code> type?</p>
+<p>But <strong>validation is not designed for type specification</strong>. It's a layer to verify external input from QA when they walk in a bar order beer, <code>-5</code>, <code>$^@'ł</code>, an array of <code>T_INF</code>, and a bottomless glass of invisible water.</p>
+<p>Here <strong>we know</strong> the <code>$product</code> is always the <code>Product</code> type unless some very nasty bug will get into Doctrine.
+How can we teach our PHP code this knowledge?</p>
+<h2 id="generics">Generics!</h2>
+<p>Adding generics to 2 classes is 2 step process. Surprise, right?</p>
+<h3 id="open-parent">Open Parent</h3>
+<p><strong>First</strong>, we need to tell the abstract class to be opened to type override from children. By convention, the generics are not defined with the <code>@generics</code> keyword but by <code>@template</code>. It has nothing to do with rendering templates.</p>
+<p>With <code>@template</code> we define a keyword and a type. Same as <code>@param int $age</code> does.</p>
+<pre><code class="language-diff">+/**
++ * @template TEntity as object
++ */
+ abstract class AbstractRepository
+ {
+ }</code></pre>
+<p>Now we use this <code>TEntity</code> keyword in places where we know the specific type will be used:</p>
+<pre><code class="language-diff"> abstract class AbstractRepository
+ {
++    /**
++     * @return TEntity
++     */
+     public function get(int $id): object
+     {
+         // ...
+     }
+ }</code></pre>
+<p>Good job, we're halfway through.</p>
+<h3 id="specify-child">Specify Child</h3>
+<p>So how do we tell <code>ProductRepository</code> to treat every object as <code>Product</code>?</p>
+<pre><code class="language-diff">+/**
++ * @template TEntity as Product
++ */
+ final class ProductRepository extends AbstractRepository
+ {
+ }</code></pre>
+<p>That should be it, right? Let's run our controller and try it:</p>
+<pre><code class="language-php">$product = $this-&gt;productRepository-&gt;get($id);
+// "object"</code></pre>
+<p>Damn, what's going on?</p>
+<p>I stuck on this part and could not go on. We defined <code>TEntity</code> in both of our classes. We defined <code>TEntity</code> as <code>Product</code>. What is wrong?</p>
+<h2 id="how-to-promote-the-code-tentity-code-type-to-parent-class">How to promote the <code>TEntity</code> type to Parent Class?</h2>
+<p>The problem is, PHPStan sees <strong>generic types only in the classes they're defined</strong> by default.
+While <code>@return int</code> gets promoted to child methods, <code>@template</code> does not.</p>
+<ul>
+<li>So <code>TEntity</code> is <code>Product</code> only in class we defined it in - <code>ProductRepository</code></li>
+<li>And <code>TEntity</code> is only an <code>object</code> in class we defined it in - <code>AbstractRepository</code></li>
+</ul>
+<p>So we need to tell <code>AbstractRepository</code> to use <code>TEntity</code> as <code>Product</code>, without modifying it. That's a headache task, right?</p>
+<p><br></p>
+<p>In the documentation, there is mentioned <code>@extends</code> annotation. It is not related to extending any class, <strong>but instead promoting types to parent class</strong>. Probably another generics convention, confusing to a newbie like me.</p>
+<p>Let's get back to our repository:</p>
+<pre><code class="language-php"> /**
+  * @template TEntity as Product
+  */
+ final class ProductRepository extends AbstractRepository
+ {
+ }</code></pre>
+<p>The <code>@extends</code> annotation takes an argument of 1-n item names. These items will be pushed parent repository.</p>
+<p>How do we tell the parent class to use <code>TEntity</code> as <code>Product</code>?</p>
+<pre><code class="language-diff"> /**
+  * @template TEntity as Product
++ * @extends AbstractRepository&lt;TEntity&gt;
+  */
+ final class ProductRepository extends AbstractRepository
+ {
+ }</code></pre>
+<p>Now the <code>TEntity</code> in <code>AbstractRepository</code> will be overridden by type defined here. So <code>TEntity</code> will be treated as <code>Product</code> <em class="fas fa-fw fa-lg fa-check text-success"></em></p>
+<p>Beware! Even though it looks like any <code>array&lt;shape&gt;</code>, it has nothing to do with arrays.</p>
+<p><br></p>
+<p>It can take multiple arguments, separated by comma:</p>
+<pre><code class="language-diff">/**
+ * @template TEntity as Product
++* @template TQuery as ProductQuery
+-* @extends AbstractRepository&lt;TEntity&gt;
++* @extends AbstractRepository&lt;TEntity, TQuery&gt;
+ */
+ final class ProductRepository extends AbstractRepository
+ {
+ }</code></pre>
+<p>And that's how you use generics with parent abstract class with PHPStan.</p>
+<p><br></p>
+<p>It's my first generic time, so I bet this setup is not the best. Do you have a tip to improve? Share it. I'd love to learn a better way.</p>
+<p><br></p>
+<p>Happy coding!</p>
+
+            <br>
+
+            <div class="row mb-5 mt-5">
+                <div class="col-12 mb-5">
+                                                                <a href="/blog/2021/01/11/how-to-detect-complex-duplicated-methods-with-phpstan" class="d-block pt-4 pb-4 pl-4 pr-4 btn btn-success btn-wrappable">
+                            <em class="fas fa-fw fa-forward"></em>
+                            <strong>Read Next</strong>
+                            <br>
+                            <span class="text-bigger">
+                                How to detect Complex Duplicated Methods With PHPStan
+                            </span>
+                        </a>
+                                    </div>
+            </div>
+
+            <br>
+
+            <a name="comments"></a>
+            <div id="disqus_thread"></div>
+
+<script>
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+    /*
+    var disqus_config = function () {
+    this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = 'https://itsworthsharing.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+        </div>
+
+        <script id="dsq-count-scr" src="https://itsworthsharing.disqus.com/count.js" async defer></script>
+
+        <script src="/assets/js/jquery-3.3.1.slim.min.js"></script>
+<script src="/assets/js/cleaning-lady-checklist.js"></script>
+
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+
+<script>
+    ga=function(){ ga.q.push(arguments) };
+    ga.q=[];
+    ga.l=+new Date;
+    ga('create', 'UA-46082345-1', 'auto');
+    ga('send','pageview');
+</script>
+<script src="https://www.google-analytics.com/analytics.js" async defer></script>
+
+<script src="/assets/prism/prism.js"></script>
+
+<script>
+    // sortable table
+    $('.sortable_table').DataTable({
+        // see https://datatables.net/examples/basic_init/filter_only.html
+        "searching": false,
+        "paging": false,
+        "info": false,
+        "order": [[1, "desc"]],
+        // see https://datatables.net/examples/advanced_init/sort_direction_control.html
+        "aoColumns": [
+            null,
+            { "orderSequence": [ "desc", "asc" ] },
+            { "orderSequence": [ "desc", "asc" ] },
+            { "orderSequence": [ "desc", "asc" ] }
+        ]
+    });
+</script>
+
+<div class="text-center mt-5" id="footer">
+    <p class="mt-2">
+        Open-source is my life. Does it help yours? You can <a href="https://github.com/sponsors/TomasVotruba">Sponsor Me</a> &nbsp;
+        <em class="fas fa-heart text-danger fa-lg"></em>
+
+        &nbsp;
+        <span class="pl-2 pr-2">•</span>
+        &nbsp;
+
+        See <a href="/archive">Post Archive</a>
+    </p>
+
+    <br>
+
+    <p>
+        Did you know my daily focus goes to <strong>turning working with legacy code into joy</strong>?
+
+        <br>
+
+        With awesome <a href="https://getrector.org/">Instant Refactoring tool called Rector</a>.
+    </p>
+</div>
+    </body>
+</html>
+
+        <meta property="og:type" content="article" />
+    <meta property="og:title" content="PHPStan Abstract Parent Generics for Dummies" />
+    <meta property="og:description" content="I&#039;m trying to write code that is independent of abstract classes. Type-juggling can create n-matrix complexity in both directions and remind me of stringy static code where everything is one type - `mixed`.
+
+But we cannot always avoid it. Do you use repositories with one abstract repository? Projects [I upgrade](https://getrector.org/) do.
+
+So I tried to use [PHPStan generics](https://phpstan.org/blog/generics-in-php-using-phpdocs) and failed hard.
+" />
+    <meta property="og:url" content="/blog/2021/01/04/phpstan-abstract-parent-generics-dummies" />
+
+        <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@votrubaT">
+    <meta name="twitter:title" content="PHPStan Abstract Parent Generics for Dummies" />
+    <meta name="twitter:description" content="I&#039;m trying to write code that is independent of abstract classes. Type-juggling can create n-matrix complexity in both directions and remind me of stringy static code where everything is one type - `mixed`.
+
+But we cannot always avoid it. Do you use repositories with one abstract repository? Projects [I upgrade](https://getrector.org/) do.
+
+So I tried to use [PHPStan generics](https://phpstan.org/blog/generics-in-php-using-phpdocs) and failed hard.
+" />
