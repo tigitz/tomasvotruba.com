@@ -256,31 +256,26 @@ final class MyCustomEventSubscriber implements EventSubscriberInterface
 <li>No option to miss-use delegators <em class="fas fa-fw fa-lg fa-check text-success"></em></li>
 <li>Easy to statically analyse <em class="fas fa-fw fa-lg fa-check text-success"></em></li>
 <li>Easy to instantly upgrade <em class="fas fa-fw fa-lg fa-check text-success"></em></li>
-<li>Any Symfony BC break will be easy to discovery due to unused constant in exact line of code <em class="fas fa-fw fa-lg fa-check text-success"></em></li>
+<li>Any Symfony BC break will be easy to discover due to unused constant in exact line of code <em class="fas fa-fw fa-lg fa-check text-success"></em></li>
 </ul>
 <p>The trade-off worth the change</p>
 <h2 id="final-unrelated-tip-constants-over-strings">Final Unrelated Tip: Constants over Strings</h2>
 <p>If you use <code>KernelEvents::VIEW</code> constants within PHP code, you make the code also easier to debug.</p>
 <p>Where is <code>KernelEvents::VIEW</code> event actually dispatched? Just search <code>KernelEvents::VIEW</code> (or better <code>dispatch(KernelEvents::VIEW)</code>) in <code>/vendor</code> and PHPStorm will show you the exact line. If you'd look for a string, it will lead to a false source of <code>KernelEvents</code> (just a reference list of all Kernel events).</p>
 <p>Also, when the event name is changed in a constant to <code>view_event</code>, you don't mind. If you have <code>view</code> in the config, good luck!</p>
-<p>This makes using constants so fun. My rule fo a thumb is:</p>
+<p>This makes using constants so fun. My rule of thumb is:</p>
 <blockquote class="blockquote text-center mb-4 mt-4">
     When the same string is used at 2 different classes,
     <br>
-    it's worth creating a constant list to make it typo-proof.
+    it's worth creating a constant to make it typo-proof.
 </blockquote>
-<p>E.g. imagine you have code like:</p>
+<p>Imagine you have some code like:</p>
 <pre><code class="language-php"># in class A
 $configuration-&gt;setOption('resource');
 
 # in class B
 $input-&gt;getOption('resource');</code></pre>
 <p>Now you need to get this resource somewhere else. Was it &quot;source&quot;, &quot;sources&quot;, &quot;resource&quot; or &quot;directory&quot;? You don't care, constant autocomplete in PHPStorm tells you:</p>
-<pre><code class="language-php"># in class A
-$configuration-&gt;setOption('resource');
-
-# in class B
-$input-&gt;getOption('resource');</code></pre>
 <img src="/assets/images/posts/2019/sub/constant.gif" class="img-thumbnail">
 <p><a href="/blog/2018/08/27/why-and-how-to-avoid-the-memory-lock/">Don't remember what you don't need to</a>.</p>
 <p><br></p>
