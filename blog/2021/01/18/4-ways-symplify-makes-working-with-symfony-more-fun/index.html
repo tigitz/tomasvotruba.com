@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <title>4 Ways Symplify makes Working With Symfony More Fun | Tomas Votruba</title>
+    <meta charset="utf-8">
+    <meta name="robots" content="index, follow">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
+    
+    <link rel="alternate" type="application/rss+xml" title="Tomas Votruba Blog RSS" href="/rss.xml">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/solid.css" integrity="sha384-wnAC7ln+XN0UKdcPvJvtqIH3jOjs9pnKnq9qX68ImXvOGz2JuFoEiCjT8jyZQX2z" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/brands.css" integrity="sha384-nT8r1Kzllf71iZl81CdFzObMsaLOhqBU1JD2+XoAALbdtWaXDOlWOZTR4v1ktjPE" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/fontawesome.css" integrity="sha384-HbmWTHay9psM8qyzEKPc8odH4DsOuzdejtnr+OFtDmOcIVnhgReQ4GZBH7uwcjf6" crossorigin="anonymous">
+
+        <link href="/assets/bootstrap/bootstrap.min.css" rel="stylesheet" type="text/css" />
+
+    <link href="/assets/prism/prism.css" rel="stylesheet" type="text/css" />
+
+        <link href="/assets/css/style.css" rel="stylesheet" type="text/css" />
+
+
+        <link href="/assets/css/checklist.css" rel="stylesheet" type="text/css" />
+</head>
+    <body>
+                <!-- post_id: 298 -->
+
+        
+<div class="hidden-sm-down">
+    <nav class="navbar">
+        <div class="container-fluid">
+            <ul>
+                <li id="logo">
+                    <img src="https://avatars1.githubusercontent.com/u/924196?s=60&v=4" class="me_avatar">
+                    Tomas Votruba
+                </li>
+                <li class="active">
+                    <a href="/">Blog</a>
+                </li>
+                <li class="">
+                    <a href="/php-framework-trends">Trends</a>
+                </li>
+                <li class="">
+                    <a href="/clusters">Clusters</a>
+                </li>
+                <li class="">
+                    <a href="/projects">Projects</a>
+                </li>
+                <li class="">
+                    <a href="/mission">Mission</a>
+                </li>
+                <li class="">
+                    <a href="/contact">Contact</a>
+                </li>
+                <li id="top-menu-search">
+                    <form method="get" action="https://www.google.com/search" itemprop="potentialAction" itemscope="" itemtype="https://schema.org/SearchAction">
+    <meta itemprop="target" content="https://www.google.com/search?q={q}"/>
+    <input name="sitesearch" value="tomasvotruba.com" type="hidden"/>
+    <input itemprop="query-input" type="text" id="search-query" class="form-control" required="required" name="q" placeholder="Search..." autocomplete="off"/>
+</form>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>
+
+<div class="hidden-md-up">
+    <nav class="navbar" id="mobile-menu">
+        <div class="container">
+            <a href="/" class="col-3 col-sm-3 active">
+                <em class="fas fa-book"></em>
+                <br>
+                Blog
+            </a>
+
+
+            <a href="/clusters" class="col-3 col-sm-3 ">
+                <em class="fas fa-share-alt"></em>
+                <br>
+                Clusters
+            </a>
+
+            <a href="/projects" class="col-3 col-sm-3 ">
+                <em class="fas fa-chart-bar"></em>
+                <br>
+                Trends
+            </a>
+
+            <a href="/contact" class="col-3 col-sm-3 ">
+                <em class="fas fa-phone"></em>
+                <br>
+                Contact
+            </a>
+        </div>
+    </nav>
+
+    <div class="hidden-md-up text-center" id="top-menu-search-mobile">
+        <form method="get" action="https://www.google.com/search" itemprop="potentialAction" itemscope="" itemtype="https://schema.org/SearchAction">
+    <meta itemprop="target" content="https://www.google.com/search?q={q}"/>
+    <input name="sitesearch" value="tomasvotruba.com" type="hidden"/>
+    <input itemprop="query-input" type="text" id="search-query" class="form-control" required="required" name="q" placeholder="Search..." autocomplete="off"/>
+</form>
+    </div>
+</div>
+
+        <div class="container-fluid" id="post">
+            <h1>4 Ways Symplify makes Working With Symfony More Fun</h1>
+
+            <ul class="list-inline post-metadata">
+    <li class="list-inline-item mr-3">
+        <em class="fas fa-clock fa-fw"></em>
+        <strong>4 min</strong>
+    </li>
+
+    <li class="list-inline-item mr-3">
+        <em class="fas fa-calendar fa-fw"></em>
+        <time datetime="2021-01-Mon">
+            
+                                            Mon, Jan 18
+            
+            </strike>        </time>
+    </li>
+
+    
+            <li class="list-inline-item mr-3">
+            <em class="fas fa-fw fa-comments"></em>
+            <a href="/blog/2021/01/18/4-ways-symplify-makes-working-with-symfony-more-fun/#disqus_thread">X</a> comments
+        </li>
+    
+    
+            <li class="list-inline-item mr-3 text-primary">
+            <em class="fab fa-fw fa-github"></em>
+            <a href="https://github.com/tomasvotruba/tomasvotruba.com/edit/master/packages/blog/data/2021/2021-01-18-4-ways-symplify-makes-working-with-symfony-more-fun.md">Found a typo? Edit me</a>
+        </li>
+    </ul>
+
+            
+            
+            <div class="card card-bigger mb-5">
+                <div class="card-body pb-2">
+                    <p>Are you new to Symplify? In short, it's a set of packages I wrote that focuses on improving daily PHP development. It brings joy to the code, so you can focus more on what you love.
+<br>
+<br>
+Are you a Symplify power user? You still might find some new tricks you didn't know about.</p>
+                </div>
+            </div>
+
+            <blockquote class="blockquote text-center">
+    "If you're just safe about the choices you make,
+    <br>
+    you don't grow."
+</blockquote>
+<h2 id="1-is-the-annotation-available-as-the-attribute">1. Is the Annotation available as the Attribute?</h2>
+<p><a href="https://github.com/symplify/phpstan-rules" class="btn btn-dark btn-sm mb-1">
+<em class="fab fa-github"></em>
+&nbsp;
+From phpstan-rules package
+</a></p>
+<p>Some Symfony annotations are already <a href="https://symfony.com/blog/new-in-symfony-5-2-php-8-attributes">available as attributes since Symfony 5.2</a>, e.g., route:</p>
+<pre><code class="language-diff"> use Symfony\Component\Routing\Annotation\Route;
+
+ class SomeController
+ {
+-    /**
+-     * @Route("/path", name="action")
+-     */
++    #[Route(path: '/path', name: 'action')]
+     public function someAction()
+     {
+     }
+ }</code></pre>
+<p>But not everyone is aware of those. Let's try it. Do you know which 61 Validation annotations are available as attributes?
+I have no idea, but we have PHPStan for that. Resp. <code>Symplify\PHPStanRules\Rules\PreferredAttributeOverAnnotationRule</code> class.</p>
+<p><strong>It warns us to be about every annotation usage, where the attribute should be used instead.</strong></p>
+<pre><code class="language-php">use Symfony\Component\Routing\Annotation\Route;
+
+class SomeController
+{
+    /**
+     * @Route("/path", name="action")
+     */
+    public function someAction()
+    {
+    }
+}</code></pre>
+<p><em class="fas fa-fw fa-2x fa-times text-danger fa-lg"></em></p>
+<pre><code class="language-php">use Symfony\Component\Routing\Annotation\Route;
+
+class SomeController
+{
+    #[Route(path: "/path", name: "action")]
+    public function someAction()
+    {
+    }
+}</code></pre>
+<p><em class="fas fa-fw fa-2x fa-check text-success"></em></p>
+<p><br></p>
+<p>You can configure it yourself or use default setup:</p>
+<pre><code class="language-yaml"># phpstan.neon
+includes:
+    - vendor/symplify/phpstan-rules/config/symfony-rules.neon
+    - vendor/symplify/phpstan-rules/config/services/services.neon</code></pre>
+<h2 id="2-is-parameter-in-config-used-just-once">2. Is Parameter in Config used Just Once?</h2>
+<p><a href="https://github.com/symplify/phpstan-rules" class="btn btn-dark btn-sm mb-1">
+<em class="fab fa-github"></em>
+&nbsp;
+From phpstan-rules package
+</a></p>
+<p>Cyclic dependencies, nested package method calls on mixed types everywhere are the most annoying bugs that take hours to find. Well, until you make a typo or override something, you've defined two lines above.</p>
+<p>One of these places is in Symfony PHP configs. If you haven't switched from YAML to PHP, <a href="/blog/2020/07/27/how-to-switch-from-yaml-xml-configs-to-php-today-with-migrify/">do it today</a>. Then you can have this bug too:</p>
+<pre><code class="language-php">use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+
+return static function (ContainerConfigurator $containerConfigurator): void {
+    $parameters = $containerConfigurator-&gt;parameters();
+    $parameters-&gt;set('secret_hash', 'ASDF1234');
+
+    // this should never happen! it overrides the first param set
+    $parameters-&gt;set('secret_hash', 'ASFD1234');
+};</code></pre>
+<p>The <code>secret_hash</code> should be <code>ASDF1234</code>, but it's not. Why?</p>
+<p>There is more than just a new kind of bug in your project... well, to be honest, this bug can happen in YAML too, and there is no way to detect it.</p>
+<p>In PHP we have a great team member that helps with details that matters - <strong>a PHPStan rule</strong>:</p>
+<pre><code class="language-yaml">services:
+    -
+        class: Symplify\PHPStanRules\Rules\PreventDoubleSetParameterRule
+        tags: [phpstan.rules.rule]</code></pre>
+<p>Now you can type configs as you like, and PHPStan will warn you about every duplicated param in your config!</p>
+<p><em class="fas fa-fw fa-lg fa-check text-success"></em></p>
+<h2 id="3-autowire-list-of-services">3. Autowire List of Services</h2>
+<p><a href="https://packagist.org/packages/symplify/autowire-array-parameter" class="btn btn-dark btn-sm mb-1">
+From autowire-array-parameter package
+</a></p>
+<p>Let's say you are writing a book, and apart from the text, you have all kinds of resources - images, tool output in txt, PHP code snippets, etc. There are single <code>BookProcessor</code> services that collect many <code>ResourceProcessorInterface</code>:</p>
+<ul>
+<li><code>ImageResourceProcessor</code></li>
+<li><code>OutputResourceProcessor</code></li>
+<li><code>PHPSnippetResourceProcessor</code></li>
+</ul>
+<p>How would you pass all of them to <code>BookProcessor</code>?</p>
+<pre><code class="language-php">use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use function Symfony\Component\DependencyInjection\Loader\Configurator\tagged_iterator;
+
+return static function (ContainerConfigurator $containerConfigurator): void {
+    $services = $containerConfigurator-&gt;services();
+
+    $resourceProcessorTag = 'resource_processor';
+
+    $services-&gt;instanceof(ResourceProcessorInterface::class)
+        -&gt;tag($resourceProcessorTag);
+
+    $services-&gt;set(BookProcessor::class)
+        -&gt;bind('$resourceProcessors', tagged_iterator($resourceProcessorTag));
+};</code></pre>
+<p>That looks like a valid Symfony code. But what if you register a resource processor in another config or package? Boom, it's missed out. Three hours later, you want to kill yourself. And there <a href="/blog/2018/11/12/will-autowired-arrays-finally-deprecated-tags-in-symfony-and-nette/">is more problems on the way</a>.</p>
+<p>We can reduce this boring code to:</p>
+<pre><code class="language-diff"> use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+- use function Symfony\Component\DependencyInjection\Loader\Configurator\tagged_iterator;
+
+ return static function (ContainerConfigurator $containerConfigurator): void {
+     $services = $containerConfigurator-&gt;services();
+-
+-    $resourceProcessorTag = 'resource_processor';
+-
+-    $services-&gt;instanceof(ResourceProcessorInterface::class)
+-        -&gt;tag($resourceProcessorTag);
+-
+-    $services-&gt;set(BookProcessor::class)
+-        -&gt;bind('$resourceProcessors', tagged_iterator($resourceProcessorTag));
+};</code></pre>
+<p>Much better. How did we do it? With <strong>autowired array</strong> compiler pass:</p>
+<pre><code class="language-diff">+use Symplify\AutowireArrayParameter\DependencyInjection\CompilerPass\AutowireArrayParameterCompilerPass;
+ use Symfony\Component\HttpKernel\Kernel;
+
+ final class AppKernel extends Kernel
+ {
+     protected function build(ContainerBuilder $containerBuilder): void
+     {
++         $containerBuilder-&gt;addCompilerPass(new AutowireArrayParameterCompilerPass());
+     }
+ }</code></pre>
+<p>Everything else still looks the same. You've just made your configs more readable and code more robust.</p>
+<p><em class="fas fa-fw fa-lg fa-check text-success"></em></p>
+<h2 id="4-what-is-the-doctrine-extension-key-name-in-the-config">4. What is the Doctrine Extension key name in the config?</h2>
+<p><a href="https://github.com/symplify/amnesia" class="btn btn-dark btn-sm mb-1">
+<em class="fab fa-github"></em>
+&nbsp;
+From amnesia package
+</a></p>
+<p>When you switch to PHP configs, you realize how many kinds of strings there are:</p>
+<ul>
+<li>configuration key</li>
+<li>configuration value</li>
+<li>env value</li>
+</ul>
+<p>The first one is always the same. It's defined in the documentation, e.g., for <a href="https://symfony.com/doc/current/reference/configuration/doctrine.html">Doctrine keys</a>. But would you go to documentation and google for a string, or would you use your IDE to help out?</p>
+<p>I'm lazy, so I go with the latter one. A typical example is hostname, host... or was it host_name?</p>
+<img src="/assets/images/posts/2021/doctrine_host.gif" class="img-thumbnail">
+<p>There are few other classes you can use:</p>
+<ul>
+<li><code>Symplify\Amnesia\ValueObject\Symfony\Extension\DoctrineExtension</code></li>
+<li><code>Symplify\Amnesia\ValueObject\Symfony\Extension\Doctrine\DBAL</code></li>
+<li><code>Symplify\Amnesia\ValueObject\Symfony\Extension\Doctrine\ORM</code></li>
+<li><code>Symplify\Amnesia\ValueObject\Symfony\Extension\Doctrine\Mapping</code></li>
+</ul>
+<p>and more.</p>
+<p><br></p>
+<p>This is how we use it on <a href="https://github.com/rectorphp/getrector.org/blob/master/config/packages/doctrine.php">getrector.org configs</a>:</p>
+<pre><code class="language-php">use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use function Symplify\Amnesia\Functions\env;
+use Symplify\Amnesia\ValueObject\Symfony\Extension\Doctrine\DBAL;
+use Symplify\Amnesia\ValueObject\Symfony\Extension\Doctrine\Mapping;
+use Symplify\Amnesia\ValueObject\Symfony\Extension\Doctrine\ORM;
+use Symplify\Amnesia\ValueObject\Symfony\Extension\DoctrineExtension;
+
+return static function (ContainerConfigurator $containerConfigurator): void {
+    $containerConfigurator-&gt;extension(DoctrineExtension::NAME, [
+        DoctrineExtension::DBAL =&gt; [
+            DBAL::DRIVER =&gt; 'pdo_mysql',
+            DBAL::SERVER_VERSION =&gt; '5.7',
+            DBAL::PASSWORD =&gt; env('DATABASE_PASSWORD'),
+        ],
+        DoctrineExtension::ORM =&gt; [
+            ORM::MAPPINGS =&gt; [
+                'demo' =&gt; [
+                    Mapping::IS_BUNDLE =&gt; false,
+                    Mapping::TYPE =&gt; Mapping::TYPE_ANNOTATION,
+                    // ...
+                ]
+        // ...</code></pre>
+<p>This way, we can easily see <strong>what is a constant configuration and what is a manually defined value.</strong></p>
+<p><br></p>
+<p><strong>Little extras</strong>: have you ever made typo in <code>%env(...)</code>?</p>
+<img src="/assets/images/posts/2021/doctrine_env.gif" class="img-thumbnail">
+<p>Use <code>env()</code> function so save the hustle. Thanks enumag for the tip!</p>
+<p>That's all for today. I hope you will use some of these tools to become a lazier and happier developer.</p>
+<p><br></p>
+<p>Happy coding!</p>
+
+            <br>
+
+            <div class="row mb-5 mt-5">
+                <div class="col-12 mb-5">
+                                                                <a href="/blog/2021/01/11/how-to-detect-complex-duplicated-methods-with-phpstan" class="d-block pt-4 pb-4 pl-4 pr-4 btn btn-success btn-wrappable">
+                            <em class="fas fa-fw fa-forward"></em>
+                            <strong>Read Next</strong>
+                            <br>
+                            <span class="text-bigger">
+                                How to detect Complex Duplicated Methods With PHPStan
+                            </span>
+                        </a>
+                                    </div>
+            </div>
+
+            <br>
+
+            <a name="comments"></a>
+            <div id="disqus_thread"></div>
+
+<script>
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+    /*
+    var disqus_config = function () {
+    this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = 'https://itsworthsharing.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+        </div>
+
+        <script id="dsq-count-scr" src="https://itsworthsharing.disqus.com/count.js" async defer></script>
+
+        <script src="/assets/js/jquery-3.3.1.slim.min.js"></script>
+<script src="/assets/js/cleaning-lady-checklist.js"></script>
+
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+
+<script>
+    ga=function(){ ga.q.push(arguments) };
+    ga.q=[];
+    ga.l=+new Date;
+    ga('create', 'UA-46082345-1', 'auto');
+    ga('send','pageview');
+</script>
+<script src="https://www.google-analytics.com/analytics.js" async defer></script>
+
+<script src="/assets/prism/prism.js"></script>
+
+<script>
+    // sortable table
+    $('.sortable_table').DataTable({
+        // see https://datatables.net/examples/basic_init/filter_only.html
+        "searching": false,
+        "paging": false,
+        "info": false,
+        "order": [[1, "desc"]],
+        // see https://datatables.net/examples/advanced_init/sort_direction_control.html
+        "aoColumns": [
+            null,
+            { "orderSequence": [ "desc", "asc" ] },
+            { "orderSequence": [ "desc", "asc" ] },
+            { "orderSequence": [ "desc", "asc" ] }
+        ]
+    });
+</script>
+
+<div class="text-center mt-5" id="footer">
+    <p class="mt-2">
+        Open-source is my life. Does it help yours? You can <a href="https://github.com/sponsors/TomasVotruba">Sponsor Me</a> &nbsp;
+        <em class="fas fa-heart text-danger fa-lg"></em>
+
+        &nbsp;
+        <span class="pl-2 pr-2">•</span>
+        &nbsp;
+
+        See <a href="/archive">Post Archive</a>
+
+        &nbsp;
+        <span class="pl-2 pr-2">•</span>
+        &nbsp;
+
+        <a href="/rss.xml">Get RSS</a>
+    </p>
+
+    <br>
+
+    <p>
+        Did you know my daily focus goes to <strong>turning working with legacy code into joy</strong>?
+
+        <br>
+
+        With awesome <a href="https://getrector.org/">Instant Refactoring tool called Rector</a>.
+    </p>
+</div>
+    </body>
+</html>
+
+        <meta property="og:type" content="article" />
+    <meta property="og:title" content="4 Ways Symplify makes Working With Symfony More Fun" />
+    <meta property="og:description" content="Are you new to Symplify? In short, it&#039;s a set of packages I wrote that focuses on improving daily PHP development. It brings joy to the code, so you can focus more on what you love.
+
+
+Are you a Symplify power user? You still might find some new tricks you didn&#039;t know about.
+" />
+    <meta property="og:url" content="/blog/2021/01/18/4-ways-symplify-makes-working-with-symfony-more-fun" />
+
+        <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@votrubaT">
+    <meta name="twitter:title" content="4 Ways Symplify makes Working With Symfony More Fun" />
+    <meta name="twitter:description" content="Are you new to Symplify? In short, it&#039;s a set of packages I wrote that focuses on improving daily PHP development. It brings joy to the code, so you can focus more on what you love.
+
+
+Are you a Symplify power user? You still might find some new tricks you didn&#039;t know about.
+" />
