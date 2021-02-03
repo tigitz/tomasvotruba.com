@@ -114,18 +114,21 @@
             <ul class="list-inline post-metadata">
     <li class="list-inline-item mr-3">
         <em class="fas fa-clock fa-fw"></em>
-        <strong>6 min</strong>
+        <strong>5 min</strong>
     </li>
 
     <li class="list-inline-item mr-3">
         <em class="fas fa-calendar fa-fw"></em>
         <time datetime="2017-10-Mon">
-            
-                            Mon, Oct 16, 2017
+            <strike>
+                            Oct, 2017
             
             </strike>        </time>
     </li>
 
+            <li class="list-inline-item mr-3 text-success">
+            <em class="fas fa-fw fa-sync"></em> Updated Feb, 2021
+        </li>
     
             <li class="list-inline-item mr-3">
             <em class="fas fa-fw fa-comments"></em>
@@ -140,6 +143,16 @@
     </ul>
 
             
+                            <div class="card border-success card-bigger mt-5">
+                    <div class="card-header text-white bg-success">
+                        <strong>This post was updated at February 2021</strong>
+                    </div>
+                                            <div class="card-body pb-2">
+                            <p>Update YAML configs to PHP and PHP 7.4 syntax.</p>
+                        </div>
+                                    </div>
+
+                <br>
             
             <div class="card card-bigger mb-5">
                 <div class="card-body pb-2">
@@ -154,22 +167,23 @@ The way out from <em>service locators</em> to <em>repository as service</em> was
             <p>This post is follow up to <a href="https://stackoverflow.com/questions/38346281/symfony-3-outsourcing-controller-code-into-service-layer/38349271#38349271">StackOverflow answer</a> to clarify key points and show the sweetest version yet.</p>
 <p>The person who kicked me to do this post was <a href="http://www.ucinnejsiweb.cz">Václav Keberdle</a> - <em>thank you for that</em>.</p>
 <h2 id="clean-reusable-independent-and-solid-goal">Clean, Reusable, Independent and SOLID Goal</h2>
-<p><strong>Our goal</strong> is to have clean code using <em>constructor injection</em>, <em>composition over inheritance</em> and <em>dependency inversion principles</em>.</p>
+<p>Our goal is to have clean code using <em>constructor injection</em>, <em>composition over inheritance</em> and <em>dependency inversion principles</em>.</p>
 <p>With as simple registration as:</p>
-<pre><code class="language-yaml"># app/config/services.yml
+<pre><code class="language-php">// app/config/services.php
+use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
-services:
-    _defaults:
-        autowire: true
+return static function (ContainerConfigurator $containerConfigurator): void {
+    $services = $containerConfigurator-&gt;services();
 
-    App\Repository\:
-        resource: ../Repository</code></pre>
-<p><strong>IDE plugins an other workarounds put aside</strong>, because this code can be written just with typehints.</p>
-<h2 id="how-do-we-register-repositories-now">How do we Register Repositories Now</h2>
+    $services-&gt;defaults()
+        -&gt;autowire();
+
+    $services-&gt;load('App\\Repository\\', __DIR__ . '/../src/Repository');
+};</code></pre>
+<p>Nothing more, nothing less. Today, we'll try to get there.</p>
+<h2 id="how-do-we-register-repositories-now">How do we Register Repositories Now?</h2>
 <h3 id="1-entity-repository">1. Entity Repository</h3>
-<pre><code class="language-php">&lt;?php declare(strict_types=1);
-
-namespace App\Repository;
+<pre><code class="language-php">namespace App\Repository;
 
 use App\Entity\Post;
 use Doctrine\ORM\EntityRepository;
@@ -178,7 +192,6 @@ final class PostRepository extends EntityRepository
 {
     /**
      * Our custom method
-     *
      * @return Post[]
      */
     public function findPostsByAuthor(int $authorId): array
@@ -188,17 +201,25 @@ final class PostRepository extends EntityRepository
         ]);
     }
 }</code></pre>
-<h3 id="em-class-fas-fa-fw-fa-lg-fa-check-text-success-em-advantages"><em class="fas fa-fw fa-lg fa-check text-success"></em> Advantages</h3>
-<p>It's easy and everybody does that.</p>
-<p>You can use prepared methods like <a href="https://github.com/doctrine/doctrine2/blob/2.5/lib/Doctrine/ORM/EntityRepository.php#L177"><code>findBy()</code></a>, <a href="https://github.com/doctrine/doctrine2/blob/2.5/lib/Doctrine/ORM/EntityRepository.php#L192"><code>findOneBy()</code></a> right away.</p>
-<h3 id="em-class-fas-fa-fw-fa-lg-fa-times-text-danger-em-disadvantages"><em class="fas fa-fw fa-lg fa-times text-danger"></em> Disadvantages</h3>
-<p>If we try to register repository as a service, we get this error:</p>
+<h3 id="advantages">Advantages</h3>
+<ul>
+<li>It's easy and everybody does that <em class="fas fa-fw fa-lg fa-check text-success"></em></li>
+<li>You can use prepared methods like <a href="https://github.com/doctrine/doctrine2/blob/2.5/lib/Doctrine/ORM/EntityRepository.php#L177"><code>findBy()</code></a>, <a href="https://github.com/doctrine/doctrine2/blob/2.5/lib/Doctrine/ORM/EntityRepository.php#L192"><code>findOneBy()</code></a> right away <em class="fas fa-fw fa-lg fa-check text-success"></em></li>
+</ul>
+<h3 id="disadvantages">Disadvantages</h3>
+<ul>
+<li>What if we try to register repository as a service? <em class="fas fa-fw fa-lg fa-times text-danger"></em></li>
+</ul>
 <img src="/assets/images/posts/2017/repository-as-service/autowire-fail.png" class="img-thumbnail mb-4">
-<p>Why? Because parent constructor of <code>Doctrine\ORM\EntityRepository</code> is <a href="https://github.com/doctrine/doctrine2/blob/2.5/lib/Doctrine/ORM/EntityRepository.php#L64">missing <code>EntityManager</code> typehint</a></p>
-<p>Also <strong>we can't get another dependency</strong>, like <code>PostSorter</code> that would manage sorting post in any way.</p>
-<pre><code class="language-php">&lt;?php declare(strict_types=1);
-
-namespace App\Repository;
+<ul>
+<li>
+<p>Why? Because parent constructor of <code>Doctrine\ORM\EntityRepository</code> is <a href="https://github.com/doctrine/doctrine2/blob/2.5/lib/Doctrine/ORM/EntityRepository.php#L64">missing <code>EntityManager</code> typehint</a> (this is fixed in doctrine/orm 2.7+)</p>
+</li>
+<li>
+<p><strong>We can't get another dependency</strong>, because parent constructor <a href="https://github.com/doctrine/doctrine2/blob/2.5/lib/Doctrine/ORM/EntityRepository.php#L64">requires <code>EntityManager</code> and <code>ClassMetadata</code> instances</a> <em class="fas fa-fw fa-lg fa-times text-danger"></em></p>
+</li>
+</ul>
+<pre><code class="language-php">namespace App\Repository;
 
 use App\Sorter\PostSorter;
 use Doctrine\ORM\EntityRepository;
@@ -210,17 +231,20 @@ final class PostRepository extends EntityRepository
         $this-&gt;postSorter = $postSorter;
     }
 }</code></pre>
-<p>Because parent constructor <a href="https://github.com/doctrine/doctrine2/blob/2.5/lib/Doctrine/ORM/EntityRepository.php#L64">requires <code>EntityManager</code> and <code>ClassMetadata</code> instances</a>.</p>
-<p>Those prepared methods like <code>findBy()</code> <strong>don't have argument nor return typehints</strong>, so this would pass:</p>
-<pre><code class="language-php">$this-&gt;postRepository-&gt;find('someString');</code></pre>
-<p>And we don't know what object we get back:</p>
+<ul>
+<li>Prepared methods like <code>findBy()</code> <strong>don't have param and return type declarations</strong> <em class="fas fa-fw fa-lg fa-times text-danger"></em></li>
+</ul>
+<pre><code class="language-php">// param should be "int", but whatever passes
+$this-&gt;postRepository-&gt;find('someString');</code></pre>
+<ul>
+<li>We don't know what object we get back <em class="fas fa-fw fa-lg fa-times text-danger"></em></li>
+</ul>
 <pre><code class="language-php">$post = $this-&gt;postRepository-&gt;find(1);
+// some object?
 $post-&gt;whatMethods()!</code></pre>
 <p><br></p>
 <h3 id="2-entity">2. Entity</h3>
-<pre><code class="language-php">&lt;?php declare(strict_types=1);
-
-namespace App\Entity;
+<pre><code class="language-php">namespace App\Entity;
 
 use Doctrine\ORM\Entity;
 use Doctrine\ORM\EntityRepository;
@@ -232,34 +256,53 @@ final class Post
 {
     ...
 }</code></pre>
-<p>This reminds me of circular dependency. Why should entity know about its repository?</p>
-<p>Do you know why we need <code>repositoryClass="PostRepository"</code>?</p>
-<p><strong>It's form of service locator</strong>, that basically works like this:</p>
+<p>This is a code smell of circular dependency. Why should entity know about its repository?</p>
+<h3 id="static-service-locator-code-smell">Static Service Locator Code Smell</h3>
+<p>Do you know why we need <code>repositoryClass="PostRepository"</code>? <strong>It's form of static service locator</strong> inside Doctrine:</p>
 <pre><code class="language-php">$this-&gt;entityManager-&gt;getRepository(Post::class);</code></pre>
+<p>It basically works like this:</p>
 <ul>
 <li>Find <code>Post</code> entity</li>
 <li>Find repository in <code>@Entity</code> annotation</li>
 <li><a href="https://github.com/doctrine/doctrine2/blob/2.5/lib/Doctrine/ORM/Repository/DefaultRepositoryFactory.php#L61">Creates repository</a></li>
 </ul>
 <p>Instead of <strong>registration to Symfony container like any other service, here is uses logic coupled to annotation of specific class</strong>. Just a reminder: <a href="https://www.google.cz/search?q=occams+razor&amp;oq=occams+razor&amp;aqs=chrome..69i57j0l5.2630j0j7&amp;sourceid=chrome&amp;ie=UTF-8">Occam's razor</a>.</p>
-<h3 id="em-class-fas-fa-fw-fa-lg-fa-check-text-success-em-advantages"><em class="fas fa-fw fa-lg fa-check text-success"></em> Advantages</h3>
-<p>It's in documentation.</p>
-<h3 id="em-class-fas-fa-fw-fa-lg-fa-times-text-danger-em-disadvantages"><em class="fas fa-fw fa-lg fa-times text-danger"></em> Disadvantages</h3>
-<p>It is very complicated to have more repositories for one entity. What if I want to have <code>PostRedisRepository</code> for Redis-related operations and <code>PostFrontRepository</code> for reading-only?</p>
-<p><strong>We're losing all features</strong> of our framework's Dependency Injection container (events, collections, autowiring, automated registration, logging etc.).</p>
+<p><br></p>
+<h3 id="advantages">Advantages</h3>
+<ul>
+<li>It's in documentation <em class="fas fa-fw fa-lg fa-check text-success"></em></li>
+</ul>
+<h3 id="disadvantages">Disadvantages</h3>
+<ul>
+<li>
+<p>What if I want to have <code>PostRedisRepository</code> for Redis-related operations and <code>PostFrontRepository</code> for reading-only? It is <strong>not possible to have more repositories</strong> for one entity <em class="fas fa-fw fa-lg fa-times text-danger"></em></p>
+</li>
+<li>
+<p>Would you have one Controller for every operation related to <code>Product</code> entity?</p>
+</li>
+<li>
+<p><strong>We're losing all features</strong> of our framework's Dependency Injection container (events, autowiring, automated registration, logging etc.). <em class="fas fa-fw fa-lg fa-times text-danger"></em></p>
+</li>
+</ul>
 <p><br></p>
 <h3 id="3-use-in-controller">3. Use in Controller</h3>
 <p>You have to use this <a href="https://matthiasnoback.nl/2014/05/inject-a-repository-instead-of-an-entity-manager/#factory-service">complicated service registration in YAML</a>:</p>
-<pre><code class="language-yaml">services:
-    app.post_repository:
-        class: Doctrine\ORM\EntityRepository
-        factory: ['@doctrine.orm.default_entity_manager', getRepository]
-        arguments:
-            - App\Entity\Post</code></pre>
-<p>...or just pass <code>EntityManager</code>.</p>
-<pre><code class="language-php">&lt;?php declare(strict_types=1);
+<pre><code class="language-php">// app/config/services.php
+use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use function Symfony\Component\DependencyInjection\Loader\Configurator\service;
 
-namespace App\Controller;
+return static function (ContainerConfigurator $containerConfigurator): void {
+    $services = $containerConfigurator-&gt;services();
+
+    $services-&gt;defaults()
+        -&gt;autowire();
+
+    $services-&gt;set('app.post_repository', \Doctrine\ORM\EntityRepository::class)
+        -&gt;factory([service('@doctrine.orm.default_entity_manager'), 'getRepository'])
+        -&gt;args(['App\Entity\Post']);
+};</code></pre>
+<p>...or just pass <code>EntityManager</code>.</p>
+<pre><code class="language-php">namespace App\Controller;
 
 use App\Entity\Post;
 use App\Repository\PostRepository;
@@ -267,55 +310,61 @@ use Doctrine\ORM\EntityManagerInterface;
 
 final class PostController
 {
-    /**
-     * @var PostRepository
-     */
-    private $postRepository;
+    private PostRepository $postRepository;
 
     public function __construct(EntityManagerInterface $entityManager)
     {
         $this-&gt;postRepository = $entityManager-&gt;getRepository(Post::class);
     }
 }</code></pre>
-<h3 id="em-class-fas-fa-fw-fa-lg-fa-check-text-success-em-advantages"><em class="fas fa-fw fa-lg fa-check text-success"></em> Advantages</h3>
-<p>Again, status quo.</p>
-<h3 id="em-class-fas-fa-fw-fa-lg-fa-times-text-danger-em-disadvantages"><em class="fas fa-fw fa-lg fa-times text-danger"></em> Disadvantages</h3>
-<p>IDE doesn't know it's <code>App\Repository\PostRepository</code>, so <strong>we have add extra typehint</strong> (so <a href="https://www.boringcompany.com">boring</a> work). Example above would work because there is typehinted property , but this would fail:</p>
+<h3 id="advantages">Advantages</h3>
+<ul>
+<li>Again, status quo = that's how Doctrine and Symfony Documentation promotes it <em class="fas fa-fw fa-lg fa-check text-success"></em></li>
+</ul>
+<h3 id="disadvantages">Disadvantages</h3>
+<ul>
+<li>
+<p>IDE doesn't know it's <code>App\Repository\PostRepository</code>, so <strong>we have add extra typehint for every single method</strong> <em class="fas fa-fw fa-lg fa-times text-danger"></em></p>
+</li>
+<li>
+<p>Example above would work because there is typehinted property, but these would fail <em class="fas fa-fw fa-lg fa-times text-danger"></em></p>
+</li>
+</ul>
 <pre><code class="language-php">$postRepository = $entityManager-&gt;getRepository(Post::class);
-$postRepository-&gt;help()?;</code></pre>
-<p>Or this:</p>
-<pre><code class="language-php">$post = $this-&gt;postRepository-&gt;find(1);
-$post-&gt;help()?;</code></pre>
-<p>To enable autocomplete, we have to add them manually:</p>
+// object?
+$postRepository-&gt;...?;
+
+$post = $this-&gt;postRepository-&gt;find(1);
+// object?
+$post-&gt;...?;</code></pre>
+<ul>
+<li>To enable autocomplete, we have to add them manually <em class="fas fa-fw fa-lg fa-times text-danger"></em></li>
+</ul>
 <pre><code class="language-php">/** @var App\Entity\Post $post */
 $post = $this-&gt;postRepository-&gt;find(1);
 $post-&gt;getName();</code></pre>
-<p><strong>This annotation helper should never be in <em>your</em> code, except this case</strong>:</p>
-<pre><code class="language-php">/** @var SomeService $someService */
-$someService = $container-&gt;get(SomeService::class);</code></pre>
 <p><br></p>
-<h3 id="4-registration-code-services-yml-code">4. Registration <code>services.yml</code></h3>
-<p>None. Repositories are created by Doctrine.</p>
-<p><br></p>
-<h2 id="em-class-fas-fa-fw-fa-lg-fa-check-text-success-em-advantages-summary"><em class="fas fa-fw fa-lg fa-check text-success"></em> Advantages Summary</h2>
-<p>It's easy to copy-paste if already present in our code.</p>
-<p>It's spread in most of documentation, both in Doctrine and Symfony and in many posts about Doctrine.</p>
-<p>No brain, no gain.</p>
-<h2 id="em-class-fas-fa-fw-fa-lg-fa-times-text-danger-em-disadvantages-summary"><em class="fas fa-fw fa-lg fa-times text-danger"></em> Disadvantages Summary</h2>
-<p>We <strong>cannot use autowiring</strong>.</p>
-<p>We <strong>cannot inject repository to other service just via constructor</strong>.</p>
-<p>We have to <strong>typehint manually</strong> everything (IDE Plugins put aside).</p>
-<p><strong>We have Doctrine in our Controller</strong> - Controller should only delegate to model, without knowing what Database package is used.</p>
-<p>To allow constructor injection, we have to prepare for much <em>config programming</em>.</p>
-<p>Thus <strong>it's coupled to the framework you use and less reusable</strong>.</p>
-<p>We cannot use multiple repository for single entity. <strong>It naturally leads to huge repositories</strong>.</p>
-<p>We cannot use constructor injection in repositories, which <strong>can easily lead you to creating static helper classes</strong>.</p>
-<p>Also, you directly depend on Doctrine's API, so if <code>find()</code> changes to <code>get()</code> in one <code>composer update</code>, your app is down.</p>
-<h2 id="how-to-make-this-better-with-symfony-3-3">How to Make This Better with Symfony 3.3?</h2>
+<h2 id="advantages-summary">Advantages Summary</h2>
+<ul>
+<li>It's easy to copy-paste if already present in our code <em class="fas fa-fw fa-lg fa-check text-success"></em></li>
+<li>It's spread in most of documentation, both in Doctrine and Symfony and in many posts about Doctrine <em class="fas fa-fw fa-lg fa-check text-success"></em></li>
+<li>No brain, no gain <em class="fas fa-fw fa-lg fa-check text-success"></em></li>
+</ul>
+<h2 id="disadvantages-summary">Disadvantages Summary</h2>
+<ul>
+<li>We <strong>cannot use autowiring</strong> <em class="fas fa-fw fa-lg fa-times text-danger"></em></li>
+<li>We <strong>cannot inject repository to other service just via constructor</strong> <em class="fas fa-fw fa-lg fa-times text-danger"></em></li>
+<li>We have to <strong>typehint manually</strong> everything (IDE Plugins put aside) <em class="fas fa-fw fa-lg fa-times text-danger"></em></li>
+<li><strong>We have Doctrine in our Controller</strong> - Controller should only delegate to model, without knowing what Database package is used. <em class="fas fa-fw fa-lg fa-times text-danger"></em></li>
+<li>To allow constructor injection, we have to prepare for much <em>config programming</em> <em class="fas fa-fw fa-lg fa-times text-danger"></em></li>
+<li>Thus <strong>it's coupled to the framework you use and less reusable</strong> <em class="fas fa-fw fa-lg fa-times text-danger"></em></li>
+<li>We cannot use multiple repository for single entity. <strong>It naturally leads to huge repositories</strong> <em class="fas fa-fw fa-lg fa-times text-danger"></em></li>
+<li>We cannot use constructor injection in repositories, which <strong>can easily lead you to creating static helper classes</strong> <em class="fas fa-fw fa-lg fa-times text-danger"></em></li>
+<li>Also, you directly depend on Doctrine's or Symfony's API, so if <code>find()</code> changes to <code>get()</code> in one <code>composer update</code>, your app is down <em class="fas fa-fw fa-lg fa-times text-danger"></em></li>
+</ul>
+<h2 id="how-to-make-this-better-with-symfony-3-3-and-composition">How to make this Better with Symfony 3.3+ and Composition?</h2>
 <p>It require few steps, but <strong>all builds on single one change</strong>. Have you heard about <em>composition over inheritance</em>?</p>
-<pre><code class="language-diff"> &lt;?php declare(strict_types=1);
-
- namespace App\Repository;
+<pre><code class="language-diff"> namespace App\Repository;
 
  use App\Entity\Post;
 +use Doctrine\ORM\EntityManagerInterface;
@@ -324,17 +373,14 @@ $someService = $container-&gt;get(SomeService::class);</code></pre>
 -final class PostRepository extends EntityRepository
 +final class PostRepository
  {
-+    /**
-+     * @var EntityRepository
-+     */
-+    private $repository;
++    private EntityRepository $repository;
 +
 +    public function __construct(EntityManagerInterface $entityManager)
 +    {
 +        $this-&gt;repository = $entityManager-&gt;getRepository(Post::class);
 +    }
  }</code></pre>
-<p><strong>Update entity that is now independent</strong> on any repository:</p>
+<p><strong>Update entity that is now independent</strong> on specific repository:</p>
 <pre><code class="language-diff"> &lt;?php declare(strict_types=1);
 
  namespace App\Entity;
@@ -370,15 +416,9 @@ use Doctrine\ORM\EntityRepository;
 
 final class PostRepository
 {
-    /**
-     * @var EntityRepository
-     */
-    private $repository;
+    private EntityRepository $repository;
 
-    /**
-     * @var PostSorter
-     */
-    private $postSorter;
+    private PostSorter $postSorter;
 
     public function __construct(EntityManagerInterface $entityManager, PostSorter $postSorter)
     {
@@ -391,15 +431,15 @@ final class PostRepository
         return $this-&gt;repository-&gt;find($id);
     }
 }</code></pre>
-<h3 id="em-class-fas-fa-fw-fa-lg-fa-check-text-success-em-advantages"><em class="fas fa-fw fa-lg fa-check text-success"></em> Advantages</h3>
-<p>Everything is <strong>strictly typehinted</strong>, <strong>no more frustration from missing autocompletion</strong>.</p>
-<p><strong>Constructor injection works</strong> like you expect it to.</p>
-<p>You can get another dependency if you like.</p>
+<h3 id="advantages">Advantages</h3>
+<ul>
+<li>Everything is <strong>strictly typehinted</strong>, <strong>no more frustration from missing autocompletion</strong> <em class="fas fa-fw fa-lg fa-check text-success"></em></li>
+<li><strong>Constructor injection works</strong> like you expect it to <em class="fas fa-fw fa-lg fa-check text-success"></em></li>
+<li>You can get another dependency if you like <em class="fas fa-fw fa-lg fa-check text-success"></em></li>
+</ul>
 <p><br></p>
 <h3 id="2-entity">2. Entity</h3>
-<pre><code class="language-php">&lt;?php declare(strict_types=1);
-
-namespace App\Entity;
+<pre><code class="language-php">namespace App\Entity;
 
 use Doctrine\ORM\Entity;
 
@@ -410,62 +450,69 @@ class Post
 {
     ...
 }</code></pre>
-<p><br></p>
-<h3 id="em-class-fas-fa-fw-fa-lg-fa-check-text-success-em-advantages"><em class="fas fa-fw fa-lg fa-check text-success"></em> Advantages</h3>
-<p>Clean and standalone object.</p>
-<p>No service locators smells.</p>
-<p><strong>Allows multiple repositories per entity</strong>:</p>
-<pre><code class="language-yaml">services:
-    _defaults:
-        autowire: true
+<h3 id="advantages">Advantages</h3>
+<ul>
+<li>Clean and standalone object <em class="fas fa-fw fa-lg fa-check text-success"></em></li>
+<li>No service locators smells <em class="fas fa-fw fa-lg fa-check text-success"></em></li>
+<li><strong>Allows multiple repositories per entity</strong> <em class="fas fa-fw fa-lg fa-check text-success"></em></li>
+</ul>
+<pre><code class="language-php">// app/config/services.php
+use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
-    App\Repository\ProductRepository: ~
-    App\Repository\ProductRedisRepository: ~
-    App\Repository\ProductBenchmarkRepository: ~</code></pre>
+return static function (ContainerConfigurator $containerConfigurator): void {
+    $services = $containerConfigurator-&gt;services();
+
+    $services-&gt;defaults()
+        -&gt;autowire();
+
+    $services-&gt;set(App\Repository\ProductRepository::class);
+    $services-&gt;set(App\Repository\ProductRedisRepository::class);
+    $services-&gt;set(App\Repository\ProductBenchmarkRepository::class);
+};</code></pre>
 <p><br></p>
 <h3 id="3-use-in-controller">3. Use in Controller</h3>
-<pre><code class="language-php">&lt;?php declare(strict_types=1);
-
-namespace App\Controller;
+<pre><code class="language-php">namespace App\Controller;
 
 use App\Repository\PostRepository;
 
 final class PostController
 {
-    /**
-     * @var PostRepository
-     */
-    private $postRepository;
+    private PostRepository $postRepository;
 
     public function __construct(PostRepository $postRepository)
     {
         $this-&gt;postRepository = $postRepository;
     }
 }</code></pre>
-<h3 id="em-class-fas-fa-fw-fa-lg-fa-check-text-success-em-advantages"><em class="fas fa-fw fa-lg fa-check text-success"></em> Advantages</h3>
-<p><strong>IDE knows the type and autocomplete 100% works.</strong></p>
-<p>There is no sign of Doctrine.</p>
-<p><strong>Easier to maintain and extend.</strong></p>
-<p>Also space to decoupling to <a href="/blog/2017/02/07/how-to-decouple-monolith-like-a-boss-with-composer-local-packages/">local packages</a> is now opened.</p>
+<h3 id="advantages">Advantages</h3>
+<ul>
+<li><strong>IDE knows</strong> the type and autocomplete 100% works <em class="fas fa-fw fa-lg fa-check text-success"></em></li>
+<li>PHPStan and Rector knows types too <em class="fas fa-fw fa-lg fa-check text-success"></em></li>
+<li>There is no sign of Doctrine, the code is cleanly decoupled <em class="fas fa-fw fa-lg fa-check text-success"></em></li>
+<li><strong>The code easier to maintain and extend, thanks to composition over inheritance</strong> <em class="fas fa-fw fa-lg fa-check text-success"></em></li>
+<li>The possibility to decouple to <a href="/blog/2017/02/07/how-to-decouple-monolith-like-a-boss-with-composer-local-packages/">local packages</a> is now opened <em class="fas fa-fw fa-lg fa-check text-success"></em></li>
+</ul>
 <p><br></p>
-<h3 id="4-registration-code-services-yml-code">4. Registration <code>services.yml</code></h3>
-<p>Final 3rd appearance for it's great success:</p>
-<pre><code class="language-yaml"># app/config/services.yml
+<h3 id="4-registration-code-services-php-code">4. Registration <code>services.php</code></h3>
+<p>We have a new extra step - registration of services in application container:</p>
+<pre><code class="language-php">// app/config/services.php
+use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
-services:
-    _defaults:
-        autowire: true
+return static function (ContainerConfigurator $containerConfigurator): void {
+    $services = $containerConfigurator-&gt;services();
 
-    App\Repository\:
-        resource: ../Repository</code></pre>
+    $services-&gt;defaults()
+        -&gt;autowire();
+
+    $services-&gt;load('App\\Repository\\', __DIR__ . '/../src/Repository');
+};</code></pre>
 <p><br></p>
-<p>All we needed is to apply <em>composition over inheritance</em> pattern in this specific case.</p>
-<p>If you don't use Doctrine or you already do this approach, <strong>try to think where else you <code>extends</code> 3rd party package instead of <code>__construct</code></strong>.</p>
-<h2 id="how-to-add-new-repository">How to add new repository?</h2>
-<p>The main goal of all this was to make work with repositories typehinted, safe and reliable for you to use and easy to extend.</p>
-<p><strong>It also minimized space for error</strong>, because <strong>strict types and constructor injection now validates</strong> much of your code for you.</p>
+<p>All we needed is to apply <strong>composition over inheritance</strong> pattern.</p>
+<h2 id="quality-test-how-to-add-new-repository">Quality Test: How to Add new Repository?</h2>
+<p>The main goal of all this was to make work with repositories typehinted, safe and reliable for you to use and easy to extend. <strong>It also minimized space for error</strong>, because <strong>strict types and constructor injection now validates</strong> much of your code for you.</p>
 <p>The answer is now simple: <strong>just create repository in <code>App\Repository</code></strong>.</p>
 <p>Try the same example with your current approach and let me know in the comments.</p>
+<p><br></p>
 <p>Happy coding!</p>
 
             <br>
