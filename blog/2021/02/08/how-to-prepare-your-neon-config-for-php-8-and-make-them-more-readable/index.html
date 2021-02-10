@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <title>How to Prepare your Neon Configs for PHP 8 and Make them More Readable | Tomas Votruba</title>
+    <meta charset="utf-8">
+    <meta name="robots" content="index, follow">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
+    
+    <link rel="alternate" type="application/rss+xml" title="Tomas Votruba Blog RSS" href="/rss.xml">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/solid.css" integrity="sha384-wnAC7ln+XN0UKdcPvJvtqIH3jOjs9pnKnq9qX68ImXvOGz2JuFoEiCjT8jyZQX2z" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/brands.css" integrity="sha384-nT8r1Kzllf71iZl81CdFzObMsaLOhqBU1JD2+XoAALbdtWaXDOlWOZTR4v1ktjPE" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/fontawesome.css" integrity="sha384-HbmWTHay9psM8qyzEKPc8odH4DsOuzdejtnr+OFtDmOcIVnhgReQ4GZBH7uwcjf6" crossorigin="anonymous">
+
+        <link href="/assets/bootstrap/bootstrap.min.css" rel="stylesheet" type="text/css" />
+
+    <link href="/assets/prism/prism.css" rel="stylesheet" type="text/css" />
+
+        <link href="/assets/css/style.css" rel="stylesheet" type="text/css" />
+
+
+        <link href="/assets/css/checklist.css" rel="stylesheet" type="text/css" />
+</head>
+    <body>
+                <!-- post_id: 301 -->
+
+        
+<div class="hidden-sm-down">
+    <nav class="navbar">
+        <div class="container-fluid">
+            <ul>
+                <li id="logo">
+                    <img src="https://avatars1.githubusercontent.com/u/924196?s=60&v=4" class="me_avatar">
+                    Tomas Votruba
+                </li>
+                <li class="active">
+                    <a href="/">Blog</a>
+                </li>
+                <li class="">
+                    <a href="/php-framework-trends">Trends</a>
+                </li>
+                <li class="">
+                    <a href="/clusters">Clusters</a>
+                </li>
+                <li class="">
+                    <a href="/projects">Projects</a>
+                </li>
+                <li class="">
+                    <a href="/mission">Mission</a>
+                </li>
+                <li class="">
+                    <a href="/contact">Contact</a>
+                </li>
+                <li id="top-menu-search">
+                    <form method="get" action="https://www.google.com/search" itemprop="potentialAction" itemscope="" itemtype="https://schema.org/SearchAction">
+    <meta itemprop="target" content="https://www.google.com/search?q={q}"/>
+    <input name="sitesearch" value="tomasvotruba.com" type="hidden"/>
+    <input itemprop="query-input" type="text" id="search-query" class="form-control" required="required" name="q" placeholder="Search..." autocomplete="off"/>
+</form>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>
+
+<div class="hidden-md-up">
+    <nav class="navbar" id="mobile-menu">
+        <div class="container">
+            <a href="/" class="col-3 col-sm-3 active">
+                <em class="fas fa-book"></em>
+                <br>
+                Blog
+            </a>
+
+
+            <a href="/clusters" class="col-3 col-sm-3 ">
+                <em class="fas fa-share-alt"></em>
+                <br>
+                Clusters
+            </a>
+
+            <a href="/projects" class="col-3 col-sm-3 ">
+                <em class="fas fa-chart-bar"></em>
+                <br>
+                Trends
+            </a>
+
+            <a href="/contact" class="col-3 col-sm-3 ">
+                <em class="fas fa-phone"></em>
+                <br>
+                Contact
+            </a>
+        </div>
+    </nav>
+
+    <div class="hidden-md-up text-center" id="top-menu-search-mobile">
+        <form method="get" action="https://www.google.com/search" itemprop="potentialAction" itemscope="" itemtype="https://schema.org/SearchAction">
+    <meta itemprop="target" content="https://www.google.com/search?q={q}"/>
+    <input name="sitesearch" value="tomasvotruba.com" type="hidden"/>
+    <input itemprop="query-input" type="text" id="search-query" class="form-control" required="required" name="q" placeholder="Search..." autocomplete="off"/>
+</form>
+    </div>
+</div>
+
+        <div class="container-fluid" id="post">
+            <h1>How to Prepare your Neon Configs for PHP 8 and Make them More Readable</h1>
+
+            <ul class="list-inline post-metadata">
+    <li class="list-inline-item mr-3">
+        <em class="fas fa-clock fa-fw"></em>
+        <strong>4 min</strong>
+    </li>
+
+    <li class="list-inline-item mr-3">
+        <em class="fas fa-calendar fa-fw"></em>
+        <time datetime="2021-02-Mon">
+            
+                                            Mon, Feb 8
+            
+            </strike>        </time>
+    </li>
+
+    
+            <li class="list-inline-item mr-3">
+            <em class="fas fa-fw fa-comments"></em>
+            <a href="/blog/2021/02/08/how-to-prepare-your-neon-config-for-php-8-and-make-them-more-readable/#disqus_thread">X</a> comments
+        </li>
+    
+    
+            <li class="list-inline-item mr-3 text-primary">
+            <em class="fab fa-fw fa-github"></em>
+            <a href="https://github.com/tomasvotruba/tomasvotruba.com/edit/master/packages/blog/data/2021/2021-02-08-how-to-prepare-your-neon-config-for-php-8-and-make-them-more-readable.md">Found a typo? Edit me</a>
+        </li>
+    </ul>
+
+            
+            
+            <div class="card card-bigger mb-5">
+                <div class="card-body pb-2">
+                    <p>Good coding habits share a single treat. <strong>They all are <del>resistant</del> fluid to future changes</strong>. You don't have to change them when new packages or PHP is released. One of them is explicit code.
+<br>
+<br>
+Do you use explicit NEON config syntax? Then upgrade to PHP 8, including deprecations, will not touch you.
+Do you use magic syntax sugar cream? Today we'll look at how to make it right.</p>
+                </div>
+            </div>
+
+            <p>&quot;The OP neurons aligned in OD pattern suggest better space orientation empowered to MDS usage.&quot;</p>
+<p>What is explicit text? A text that does not require Googling acronyms to understand it.</p>
+<p><br></p>
+<p>What is <strong>explicit code</strong>? A code that does not require documentation to understand.</p>
+<h2 id="have-you-met-magic">Have you Met... Magic?</h2>
+<img src="https://imgs.xkcd.com/comics/tar.png" class="mt-4 mb-5">
+<p>Could you guess what this line is? No Googling allowed! :)</p>
+<pre><code class="language-yaml">services:
+    - Aws\Client(['region'='western'])</code></pre>
+<ul>
+<li>A factory or a service?</li>
+<li>Array of arguments or a single argument with an array?</li>
+</ul>
+<p><br></p>
+<p>What about this one?</p>
+<pre><code class="language-yaml">services:
+    -
+        factory: App\Some\Factory([KEY=%value%])</code></pre>
+<ul>
+<li>The array is an argument for the constructor of a factory?</li>
+<li>Or parameters to the factory method?</li>
+<li>The factory method... hm, probably <code>create()</code>?</li>
+<li>Is the <code>KEY</code> an env variable?</li>
+<li>Is <code>%value%</code> a parameter?</li>
+</ul>
+<p><br></p>
+<p>Apart WTF readability and principle of highest surprise, there is a new problem since PHP 8.</p>
+<h2 id="php-8-named-arguments-and-optional-parameter-last">PHP 8 - Named Arguments and Optional Parameter Last</h2>
+<p>This code used to be valid in PHP 7.4:</p>
+<pre><code class="language-php">function foo($optional = null, $require)
+{
+}</code></pre>
+<p>Since PHP 8, it is deprecated (see <a href="https://3v4l.org/PRo9Y">3v4l.org</a>).</p>
+<p>The optional parameters <a href="https://php.watch/versions/8.0/deprecate-required-param-after-optional">must be <strong>after required</strong> parameters</a>, like this:</p>
+<pre><code class="language-diff">-function foo($optional = null, $require)
++function foo($require, $optional = null)
+ {
+ }</code></pre>
+<p>Don't worry about PHP code, Rector got <a href="https://github.com/rectorphp/rector/blob/master/docs/rector_rules_overview.md#optionalparametersafterrequiredrector">this case covered</a>. But what about all the NEON configs? If we <strong>change PHP code, the configs will break</strong> because they depend on the parameter order.</p>
+<p>What about these &quot;named arguments&quot;? That might save us, but first, we have to untie this NEON spaghetti knot.</p>
+<h2 id="1-unwrap-inlined-services">1. Unwrap Inlined Services</h2>
+<p>First, we need to untie these class + array single lines:</p>
+<pre><code class="language-diff"> services:
+-    - Aws\Client(['region'='western'])
++    -
++        class: Aws\Client
++        arguments:
++           - ['region'='western']</code></pre>
+<h2 id="2-use-named-arguments">2. Use Named Arguments</h2>
+<p>Sometimes we have to look at the class constructor to be able to transform NEON correctly:</p>
+<pre><code class="language-php">namespace Aws;
+
+final class Client
+{
+    public function __construct(
+        private array $configuration = [],
+    ) {
+        // ...
+    }
+}</code></pre>
+<p>We see the argument is an <code>array</code> and is named <code>$configuration</code>. Let's use &quot;named argument&quot; in our NEON too:</p>
+<pre><code class="language-diff"> services:
+     -
+         class: Aws\Client
+         arguments:
+-           - ['region'='western']
++           configuration: ['region'='western']</code></pre>
+<p>Now, what happens if we add a new <strong>required argument</strong> to the constructor? But we can't add it after the optional argument in PHP 8. It will result in the argument order change!</p>
+<pre><code class="language-diff"> namespace Aws;
+
+ final class Client
+ {
+     public function __construct(
++        private SomeDependency $someDependency,
+         private array $configuration = [],
+     ) {
+         // ...
+     }
+ }</code></pre>
+<p>The code will still work thanks to named arguments <em class="fas fa-fw fa-check text-success fa-lg"></em></p>
+<h2 id="3-unwrap-inlined-arrays">3. Unwrap Inlined Arrays</h2>
+<p>Inlined arrays are confusing the same way the inlined services are. Let's get rid of them too while we're at it:</p>
+<pre><code class="language-diff"> services:
+     -
+         class: Aws\Client
+         arguments:
+-            configuration: ['region'='western']
++            configuration:
++                region: 'western'</code></pre>
+<p>There is also <code>{}</code> syntax for composed arrays. We can improve it too:</p>
+<pre><code class="language-diff"> services:
+     -
+         class: App\SocialLogin
+         arguments:
+-            - { facebook: no, google: yes, twitter: no }
++            params:
++                facebook: no
++                google: yes
++                twitter: no</code></pre>
+<h2 id="4-remove-implicit-arguments">4. Remove Implicit Arguments</h2>
+<p>Do you use a <code>...</code> syntax? That is a placeholder for &quot;complete autowired service here&quot;:</p>
+<pre><code class="language-yaml">services:
+    -
+         class: App\Search
+         arguments:
+             - ...
+             - ...
+             - 'keys'</code></pre>
+<p>With named arguments, this is no longer needed:</p>
+<pre><code class="language-diff"> services:
+     -
+          class: App\Search
+          arguments:
+-             - ...
+-             - ...
+-             - 'keys'
++             type: 'keys'</code></pre>
+<p>Also, the config became much more readable. Now we know that <code>'keys'</code> was used for a <code>type</code>.</p>
+<p><br></p>
+<p>Although named arguments were in NEON for a while, now our codebase is <strong>more consistent</strong>. The PHP with native named arguments and deprecated optional arguments first make the code base <strong>more robust</strong>.</p>
+<p>The same rule that applies in NEON now applies in PHP. One <strong>less &quot;cool&quot; syntax sugar cream</strong> to learn and <strong>more space to focus on what matters to you</strong>.</p>
+<p><br></p>
+<p>Happy coding!</p>
+
+            <br>
+
+            <div class="row mb-5 mt-5">
+                <div class="col-12 mb-5">
+                                                                <a href="/blog/2021/02/01/effective-debug-tricks-narrow-scoping" class="d-block pt-4 pb-4 pl-4 pr-4 btn btn-success btn-wrappable">
+                            <em class="fas fa-fw fa-forward"></em>
+                            <strong>Read Next</strong>
+                            <br>
+                            <span class="text-bigger">
+                                Effective Debug Tricks: Narrow Scoping
+                            </span>
+                        </a>
+                                    </div>
+            </div>
+
+            <br>
+
+            <a name="comments"></a>
+            <div id="disqus_thread"></div>
+
+<script>
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+    /*
+    var disqus_config = function () {
+    this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = 'https://itsworthsharing.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+        </div>
+
+        <script id="dsq-count-scr" src="https://itsworthsharing.disqus.com/count.js" async defer></script>
+
+        <script src="/assets/js/jquery-3.3.1.slim.min.js"></script>
+<script src="/assets/js/cleaning-lady-checklist.js"></script>
+
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+
+<script>
+    ga=function(){ ga.q.push(arguments) };
+    ga.q=[];
+    ga.l=+new Date;
+    ga('create', 'UA-46082345-1', 'auto');
+    ga('send','pageview');
+</script>
+<script src="https://www.google-analytics.com/analytics.js" async defer></script>
+
+<script src="/assets/prism/prism.js"></script>
+
+<script>
+    // sortable table
+    $('.sortable_table').DataTable({
+        // see https://datatables.net/examples/basic_init/filter_only.html
+        "searching": false,
+        "paging": false,
+        "info": false,
+        "order": [[1, "desc"]],
+        // see https://datatables.net/examples/advanced_init/sort_direction_control.html
+        "aoColumns": [
+            null,
+            { "orderSequence": [ "desc", "asc" ] },
+            { "orderSequence": [ "desc", "asc" ] },
+            { "orderSequence": [ "desc", "asc" ] }
+        ]
+    });
+</script>
+
+<div class="text-center mt-5" id="footer">
+    <p class="mt-2">
+        Open-source is my life. Does it help yours? You can <a href="https://github.com/sponsors/TomasVotruba">Sponsor Me</a> &nbsp;
+        <em class="fas fa-heart text-danger fa-lg"></em>
+
+        &nbsp;
+        <span class="pl-2 pr-2">•</span>
+        &nbsp;
+
+        See <a href="/archive">Post Archive</a>
+
+        &nbsp;
+        <span class="pl-2 pr-2">•</span>
+        &nbsp;
+
+        <a href="/rss.xml">Get RSS</a>
+    </p>
+
+    <br>
+
+    <p>
+        Did you know my daily focus goes to <strong>turning working with legacy code into joy</strong>?
+
+        <br>
+
+        With awesome <a href="https://getrector.org/">Instant Refactoring tool called Rector</a>.
+    </p>
+</div>
+    </body>
+</html>
+
+        <meta property="og:type" content="article" />
+    <meta property="og:title" content="How to Prepare your Neon Configs for PHP 8 and Make them More Readable" />
+    <meta property="og:description" content="Good coding habits share a single treat. **They all are ~~resistant~~ fluid to future changes**. You don&#039;t have to change them when new packages or PHP is released. One of them is explicit code.
+
+
+Do you use explicit NEON config syntax? Then upgrade to PHP 8, including deprecations, will not touch you.
+Do you use magic syntax sugar cream? Today we&#039;ll look at how to make it right.
+" />
+    <meta property="og:url" content="/blog/2021/02/08/how-to-prepare-your-neon-config-for-php-8-and-make-them-more-readable" />
+
+        <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@votrubaT">
+    <meta name="twitter:title" content="How to Prepare your Neon Configs for PHP 8 and Make them More Readable" />
+    <meta name="twitter:description" content="Good coding habits share a single treat. **They all are ~~resistant~~ fluid to future changes**. You don&#039;t have to change them when new packages or PHP is released. One of them is explicit code.
+
+
+Do you use explicit NEON config syntax? Then upgrade to PHP 8, including deprecations, will not touch you.
+Do you use magic syntax sugar cream? Today we&#039;ll look at how to make it right.
+" />
