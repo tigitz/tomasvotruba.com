@@ -230,7 +230,7 @@ A typical example of bush coding is static method calls and static classes.</p>
 </ul>
 <p><br></p>
 <p>Today we look on 3 more examples that can be easily missed while slowly poluting your code:</p>
-<h2 id="1-service-inside-value-object-em-class-fas-fa-fw-fa-times-text-danger-fa-lg-em">1. Service Inside Value Object <em class="fas fa-fw fa-times text-danger fa-lg"></em></h2>
+<h2 id="1-service-inside-value-object">1. Service Inside Value Object</h2>
 <p>By value object, we talk about any entity, value object, or data transfer object. Anything that can be created multiple times, like vaccines.</p>
 <pre><code class="language-php">final class Vaccine
 {
@@ -294,7 +294,7 @@ $vaccine-&gt;vaccinateAnimal($animal);</code></pre>
 -$vaccine-&gt;vaccinateAnimal($animal);
 +$vaccinatingService-&gt;vaccinate($animal);</code></pre>
 <p><em class="fas fa-fw fa-2x fa-check text-success"></em></p>
-<h2 id="2-trait-adding-dependency-em-class-fas-fa-fw-fa-times-text-danger-fa-lg-em">2. Trait adding Dependency <em class="fas fa-fw fa-times text-danger fa-lg"></em></h2>
+<h2 id="2-trait-adding-dependency">2. Trait adding Dependency</h2>
 <p>Let's stay with a vaccine from previous example. We got into the same problem:</p>
 <pre><code class="language-php">$vaccine-&gt;orderNewOne();
 $vaccine-&gt;vaccinateHuman($human);
@@ -346,7 +346,7 @@ $vaccinatingService-&gt;vaccinate($human);
 $vaccinatingService-&gt;vaccinate($animal);</code></pre>
 <p><em class="fas fa-fw fa-2x fa-check text-success"></em></p>
 <p>After this incident, we <a href="https://github.com/symplify/phpstan-rules/blob/master/docs/rules_overview.md#notraitrule">forbid trait completely</a> with PHPStan.</p>
-<h2 id="3-using-nette-template-to-transfer-data-em-class-fas-fa-fw-fa-times-text-danger-fa-lg-em">3. Using Nette Template to Transfer Data <em class="fas fa-fw fa-times text-danger fa-lg"></em></h2>
+<h2 id="3-using-nette-template-to-transfer-data">3. Using Nette Template to Transfer Data</h2>
 <p>Last but not least, there are template objects. It about any object that magically <strong>sets its variables on the fly</strong>:</p>
 <pre><code class="language-php">$someObject = new stdClass;
 $someObject-&gt;name = 'Maybe' + 'Some';
