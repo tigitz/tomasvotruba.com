@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <title>Tree Coding vs. Bush Coding | Tomas Votruba</title>
+    <meta charset="utf-8">
+    <meta name="robots" content="index, follow">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
+    
+    <link rel="alternate" type="application/rss+xml" title="Tomas Votruba Blog RSS" href="/rss.xml">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/solid.css" integrity="sha384-wnAC7ln+XN0UKdcPvJvtqIH3jOjs9pnKnq9qX68ImXvOGz2JuFoEiCjT8jyZQX2z" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/brands.css" integrity="sha384-nT8r1Kzllf71iZl81CdFzObMsaLOhqBU1JD2+XoAALbdtWaXDOlWOZTR4v1ktjPE" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/fontawesome.css" integrity="sha384-HbmWTHay9psM8qyzEKPc8odH4DsOuzdejtnr+OFtDmOcIVnhgReQ4GZBH7uwcjf6" crossorigin="anonymous">
+
+        <link href="/assets/bootstrap/bootstrap.min.css" rel="stylesheet" type="text/css" />
+
+    <link href="/assets/prism/prism.css" rel="stylesheet" type="text/css" />
+
+        <link href="/assets/css/style.css" rel="stylesheet" type="text/css" />
+
+
+        <link href="/assets/css/checklist.css" rel="stylesheet" type="text/css" />
+</head>
+    <body>
+                <!-- post_id: 302 -->
+
+        
+<div class="hidden-sm-down">
+    <nav class="navbar">
+        <div class="container-fluid">
+            <ul>
+                <li id="logo">
+                    <img src="https://avatars1.githubusercontent.com/u/924196?s=60&v=4" class="me_avatar">
+                    Tomas Votruba
+                </li>
+                <li class="active">
+                    <a href="/">Blog</a>
+                </li>
+                <li class="">
+                    <a href="/php-framework-trends">Trends</a>
+                </li>
+                <li class="">
+                    <a href="/clusters">Clusters</a>
+                </li>
+                <li class="">
+                    <a href="/projects">Projects</a>
+                </li>
+                <li class="">
+                    <a href="/mission">Mission</a>
+                </li>
+                <li class="">
+                    <a href="/contact">Contact</a>
+                </li>
+                <li id="top-menu-search">
+                    <form method="get" action="https://www.google.com/search" itemprop="potentialAction" itemscope="" itemtype="https://schema.org/SearchAction">
+    <meta itemprop="target" content="https://www.google.com/search?q={q}"/>
+    <input name="sitesearch" value="tomasvotruba.com" type="hidden"/>
+    <input itemprop="query-input" type="text" id="search-query" class="form-control" required="required" name="q" placeholder="Search..." autocomplete="off"/>
+</form>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>
+
+<div class="hidden-md-up">
+    <nav class="navbar" id="mobile-menu">
+        <div class="container">
+            <a href="/" class="col-3 col-sm-3 active">
+                <em class="fas fa-book"></em>
+                <br>
+                Blog
+            </a>
+
+
+            <a href="/clusters" class="col-3 col-sm-3 ">
+                <em class="fas fa-share-alt"></em>
+                <br>
+                Clusters
+            </a>
+
+            <a href="/projects" class="col-3 col-sm-3 ">
+                <em class="fas fa-chart-bar"></em>
+                <br>
+                Trends
+            </a>
+
+            <a href="/contact" class="col-3 col-sm-3 ">
+                <em class="fas fa-phone"></em>
+                <br>
+                Contact
+            </a>
+        </div>
+    </nav>
+
+    <div class="hidden-md-up text-center" id="top-menu-search-mobile">
+        <form method="get" action="https://www.google.com/search" itemprop="potentialAction" itemscope="" itemtype="https://schema.org/SearchAction">
+    <meta itemprop="target" content="https://www.google.com/search?q={q}"/>
+    <input name="sitesearch" value="tomasvotruba.com" type="hidden"/>
+    <input itemprop="query-input" type="text" id="search-query" class="form-control" required="required" name="q" placeholder="Search..." autocomplete="off"/>
+</form>
+    </div>
+</div>
+
+        <div class="container-fluid" id="post">
+            <h1>Tree Coding vs. Bush Coding</h1>
+
+            <ul class="list-inline post-metadata">
+    <li class="list-inline-item mr-3">
+        <em class="fas fa-clock fa-fw"></em>
+        <strong>7 min</strong>
+    </li>
+
+    <li class="list-inline-item mr-3">
+        <em class="fas fa-calendar fa-fw"></em>
+        <time datetime="2021-02-Thu">
+            
+                                            Thu, Feb 11
+            
+            </strike>        </time>
+    </li>
+
+    
+            <li class="list-inline-item mr-3">
+            <em class="fas fa-fw fa-comments"></em>
+            <a href="/blog/2021/02/11/tree-coding-vs-bush-coding/#disqus_thread">X</a> comments
+        </li>
+    
+    
+            <li class="list-inline-item mr-3 text-primary">
+            <em class="fab fa-fw fa-github"></em>
+            <a href="https://github.com/tomasvotruba/tomasvotruba.com/edit/master/packages/blog/data/2021/2021-02-11-tree-coding-vs-bush-coding.md">Found a typo? Edit me</a>
+        </li>
+    </ul>
+
+            
+            
+            <div class="card card-bigger mb-5">
+                <div class="card-body pb-2">
+                    <p>How does circular reference look like? It is a point where you wait for your doctor; they wait for a state to accept the vaccine, and the state waits on people like your to come to the doctor. <strong>Who has the responsibility?</strong> Who can change the state?
+<br><br>
+In the past, we used singletons and static calls to get anything anywhere instantly. But soon, we got into the circular references trap. Now <strong>we moved to dependency injection</strong> and this problem does not exist anymore... or does it?</p>
+                </div>
+            </div>
+
+            <p>With dependency injection, dependencies grow naturally into the form of a tree:</p>
+<pre><code class="language-php">final class VaccineRepository
+{
+    public function __construct(
+        private Connection $connection
+    ) {
+    }
+
+    public function get(int $id): Vaccine
+    {
+        return $this-&gt;connection-&gt;getFromTable('vaccine', $id);
+    }
+}</code></pre>
+<p>Then we use the repository inside a controller:</p>
+<pre><code class="language-php">final class DoctorController
+{
+    public function __construct(
+        private VaccineRepository $vaccineRepository
+    ) {
+    }
+
+    public function helpPerson(Person $person, int $vaccineId)
+    {
+        $vaccine = $this-&gt;vaccineRepository-&gt;get($vaccineId);
+        $vaccine-&gt;injectInto($person);
+        // ...
+    }
+}</code></pre>
+<p>The dependency tree is clear and obvious:</p>
+<ul>
+<li><code>Controller</code> uses ↓
+<ul>
+<li><code>Repository</code> uses ↓
+<ul>
+<li><code>Connection</code> uses ↓
+<ul>
+<li>PostgreSQL database uses ↓
+<ul>
+<li>PostgreSQL Docker image</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+<p><br></p>
+<h2 id="why-tree">Why Tree?</h2>
+<p>The significant advantage of trees is that they grow strong and tall. They're robust and can produce a lot of branches and leaves to rise to the sun. The sun gives them more energy to grow even further. A typical example of tree coding is dependency injection.</p>
+<div class="text-center">
+    <img src="/assets/images/posts/2021/tree_vs_bush.jpg" class="img-thumbnail mt-4 mb-2"><br><em>Tree Coding vs Bush Coding</em>
+</div>
+<h2 id="why-bush">Why Bush?</h2>
+<p>At first sight, a bush grows much faster than a tree. Its goal is to grow as many leaves as possible in a short time. It does not care about the future as much as a tree.
+A typical example of bush coding is static method calls and static classes.</p>
+<p><br></p>
+<h2 id="power-of-tree-coding">Power of Tree Coding</h2>
+<p>Tree coding is similar to <a href="/blog/2018/04/30/programming-climbing-a-huge-mountain/">climbing a huge mountain</a>. Let's focus on the basic idea:</p>
+<h3 id="what-is-the-goal-of-tree-coding">What is The Goal of Tree Coding?</h3>
+<ul>
+<li>It has a <strong>clear hierarchy</strong> from the bottom up, as you have guessed from dependency injection over static calls</li>
+<li><strong>Single place for single responsibility</strong>
+<ul>
+<li>Need a new leaf? Put it on a branch with access to the Sun</li>
+<li>Need a new branch? Put it next to another branch, where is enough space</li>
+<li>Need a new tree trunk? Plant a new tree</li>
+</ul></li>
+<li><strong>It's intuitive</strong> - everybody knows putting a branch inside a leaf is a bad idea</li>
+<li>It respects <strong><a href="https://softwareengineering.stackexchange.com/a/187462/148956">principle of least astonishment</a></strong></li>
+</ul>
+<p><a href="https://www.slideshare.net/GiovanniScerra/thoughtful-software-design"></p>
+<img src="/assets/images/posts/2021/principal_of_least_astonishment.jpg" class="img-thumbnail mt-4 mb-2">
+<p></a></p>
+<p><br></p>
+<p>But bushes tend to spread faster, so it's only natural to assume they're already in your code. <strong>Slowly growing and waiting for their time to slow you down</strong>.</p>
+<img src="/assets/images/posts/2021/bushes_everywhere.jpg" class="img-thumbnail">
+<p>I have come around some bushes in my code before:</p>
+<ul>
+<li><a href="/blog/2018/04/26/how-i-got-into-static-trap-and-made-fool-of-myself">How I Got into Static Trap and Made Fool of Myself</a></li>
+<li><a href="/blog/2019/04/01/removing-static-there-and-back-again">Removing Static - There and Back Again</a></li>
+</ul>
+<p><br></p>
+<p>Today we look on 3 more examples that can be easily missed while slowly poluting your code:</p>
+<h2 id="1-service-inside-value-object-em-class-fas-fa-fw-fa-times-text-danger-fa-lg-em">1. Service Inside Value Object <em class="fas fa-fw fa-times text-danger fa-lg"></em></h2>
+<p>By value object, we talk about any entity, value object, or data transfer object. Anything that can be created multiple times, like vaccines.</p>
+<pre><code class="language-php">final class Vaccine
+{
+    public function __construct(
+        private string $uuid,
+        private float $volume
+    ) {
+    }
+
+    public function getShotVolume(int $shotRank): float
+    {
+        // ...
+    }
+}</code></pre>
+<p>How do we create a vaccine? Let's build a factory:</p>
+<pre><code class="language-php">$vaccineFactory = new VaccineFactory();
+$vaccine = $vaccineFactory-&gt;create();</code></pre>
+<p>Pretty straight-forward, right?</p>
+<p><br></p>
+<p>Later that year, there is a big pressure on pharmaceutical companies, so programmers are under huge pressure to deliver. The vaccine object is now a bit more powerful:</p>
+<pre><code class="language-php">$vaccine-&gt;orderNewOne();
+$vaccine-&gt;vaccinateHuman($human);
+$vaccine-&gt;vaccinateAnimal($animal);</code></pre>
+<p>Our simple vaccine with a basic method is now <strong>powerful service locator</strong> that can vaccinate itself and order itself. It's like <strong>giving birth to yourself</strong>.</p>
+<p><em class="fas fa-fw fa-times text-danger fa-2x"></em></p>
+<p>What happened? In a factory, someone had an idea to put the services right into vaccine itself:</p>
+<pre><code class="language-diff"> final class Vaccine
+ {
+     public function __construct(
+         private string $uuid,
+         private float $volume,
++        private VaccinatingService $vaccinatingService,
++        private OrderingService $orderingService,
+    ) {
+    }
+ }</code></pre>
+<p>That's not a way to go.</p>
+<h3 id="how-to-refactor">How to Refactor?</h3>
+<p>It can happen to anyone. I'm aware of 3 such places in Rector itself that we plan to refactor. What can we do about it?</p>
+<p>Let's refactor service from the object...</p>
+<pre><code class="language-diff"> final class Vaccine
+ {
+     public function __construct(
+         private string $uuid,
+         private float $volume,
+-        private VaccinatingService $vaccinatingService,
+-        private OrderingService $orderingService,
+    ) {
+    }
+ }</code></pre>
+<p>...to service using the object:</p>
+<pre><code class="language-diff">+$orderingService = new OrderingService();
++$vaccinatingService = new VaccinatingService();
+
+-$vaccine-&gt;orderNewOne();
++$orderingService-&gt;order($vaccine, 100);
+
+-$vaccine-&gt;vaccinateHuman($human);
++$vaccinatingService-&gt;vaccinate($human);
+
+-$vaccine-&gt;vaccinateAnimal($animal);
++$vaccinatingService-&gt;vaccinate($animal);</code></pre>
+<p><em class="fas fa-fw fa-2x fa-check text-success"></em></p>
+<h2 id="2-trait-adding-dependency-em-class-fas-fa-fw-fa-times-text-danger-fa-lg-em">2. Trait adding Dependency <em class="fas fa-fw fa-times text-danger fa-lg"></em></h2>
+<p>Let's stay with a vaccine from previous example. We got into the same problem:</p>
+<pre><code class="language-php">$vaccine-&gt;orderNewOne();
+$vaccine-&gt;vaccinateHuman($human);
+$vaccine-&gt;vaccinateAnimal($animal);</code></pre>
+<p>But the constructor seems correct:</p>
+<pre><code class="language-php">final class Vaccine
+{
+    public function __construct(
+        private string $uuid,
+        private float $volume
+    ) {
+    }
+}</code></pre>
+<p>What is going on?</p>
+<pre><code class="language-php">final class Vaccine
+{
+    use SomeHelperTrait;
+}</code></pre>
+<p>Hm... what is that?</p>
+<pre><code class="language-php">trait SomeHelperTrait
+{
+    /**
+     * In Symfony
+     * @required
+     */
+    public OrderingService $orderingService;
+
+    /**
+     * In Nette
+     * @inject
+     */
+    public VaccinatingsService $vaccinatingsService;
+}</code></pre>
+<p>Oh, so it's using frameworks (Nette/Symfony) dependency injection to add dependencies... how <del>smart</del> bush coding!</p>
+<p><em class="fas fa-fw fa-times text-danger fa-2x"></em></p>
+<p>To be honest, I put similar crap code into Rector. Shame on me. It took <a href="https://github.com/rectorphp/rector/pull/5385">bunch</a> <a href="https://github.com/rectorphp/rector/pull/5466">of</a> <a href="https://github.com/rectorphp/rector/pull/5383">pull</a> <a href="https://github.com/rectorphp/rector/pull/5384">request</a> to get rid of completely.</p>
+<h3 id="how-to-refactor">How to Refactor?</h3>
+<p>The same way as the example above. Get rid of traits...</p>
+<pre><code class="language-diff"> final class Vaccine
+ {
+-    use SomeHelperTrait;
+ }</code></pre>
+<p>...and use services to handle the service work:</p>
+<pre><code class="language-php">$orderingService = new OrderingService();
+$vaccinatingService = new VaccinatingService();
+
+$orderingService-&gt;order($vaccine, 100);
+$vaccinatingService-&gt;vaccinate($human);
+$vaccinatingService-&gt;vaccinate($animal);</code></pre>
+<p><em class="fas fa-fw fa-2x fa-check text-success"></em></p>
+<p>After this incident, we <a href="https://github.com/symplify/phpstan-rules/blob/master/docs/rules_overview.md#notraitrule">forbid trait completely</a> with PHPStan.</p>
+<h2 id="3-using-nette-template-to-transfer-data-em-class-fas-fa-fw-fa-times-text-danger-fa-lg-em">3. Using Nette Template to Transfer Data <em class="fas fa-fw fa-times text-danger fa-lg"></em></h2>
+<p>Last but not least, there are template objects. It about any object that magically <strong>sets its variables on the fly</strong>:</p>
+<pre><code class="language-php">$someObject = new stdClass;
+$someObject-&gt;name = 'Maybe' + 'Some';
+$someObject-&gt;age = '100';</code></pre>
+<p>It's common to use these on unknown JSON response, but here <strong>these variable names (&quot;name&quot;, &quot;age&quot;) and their values are known</strong>.</p>
+<p><br></p>
+<p>I don't think Symfony or Laravel have those, but it's a typical code from Nette controller:</p>
+<pre><code class="language-php">use Nette\Application\UI\Presenter;
+
+final class DoctorPresenter extends Presenter
+{
+    public function renderInstructions()
+    {
+        $this-&gt;template-&gt;welcomeHere = '...';
+        $this-&gt;template-&gt;waitingRoom = '...';
+    }
+}</code></pre>
+<p>The <code>$template</code> is a base template object that holds assigned variables magically. Instead of a service locator, we have <strong>a variable locator</strong> (not good).
+This simple construction of 2 variables is ok, but it will grow to a dirty bug.</p>
+<p><br></p>
+<p>To give you a comparison, this is how Symfony handles the problem:</p>
+<pre><code class="language-php">use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+
+final class DoctorController extends AbstractController
+{
+    public function renderInstructions()
+    {
+        $this-&gt;render(__DIR__ . '/template/doctor/instructions.twig', [
+            'welcomeHere' =&gt; '...',
+            'waitingRoom' =&gt; '...',
+        ]);
+    }
+}</code></pre>
+<p>We pass parameters into template <strong>exactly once</strong>, at <strong>the time where it's needed</strong>. Not sooner, not later, <a href="https://blog.codinghorror.com/the-just-in-time-theory/">just in time</a>, also called JIT.</p>
+<p>Not twice by accident:</p>
+<pre><code class="language-php">$this-&gt;template-&gt;welcomeHere = '...';
+
+// 100 lines bellow or in another method called
+$this-&gt;template-&gt;welcomeHere = 'no';
+
+// which is used?</code></pre>
+<p>...and not maybe:</p>
+<pre><code class="language-php">if ($this-&gt;isOpened) {
+    $this-&gt;template-&gt;welcomeHere = '...';
+}</code></pre>
+<p><br></p>
+<p>Still, so far, that is framework convention it works well when used correctly.</p>
+<p><strong>But what is not forbidden is allowed.</strong> We can use the object for reading the data:</p>
+<pre><code class="language-php">use Nette\Application\UI\Presenter;
+
+final class DoctorPresenter extends Presenter
+{
+    public function renderInstructions()
+    {
+        $this-&gt;template-&gt;welcomeHere = '...';
+
+        if ($this-&gt;template-&gt;welcomeHere === '...') {
+            $this-&gt;template-&gt;welcomeHere .= PHP_EOL. 'Thank you!';
+        }
+    }
+}</code></pre>
+<p>This is very bad idea:</p>
+<ul>
+<li>
+<p>we depend on <code>$this-&gt;template-&gt;welcomeHere</code> to <strong>be set somewhere above</strong> - how do you even check if magic property is set?</p>
+<pre><code class="language-php">if (isset($this-&gt;template-&gt;welcomeHere) &amp;&amp; $this-&gt;template-&gt;welcomeHere !== null) {
+$this-&gt;template-&gt;welcomeHere .= PHP_EOL . 'Thank you!';
+}</code></pre>
+</li>
+<li>
+<p>we knew we assigned type of <code>string</code>, but <strong>magic made the type disappear</strong></p>
+</li>
+<li>
+<p>we have no idea what the type is, <strong>static analysis and Rector does not work</strong></p>
+</li>
+<li>
+<p>we're promoting to use a magical object for anything in <code>render()</code> methods</p>
+</li>
+<li>
+<p>we're saying it's ok <strong>to set a single variable twice in one method</strong></p>
+</li>
+</ul>
+<p><em class="fas fa-fw fa-times text-danger fa-lg"></em></p>
+<h3 id="how-to-refactor">How to Refactor?</h3>
+<p>How can we get out of this bush? It's simpler than the two examples before. What would you do?</p>
+<p>Use a variable, of course.</p>
+<p>$this-&gt;template-&gt;welcomeHere = '...';</p>
+<pre><code class="language-diff">-$this-&gt;template-&gt;welcomeHere = '...';
++$welcomeHere = '...';
+
+-if ($this-&gt;template-&gt;welcomeHere === '...') {
++if ($welcomeHere === '...') {
+-    $this-&gt;template-&gt;welcomeHere .= PHP_EOL. 'Thank you!';
++    $welcomeHere .= PHP_EOL. 'Thank you!';
+-}
+
++$this-&gt;template-&gt;welcomeHere = $welcomeHere;</code></pre>
+<p>This way we:</p>
+<ul>
+<li>use a variable for a <em>variable</em> content (a content that might change and we expect it to change)</li>
+<li><strong>we separate a templating system from the construction of parameters</strong></li>
+<li>we have a type of <code>string</code>, so does PHPStan and Rector</li>
+<li>and if we know the template parameters types... we can... wait, that's a topic for another post</li>
+</ul>
+<p><em class="fas fa-fw fa-2x fa-check text-success"></em></p>
+<p>We <a href="https://github.com/symplify/phpstan-rules/blob/master/docs/rules_overview.md#nonettetemplatevariablereadrule">made a rule for PHPStan</a> to keep an eye on us.</p>
+<p><br></p>
+<p>And that's it! Now we've refactored from <strong>3 ground floor bushes to high trees</strong>!</p>
+<p><br></p>
+<p>What was the hardest to spot bush coding you've met? How did you refactor it? Share in comments ↓</p>
+<p><br></p>
+<p>Happy coding!</p>
+
+            <br>
+
+            <div class="row mb-5 mt-5">
+                <div class="col-12 mb-5">
+                                                                <a href="/blog/2021/02/08/how-to-prepare-your-neon-config-for-php-8-and-make-them-more-readable" class="d-block pt-4 pb-4 pl-4 pr-4 btn btn-success btn-wrappable">
+                            <em class="fas fa-fw fa-forward"></em>
+                            <strong>Read Next</strong>
+                            <br>
+                            <span class="text-bigger">
+                                How to Prepare your Neon Configs for PHP 8 and Make them More Readable
+                            </span>
+                        </a>
+                                    </div>
+            </div>
+
+            <br>
+
+            <a name="comments"></a>
+            <div id="disqus_thread"></div>
+
+<script>
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+    /*
+    var disqus_config = function () {
+    this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = 'https://itsworthsharing.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+        </div>
+
+        <script id="dsq-count-scr" src="https://itsworthsharing.disqus.com/count.js" async defer></script>
+
+        <script src="/assets/js/jquery-3.3.1.slim.min.js"></script>
+<script src="/assets/js/cleaning-lady-checklist.js"></script>
+
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+
+<script>
+    ga=function(){ ga.q.push(arguments) };
+    ga.q=[];
+    ga.l=+new Date;
+    ga('create', 'UA-46082345-1', 'auto');
+    ga('send','pageview');
+</script>
+<script src="https://www.google-analytics.com/analytics.js" async defer></script>
+
+<script src="/assets/prism/prism.js"></script>
+
+<script>
+    // sortable table
+    $('.sortable_table').DataTable({
+        // see https://datatables.net/examples/basic_init/filter_only.html
+        "searching": false,
+        "paging": false,
+        "info": false,
+        "order": [[1, "desc"]],
+        // see https://datatables.net/examples/advanced_init/sort_direction_control.html
+        "aoColumns": [
+            null,
+            { "orderSequence": [ "desc", "asc" ] },
+            { "orderSequence": [ "desc", "asc" ] },
+            { "orderSequence": [ "desc", "asc" ] }
+        ]
+    });
+</script>
+
+<div class="text-center mt-5" id="footer">
+    <p class="mt-2">
+        Open-source is my life. Does it help yours? You can <a href="https://github.com/sponsors/TomasVotruba">Sponsor Me</a> &nbsp;
+        <em class="fas fa-heart text-danger fa-lg"></em>
+
+        &nbsp;
+        <span class="pl-2 pr-2">•</span>
+        &nbsp;
+
+        See <a href="/archive">Post Archive</a>
+
+        &nbsp;
+        <span class="pl-2 pr-2">•</span>
+        &nbsp;
+
+        <a href="/rss.xml">Get RSS</a>
+    </p>
+
+    <br>
+
+    <p>
+        Did you know my daily focus goes to <strong>turning working with legacy code into joy</strong>?
+
+        <br>
+
+        With awesome <a href="https://getrector.org/">Instant Refactoring tool called Rector</a>.
+    </p>
+</div>
+    </body>
+</html>
+
+        <meta property="og:type" content="article" />
+    <meta property="og:title" content="Tree Coding vs. Bush Coding" />
+    <meta property="og:description" content="How does circular reference look like? It is a point where you wait for your doctor; they wait for a state to accept the vaccine, and the state waits on people like your to come to the doctor. **Who has the responsibility?** Who can change the state?
+
+In the past, we used singletons and static calls to get anything anywhere instantly. But soon, we got into the circular references trap. Now **we moved to dependency injection** and this problem does not exist anymore... or does it?
+" />
+    <meta property="og:url" content="/blog/2021/02/11/tree-coding-vs-bush-coding" />
+
+        <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@votrubaT">
+    <meta name="twitter:title" content="Tree Coding vs. Bush Coding" />
+    <meta name="twitter:description" content="How does circular reference look like? It is a point where you wait for your doctor; they wait for a state to accept the vaccine, and the state waits on people like your to come to the doctor. **Who has the responsibility?** Who can change the state?
+
+In the past, we used singletons and static calls to get anything anywhere instantly. But soon, we got into the circular references trap. Now **we moved to dependency injection** and this problem does not exist anymore... or does it?
+" />
