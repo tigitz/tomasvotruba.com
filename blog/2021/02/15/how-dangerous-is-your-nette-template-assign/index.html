@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <title>How Dangerous is Your Nette Template Assign | Tomas Votruba</title>
+    <meta charset="utf-8">
+    <meta name="robots" content="index, follow">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
+    
+    <link rel="alternate" type="application/rss+xml" title="Tomas Votruba Blog RSS" href="/rss.xml">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/solid.css" integrity="sha384-wnAC7ln+XN0UKdcPvJvtqIH3jOjs9pnKnq9qX68ImXvOGz2JuFoEiCjT8jyZQX2z" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/brands.css" integrity="sha384-nT8r1Kzllf71iZl81CdFzObMsaLOhqBU1JD2+XoAALbdtWaXDOlWOZTR4v1ktjPE" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/fontawesome.css" integrity="sha384-HbmWTHay9psM8qyzEKPc8odH4DsOuzdejtnr+OFtDmOcIVnhgReQ4GZBH7uwcjf6" crossorigin="anonymous">
+
+        <link href="/assets/bootstrap/bootstrap.min.css" rel="stylesheet" type="text/css" />
+
+    <link href="/assets/prism/prism.css" rel="stylesheet" type="text/css" />
+
+        <link href="/assets/css/style.css" rel="stylesheet" type="text/css" />
+
+
+        <link href="/assets/css/checklist.css" rel="stylesheet" type="text/css" />
+</head>
+    <body>
+                <!-- post_id: 303 -->
+
+        
+<div class="hidden-sm-down">
+    <nav class="navbar">
+        <div class="container-fluid">
+            <ul>
+                <li id="logo">
+                    <img src="https://avatars1.githubusercontent.com/u/924196?s=60&v=4" class="me_avatar">
+                    Tomas Votruba
+                </li>
+                <li class="active">
+                    <a href="/">Blog</a>
+                </li>
+                <li class="">
+                    <a href="/php-framework-trends">Trends</a>
+                </li>
+                <li class="">
+                    <a href="/clusters">Clusters</a>
+                </li>
+                <li class="">
+                    <a href="/projects">Projects</a>
+                </li>
+                <li class="">
+                    <a href="/mission">Mission</a>
+                </li>
+                <li class="">
+                    <a href="/contact">Contact</a>
+                </li>
+                <li id="top-menu-search">
+                    <form method="get" action="https://www.google.com/search" itemprop="potentialAction" itemscope="" itemtype="https://schema.org/SearchAction">
+    <meta itemprop="target" content="https://www.google.com/search?q={q}"/>
+    <input name="sitesearch" value="tomasvotruba.com" type="hidden"/>
+    <input itemprop="query-input" type="text" id="search-query" class="form-control" required="required" name="q" placeholder="Search..." autocomplete="off"/>
+</form>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>
+
+<div class="hidden-md-up">
+    <nav class="navbar" id="mobile-menu">
+        <div class="container">
+            <a href="/" class="col-3 col-sm-3 active">
+                <em class="fas fa-book"></em>
+                <br>
+                Blog
+            </a>
+
+
+            <a href="/clusters" class="col-3 col-sm-3 ">
+                <em class="fas fa-share-alt"></em>
+                <br>
+                Clusters
+            </a>
+
+            <a href="/projects" class="col-3 col-sm-3 ">
+                <em class="fas fa-chart-bar"></em>
+                <br>
+                Trends
+            </a>
+
+            <a href="/contact" class="col-3 col-sm-3 ">
+                <em class="fas fa-phone"></em>
+                <br>
+                Contact
+            </a>
+        </div>
+    </nav>
+
+    <div class="hidden-md-up text-center" id="top-menu-search-mobile">
+        <form method="get" action="https://www.google.com/search" itemprop="potentialAction" itemscope="" itemtype="https://schema.org/SearchAction">
+    <meta itemprop="target" content="https://www.google.com/search?q={q}"/>
+    <input name="sitesearch" value="tomasvotruba.com" type="hidden"/>
+    <input itemprop="query-input" type="text" id="search-query" class="form-control" required="required" name="q" placeholder="Search..." autocomplete="off"/>
+</form>
+    </div>
+</div>
+
+        <div class="container-fluid" id="post">
+            <h1>How Dangerous is Your Nette Template&nbsp;Assign</h1>
+
+            <ul class="list-inline post-metadata">
+    <li class="list-inline-item mr-3">
+        <em class="fas fa-clock fa-fw"></em>
+        <strong>6 min</strong>
+    </li>
+
+    <li class="list-inline-item mr-3">
+        <em class="fas fa-calendar fa-fw"></em>
+        <time datetime="2021-02-Mon">
+            
+                                            Mon, Feb 15
+            
+            </strike>        </time>
+    </li>
+
+    
+            <li class="list-inline-item mr-3">
+            <em class="fas fa-fw fa-comments"></em>
+            <a href="/blog/2021/02/15/how-dangerous-is-your-nette-template-assign/#disqus_thread">X</a> comments
+        </li>
+    
+    
+            <li class="list-inline-item mr-3 text-primary">
+            <em class="fab fa-fw fa-github"></em>
+            <a href="https://github.com/tomasvotruba/tomasvotruba.com/edit/master/packages/blog/data/2021/2021-02-15-how-dangerous-is-your-nette-template-assign.md">Found a typo? Edit me</a>
+        </li>
+    </ul>
+
+            
+            
+            <div class="card card-bigger mb-5">
+                <div class="card-body pb-2">
+                    <p>Symfony documentation contains a few <a href="https://matthiasnoback.nl/2014/10/unnecessary-contrapositions-in-the-new-symfony-best-practices/">&quot;best practices&quot; that teach people to create bad code</a>. It's important to talk about them so the framework can improve and thus its community can improve. Do you remember GitHub discussions about autowiring before it became part of Symfony?
+<br><br>
+Nette documentation is no different. <strong>Today, we'll look at configuring templates and how to use them better and safer</strong>.</p>
+                </div>
+            </div>
+
+            <h2 id="what-is-the-main-purpose-of-template">What is the Main Purpose of Template?</h2>
+<p>What should a template engine do? Render some content to an end-user. Sometimes, it can be a static page; sometimes, there can be parameters. But fundamentally, that's it. Anything else is just fancy syntax sugar.</p>
+<p>Let's look at a simple template example:</p>
+<pre><code class="language-html">I'll give 10 Bitcoins to people in need</code></pre>
+<p>Hmm, maybe the number will change. Let's make a parameter out of it:</p>
+<pre><code class="language-php">$bitcoinCount = 10;</code></pre>
+<pre><code class="language-html">&lt;!-- templates/giveaway.latte --&gt;
+I'll give {$bitcoinCount} Bitcoins to people in need</code></pre>
+<p>That was easy!</p>
+<p><br></p>
+<p>Are you curious about how other frameworks handle simple rendering? Me too!</p>
+<p><br></p>
+<p><a href="https://book.cakephp.org/4/en/controllers.html#rendering-a-view"><strong>CakePHP 4</strong></a></p>
+<pre><code class="language-php">public function giveaway()
+{
+    $this-&gt;set('bitcoinCount', 100);
+    return $this-&gt;render('templates/giveaway');
+}</code></pre>
+<p><br></p>
+<p><a href="https://www.yiiframework.com/doc/guide/2.0/en/structure-views#rendering-views"><strong>Yii 2</strong></a></p>
+<pre><code class="language-php">public function giveaway()
+{
+    return $this-&gt;render('giveaway', [
+        'bitcoinCount' =&gt; 100,
+    ]);
+}</code></pre>
+<p><br></p>
+<p><a href="https://laravel.com/docs/8.x/controllers#basic-controllers"><strong>Laravel 8</strong></a></p>
+<pre><code class="language-php">public function giveaway()
+{
+    return view('giveaway', [
+        'bitcoinCount' =&gt; 100
+    ]);
+}</code></pre>
+<p><br></p>
+<p><a href="https://symfony.com/doc/current/templates.html#creating-templates"><strong>Symfony 5</strong></a></p>
+<pre><code class="language-php">public function giveaway()
+{
+    return $this-&gt;render('templates/giveaway.twig', [
+        'bitcoinCount' =&gt; 100
+    ]);
+}</code></pre>
+<p><br></p>
+<p>And <a href="https://doc.nette.org/en/3.1/components#toc-rendering"><strong>Nette 3.1</strong></a></p>
+<pre><code class="language-php">public function render(): void
+{
+    $this-&gt;template-&gt;bitcoinCount = 100;
+    $this-&gt;template-&gt;render(__DIR__ . '/templates/giveaway.latte');
+}</code></pre>
+<p><br></p>
+<p>What do they have in common?</p>
+<ul>
+<li>every approach is using some name or absolute path as <strong>template identifier</strong></li>
+<li>the template identifier is passed <strong>first argument of &quot;render&quot; method</strong></li>
+</ul>
+<p>But how are parameters handled? There are 2 groups:</p>
+<ul>
+<li>parameter can be set <strong>anywhere above</strong> the &quot;render&quot; method</li>
+<li>parameters are passed <strong>exactly once</strong> into the &quot;render&quot; method</li>
+</ul>
+<p>The 2nd approach is far better than 1st one. Could you guess <strong>9 reasons why</strong>?</p>
+<h2 id="1-variable-override-bug">1. Variable Override Bug</h2>
+<p>Why don't we use public properties? Because they can be overridden anywhere without us knowing:</p>
+<pre><code class="language-php">final class Product
+{
+    public $price;
+}</code></pre>
+<p>We have at least setters that we can somehow monitor:</p>
+<pre><code class="language-php">final class Product
+{
+    private $price;
+
+    public function changePrice($price)
+    {
+        $this-&gt;price = $price;
+    }
+}</code></pre>
+<p>You might be thinking - why would anyone make such a rookie mistake? I assure you, <strong>this is one the most hated bug in legacy code</strong>. Single variable change can take days or weeks to find out... if you have to go through 2 500 000 lines of code, you see for the first time.</p>
+<p>Private property and change methods are still crappy though:</p>
+<pre><code class="language-php">$product = new Product();
+
+$product-&gt;changePrice(100);
+
+// 1000 lines bellow
+
+$product-&gt;changePrice(10);</code></pre>
+<p>So after many years of tears learned to <strong>use a constructor, where we require the values that cannot be changed</strong>:</p>
+<pre><code class="language-php">final class Product
+{
+    public function __construct(
+        private $price
+    ) {
+    }
+}</code></pre>
+<p>How is this related to <code>$this-&gt;template</code>? The same way we can break <code>Product</code> price, we can break <code>$this-&gt;template</code> parameters:</p>
+<pre><code class="language-php">public function render(): void
+{
+    $this-&gt;template-&gt;bitcoinCount = 100;
+
+    // 1000 lines bellow
+
+    $this-&gt;template-&gt;bitcoinCount = 10;
+
+    $this-&gt;template-&gt;render(__DIR__ . '/templates/giveaway.latte');
+}</code></pre>
+<p>Or more evil example:</p>
+<pre><code class="language-php">public function render(): void
+{
+    $this-&gt;template-&gt;bitcoinCount = 100;
+
+    $this-&gt;sendNotification();
+
+    $this-&gt;template-&gt;render(__DIR__ . '/templates/giveaway.latte');
+}
+
+// 1000 lines bellow
+
+private function sendNotification(): void
+{
+    // oh, someone needs to do little unrelated change here
+    $this-&gt;template-&gt;bitcoinCount = 10;
+}</code></pre>
+<p>What is the <code>$bitcoinCount</code>? <code>10</code> or <code>100</code>? It depends on the <code>$this-&gt;template</code> override mechanism, I guess.</p>
+<p><em class="fas fa-fw fa-2x fa-times text-danger"></em></p>
+<h2 id="2-call-me-maybe">2. Call Me... Maybe</h2>
+<p>With property access like this, we can define parameters... just sometimes:</p>
+<pre><code class="language-php">public function render(): void
+{
+    if ($this-&gt;inGoodMood) {
+        $this-&gt;template-&gt;bitcoinCount = 100;
+    }
+
+    $this-&gt;template-&gt;render(__DIR__ . '/templates/giveaway.latte');
+}</code></pre>
+<p>Quick quiz: <strong>what is the <code>$bitcoinCount</code> value in the template?</strong></p>
+<ul>
+<li><code>false</code></li>
+<li><code>null</code></li>
+<li>nothing, use <code>isset()</code> to check if exists</li>
+<li>nothing, use <code>empty()</code> to check if exists</li>
+</ul>
+<p><em class="fas fa-fw fa-2x fa-times text-danger"></em></p>
+<h2 id="3-unset-or-nullable-variable">3. Unset or Nullable Variable?</h2>
+<p>This bug build on previous weakness. Let's say we have a <a href="https://afilina.com/null-hell">null-hell</a> nullable return:</p>
+<pre><code class="language-php">private function getBitcoinCount(): ?int
+{
+    // ...
+}</code></pre>
+<p>How can we differentiate between variable set to <code>null</code>...</p>
+<pre><code class="language-php">$this-&gt;template-&gt;bitcoinCount = $this-&gt;getBitcoinCount();</code></pre>
+<p>...and variable that is missing?</p>
+<pre><code class="language-php">if ($this-&gt;inGoodMood) {
+    $this-&gt;template-&gt;bitcoinCount = $this-&gt;getBitcoinCount();
+}</code></pre>
+<p><em class="fas fa-fw fa-2x fa-times text-danger"></em></p>
+<h2 id="4-forgotten-require-variable">4. Forgotten Require Variable</h2>
+<p>The example above would also fail, because the <code>{$bitcoinCount}</code> is required in template:</p>
+<pre><code class="language-html">&lt;!-- templates/giveaway.latte --&gt;
+I'll give {$bitcoinCount} Bitcoins to people in need</code></pre>
+<p>How can you <strong>define what is required variable</strong>? In objects and services, we have <code>__construct()</code> for that, but here?</p>
+<p><em class="fas fa-fw fa-2x fa-times text-danger"></em></p>
+<h2 id="5-two-ways-to-do-one-thing">5. Two Ways to do One Thing</h2>
+<img src="/assets/images/posts/2021/two_thing_one.jpg" class="img-thumbnail mt-4 mb-2">
+<p>Let's say we manage to set variable once in the template. Many months later, a new developer learns about 2nd <code>render()</code> parameters and uses them:</p>
+<pre><code class="language-diff"> public function render(): void
+ {
+     $this-&gt;template-&gt;bitcoinCount = 100;
+
+-    $this-&gt;template-&gt;render(__DIR__ . '/templates/giveaway.latte');
++    $this-&gt;template-&gt;render(__DIR__ . '/templates/giveaway.latte', [
++        'bitcoinCount' =&gt; 10
++    ]);
+ }</code></pre>
+<p>What is the final template we'll see?</p>
+<ul>
+<li>A. <code>I'll give 100 Bitcoins to people in need</code></li>
+<li>B. <code>I'll give 10 Bitcoins to people in need</code></li>
+</ul>
+<p><em class="fas fa-fw fa-2x fa-times text-danger"></em></p>
+<h2 id="6-read-it">6. Read It!</h2>
+<p>As with any other public property, we can read it and modify it:</p>
+<pre><code class="language-php">public function render(): void
+{
+    $this-&gt;template-&gt;bitcoinCount = 100;
+
+    if ($this-&gt;template-&gt;bitcoinCount &gt; 100) {
+        $this-&gt;template-&gt;bitcoinCount += 10;
+    }
+}</code></pre>
+<p>Soon we're using <code>$this-&gt;template</code> for any variable operation.</p>
+<p><em class="fas fa-fw fa-2x fa-times text-danger"></em></p>
+<h2 id="7-killing-known-types">7. Killing Known Types</h2>
+<p>We know that type of <code>100</code> is <code>int</code>, so do PHPStan, PHPStorm, and Rector. But once we set it to magical <code>$this-&gt;template</code>, everybody becomes blind:</p>
+<pre><code class="language-php">public function render(): void
+{
+    $this-&gt;template-&gt;bitcoinCount = 100;
+
+    // condition is always true... but who knows?
+    if (is_int($this-&gt;template-&gt;bitcoinCount)) {
+        // ...
+    }
+}</code></pre>
+<p><em class="fas fa-fw fa-2x fa-times text-danger"></em></p>
+<h2 id="8-making-magic-more-magical">8. Making Magic more Magical</h2>
+<p>With Nette 3.0, there has been an attempt to fix the magic with <a href="https://blog.nette.org/en/latte-how-to-use-type-system">typed template objects</a>. The intention to have a typed template is good, but it adds more magic to rendering.</p>
+<p>The <code>$this-&gt;template</code> is not a service anymore, but a value object. That can hold parameters. And also render itself somehow. That's typical example of <strong><a href="https://en.wikipedia.org/wiki/Active_record_pattern">active record anti-pattern</a></strong>. Are you able to give birth yourself? <strong>Not a way to go.</strong></p>
+<p><em class="fas fa-fw fa-2x fa-times text-danger"></em></p>
+<p>There is a better way to have both <strong>typed template</strong> and <strong>pass parameters just once</strong>. I'll write about it soon - stay tuned.</p>
+<h2 id="9-typos-everywhere">9. Typos Everywhere</h2>
+<p>Could you guess, what will happen here?</p>
+<pre><code class="language-php">public function render(): void
+{
+    $this-&gt;template-&gt;bitcoinCount = 100;
+
+    if ($this-&gt;template-&gt;bitcointCount &gt; 10) {
+        $this-&gt;template-&gt;bitcoinCount -= 10;
+    }
+
+    // ...
+}</code></pre>
+<p>The condition is obviously a <code>true</code>, right?</p>
+<p>Well, the second variable <em>bitcoin<strong>t</strong>Count</em> does not exists, so we're now <code>-10</code> bitcoints.</p>
+<p><em class="fas fa-fw fa-2x fa-times text-danger"></em></p>
+<h2 id="back-to-basics">Back to Basics</h2>
+<p>There is one more surprise. How does <a href="https://latte.nette.org/en/guide#toc-installation-and-usage">Latte documentation</a> look like? <strong>It promotes the clear approach!</strong></p>
+<pre><code class="language-php">$latte = new Latte\Engine;
+
+$latte-&gt;render('template.latte', [
+    'items' =&gt; ['one', 'two', 'three']
+]);</code></pre>
+<p>So why is every presenter and component using it wrong? Because Occam's razor - people <strong>tend to pick the first solution they see and use it everywhere</strong>.</p>
+<h2 id="the-correct-way-to-render-templates-with-parameters">The Correct Way to Render Templates With Parameters</h2>
+<p>What if there is a way to avoid all 7 possible bugs above? Like we don't have enough bug potential in our code-bases.</p>
+<p>I know you've already guessed it, but just to Google can find it too. The correct way to render parameters is to <strong>pass them exactly once</strong> as 2nd parameter of <code>render()</code> method:</p>
+<pre><code class="language-php">public function render(): void
+{
+    $this-&gt;template-&gt;render(__DIR__ . '/templates/giveaway.latte', [
+        'bitcoinCount' =&gt; 10
+    ]);
+}</code></pre>
+<p>Do we work with a value above the render? <strong>Use a variable</strong> to separate templating system from business logic:</p>
+<pre><code class="language-php">public function render(): void
+{
+    $bitcoinCount = $this-&gt;getBitcoinCount();
+    if ($bitcoinCount === null) {
+        $bitcoinCount = self::MINIMUM_REQUIRED_AMOUNT;
+    }
+
+    $this-&gt;template-&gt;render(__DIR__ . '/templates/giveaway.latte', [
+        'bitcoinCount' =&gt; $bitcoinCount,
+    ]);
+}</code></pre>
+<p>Do we need an optional parameter? <strong>Such code smell</strong> suggests our template architecture is wrong:</p>
+<ul>
+<li>Maybe there should be an extra component?</li>
+<li>Maybe the parameter should be required and have a value of <code>0</code>?</li>
+</ul>
+<p><br></p>
+<p>Do you have more magical objects like this one? Please get rid of them before they get rid of your sanity. Now you have nine reasons why :)</p>
+<p><br></p>
+<p>Happy coding!</p>
+
+            <br>
+
+            <div class="row mb-5 mt-5">
+                <div class="col-12 mb-5">
+                                                                <a href="/blog/2021/02/11/tree-coding-vs-bush-coding" class="d-block pt-4 pb-4 pl-4 pr-4 btn btn-success btn-wrappable">
+                            <em class="fas fa-fw fa-forward"></em>
+                            <strong>Read Next</strong>
+                            <br>
+                            <span class="text-bigger">
+                                Tree Coding vs. Bush Coding
+                            </span>
+                        </a>
+                                    </div>
+            </div>
+
+            <br>
+
+            <a name="comments"></a>
+            <div id="disqus_thread"></div>
+
+<script>
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+    /*
+    var disqus_config = function () {
+    this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = 'https://itsworthsharing.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+        </div>
+
+        <script id="dsq-count-scr" src="https://itsworthsharing.disqus.com/count.js" async defer></script>
+
+        <script src="/assets/js/jquery-3.3.1.slim.min.js"></script>
+<script src="/assets/js/cleaning-lady-checklist.js"></script>
+
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+
+<script>
+    ga=function(){ ga.q.push(arguments) };
+    ga.q=[];
+    ga.l=+new Date;
+    ga('create', 'UA-46082345-1', 'auto');
+    ga('send','pageview');
+</script>
+<script src="https://www.google-analytics.com/analytics.js" async defer></script>
+
+<script src="/assets/prism/prism.js"></script>
+
+<script>
+    // sortable table
+    $('.sortable_table').DataTable({
+        // see https://datatables.net/examples/basic_init/filter_only.html
+        "searching": false,
+        "paging": false,
+        "info": false,
+        "order": [[1, "desc"]],
+        // see https://datatables.net/examples/advanced_init/sort_direction_control.html
+        "aoColumns": [
+            null,
+            { "orderSequence": [ "desc", "asc" ] },
+            { "orderSequence": [ "desc", "asc" ] },
+            { "orderSequence": [ "desc", "asc" ] }
+        ]
+    });
+</script>
+
+<div class="text-center mt-5" id="footer">
+    <p class="mt-2">
+        Open-source is my life. Does it help yours? You can <a href="https://github.com/sponsors/TomasVotruba">Sponsor Me</a> &nbsp;
+        <em class="fas fa-heart text-danger fa-lg"></em>
+
+        &nbsp;
+        <span class="pl-2 pr-2">•</span>
+        &nbsp;
+
+        See <a href="/archive">Post Archive</a>
+
+        &nbsp;
+        <span class="pl-2 pr-2">•</span>
+        &nbsp;
+
+        <a href="/rss.xml">Get RSS</a>
+    </p>
+
+    <br>
+
+    <p>
+        Did you know my daily focus goes to <strong>turning working with legacy code into joy</strong>?
+
+        <br>
+
+        With awesome <a href="https://getrector.org/">Instant Refactoring tool called Rector</a>.
+    </p>
+</div>
+    </body>
+</html>
+
+        <meta property="og:type" content="article" />
+    <meta property="og:title" content="How Dangerous is Your Nette Template Assign" />
+    <meta property="og:description" content="Symfony documentation contains a few [&quot;best practices&quot; that teach people to create bad code](https://matthiasnoback.nl/2014/10/unnecessary-contrapositions-in-the-new-symfony-best-practices/). It&#039;s important to talk about them so the framework can improve and thus its community can improve. Do you remember GitHub discussions about autowiring before it became part of Symfony?
+
+Nette documentation is no different. **Today, we&#039;ll look at configuring templates and how to use them better and safer**.
+" />
+    <meta property="og:url" content="/blog/2021/02/15/how-dangerous-is-your-nette-template-assign" />
+
+        <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@votrubaT">
+    <meta name="twitter:title" content="How Dangerous is Your Nette Template Assign" />
+    <meta name="twitter:description" content="Symfony documentation contains a few [&quot;best practices&quot; that teach people to create bad code](https://matthiasnoback.nl/2014/10/unnecessary-contrapositions-in-the-new-symfony-best-practices/). It&#039;s important to talk about them so the framework can improve and thus its community can improve. Do you remember GitHub discussions about autowiring before it became part of Symfony?
+
+Nette documentation is no different. **Today, we&#039;ll look at configuring templates and how to use them better and safer**.
+" />
