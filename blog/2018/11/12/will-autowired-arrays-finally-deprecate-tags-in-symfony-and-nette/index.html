@@ -115,12 +115,15 @@
     <li class="list-inline-item mr-3">
         <em class="fas fa-calendar fa-fw"></em>
         <time datetime="2018-11-Mon">
-            
-                            Mon, Nov 12, 2018
+            <strike>
+                            Nov, 2018
             
             </strike>        </time>
     </li>
 
+            <li class="list-inline-item mr-3 text-success">
+            <em class="fas fa-fw fa-sync"></em> Updated Feb, 2021
+        </li>
     
             <li class="list-inline-item mr-3">
             <em class="fas fa-fw fa-comments"></em>
@@ -135,6 +138,16 @@
     </ul>
 
             
+                            <div class="card border-success card-bigger mt-5">
+                    <div class="card-header text-white bg-success">
+                        <strong>This post was updated at February 2021</strong>
+                    </div>
+                                            <div class="card-body pb-2">
+                            <p>Updated YAML to PHP config syntax, use new <a href="https://github.com/symplify/autowire-array-parameter">symplify/autowire-array-package</a>.</p>
+                        </div>
+                                    </div>
+
+                <br>
             
             <div class="card card-bigger mb-5">
                 <div class="card-body pb-2">
@@ -149,18 +162,14 @@ I'm very happy to see that <a href="/cluster/collector-pattern-the-shortcut-hack
 <a href="https://github.com/symplify/monorepobuilder">Symplify and Rector releases</a>, <strong>but better</strong>.</p>
 <p>You want it to be <em>open for extension and closed for modification</em>. How do we do that?</p>
 <p>You introduce and a <code>ReleaseWorkerInterface</code>:</p>
-<pre><code class="language-php">&lt;?php declare(strict_types=1);
-
-namespace Moses\ReleaseWorker;
+<pre><code class="language-php">namespace Moses\ReleaseWorker;
 
 interface ReleaseWorkerInterface
 {
     public function work(string $version): void;
 }</code></pre>
 <p>Good, now if anyone wants to extend it, they' just create a new service:</p>
-<pre><code class="language-php">&lt;?php declare(strict_types=1);
-
-namespace Moses\ReleaseWorker;
+<pre><code class="language-php">namespace Moses\ReleaseWorker;
 
 use Nette\Utils\Strings;
 
@@ -183,21 +192,25 @@ final class CheckBlogHasReleasePostReleaseWorker implements ReleaseWorkerInterfa
     }
 }</code></pre>
 <p>and register it</p>
-<pre><code class="language-yaml"># moses.yml
-services:
-    Moses\ReleaseWorker\CheckBlogHasReleasePostReleaseWorker: ~</code></pre>
+<pre><code class="language-php">use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+
+return static function (ContainerConfigurator $containerConfigurator): void {
+    $services = $containerConfigurator-&gt;services();
+    $services-&gt;set(Moses\ReleaseWorker\CheckBlogHasReleasePostReleaseWorker::class);
+};</code></pre>
 <h2 id="find-all-the-code-releaseworkerinterface-code">Find all the <code>ReleaseWorkerInterface</code>?</h2>
 <p>Note: I'll be mixing Nette | Symfony syntax now, but they're almost identical in DI component, so just imagine it's your favorite framework.</p>
 <p>How can we get all the services that implement <code>ReleaseWorkerInterface</code>?</p>
 <h3 id="1-tags">1. Tags!</h3>
-<pre><code class="language-yaml">services:
-    Moses\ReleaseWorker\CheckBlogHasReleasePostReleaseWorker:
-        tags:
-            - "release_worker"</code></pre>
-<p>In extension/compiler pass:</p>
-<pre><code class="language-php">&lt;?php declare(strict_types=1);
+<pre><code class="language-php">use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
-$mosesDefinition = $containerBuilder-&gt;getDefinition(Moses::class);
+return static function (ContainerConfigurator $containerConfigurator): void {
+    $services = $containerConfigurator-&gt;services();
+    $services-&gt;set(Moses\ReleaseWorker\CheckBlogHasReleasePostReleaseWorker::class)
+        -&gt;tag('release_worker');
+};</code></pre>
+<p>In extension/compiler pass:</p>
+<pre><code class="language-php">$mosesDefinition = $containerBuilder-&gt;getDefinition(Moses::class);
 
 foreach ($containerBuilder-&gt;findByTags('release_worker') as $workerDefinition) {
    $mosesDefinition-&gt;addCall('addWorker', [$workerDefinition-&gt;getName()]);
@@ -206,9 +219,7 @@ foreach ($containerBuilder-&gt;findByTags('release_worker') as $workerDefinition
 <p>What's the next option we have?</p>
 <h3 id="2-code-bytype-code-methods">2. <code>byType()</code> methods</h3>
 <p>In extension/compiler pass:</p>
-<pre><code class="language-php">&lt;?php declare(strict_types=1);
-
-$mosesDefinition = $containerBuilder-&gt;getDefinition(Moses::class);
+<pre><code class="language-php">$mosesDefinition = $containerBuilder-&gt;getDefinition(Moses::class);
 
 foreach ($containerBuilder-&gt;findByType(ReleaseWorkerInterface::class) as $workerDefinition) {
    $mosesDefinition-&gt;addCall('addWorker', [$workerDefinition-&gt;getName()]);
@@ -217,9 +228,7 @@ foreach ($containerBuilder-&gt;findByType(ReleaseWorkerInterface::class) as $wor
 <p>What about something &quot;2018&quot;?</p>
 <h3 id="3-autowired-arrays">3. Autowired Arrays</h3>
 <p>All options above hides a contract. Which one? The <code>Moses</code> class looks like this:</p>
-<pre><code class="language-php">&lt;?php declare(strict_types=1);
-
-final class Moses
+<pre><code class="language-php">final class Moses
 {
     // property + setter
 
@@ -231,9 +240,7 @@ final class Moses
     }
 }</code></pre>
 <p>What is wrong with this contract? Have you noticed the constructor? Me neither, <strong>it's not there!</strong> It needs at least some release workers, it's useless without it, but we lie about this contract:</p>
-<pre><code class="language-php">&lt;?php declare(strict_types=1);
-
-$moses = new Moses\Moses;
+<pre><code class="language-php">$moses = new Moses\Moses;
 $moses-&gt;release('v5.0.0');
 
 // nothing
@@ -246,17 +253,13 @@ $moses-&gt;release('v5.0.0');
 <li>Do you need these services? Tell us in the constructor.</li>
 <li>Do you need all <code>ReleaseWorkerInterface</code>s? <strong>Tell us in the constructor.</strong></li>
 </ul>
-<pre><code class="language-php">&lt;?php declare(strict_types=1);
-
-$releaseWorkers = [
+<pre><code class="language-php">$releaseWorkers = [
     new Moses\ReleaseWorker\CheckBlogHasReleasePostReleaseWorker,
 ];
 
 $moses = new Moses\Moses($releaseWorkers);</code></pre>
 <p>Now when we call the service, <strong>we can actually see some output</strong>:</p>
-<pre><code class="language-php">&lt;?php declare(strict_types=1);
-
-$moses-&gt;release('v5.0.0');
+<pre><code class="language-php">$moses-&gt;release('v5.0.0');
 
 // "Good job! The blog post was released."
 // ...
@@ -266,9 +269,7 @@ $moses-&gt;release('v5.0.0');
     "Vision over Expectations."
 </blockquote>
 <p>It sounds really nice. But how would that work in PHP? How does container now what we need in the constructor. Yes, Mr. Potter?</p>
-<pre><code class="language-php">&lt;?php declare(strict_types=1);
-
-namespace Moses;
+<pre><code class="language-php">namespace Moses;
 
 use Moses\ReleaseWorker\ReleaseWorkerInterface;
 
@@ -288,13 +289,15 @@ final class Moses
 <p>I have no idea.</p>
 <p>But you can <strong>install it today</strong>:</p>
 <ul>
-<li>with <code>"nette/di": "v3.0.0-beta1"</code> with <a href="https://github.com/nette/di/pull/178">this feature enabled in the core</a></li>
-<li>and <code>"symplify/package-builder": "^5.2"</code> and <a href="https://github.com/symplify/package-builder#autowire-array-parameters"><code>AutowireArrayParameterCompilerPass</code></a></li>
+<li>with <code>"nette/di": "v3.0"</code> with <a href="https://github.com/nette/di/pull/178">this feature enabled in the core</a></li>
+<li>and <a href="https://github.com/symplify/autowire-array-parameter"><code>symplify/autowire-array-parameter</code></a></li>
 </ul>
 <h2 id="does-it-work">Does it Work?</h2>
-<p>Yes, for the cases above it's 1:1 substitution with 0-configuration. It's part of <a href="https://github.com/symplify/symplify/pull/1145/files">Symplify since 5.1</a> (released 1,5 month ago) and <strong>it works flawlessly</strong>.</p>
+<p>Yes, for the cases above it's 1:1 substitution with 0-configuration. It's part of <a href="https://github.com/symplify/symplify/pull/1145/files">Symplify since 5.1</a> and it works flawlessly.</p>
 <p><br></p>
-<p>And why <em>Moses</em>? Well, he <em>released</em> the most of people from slavery :)</p>
+<p>And why <em>Moses</em>? Well, he <em>released</em> thousands of people from slavery :)</p>
+<p><br></p>
+<p>Happy coding!</p>
 
             <br>
 

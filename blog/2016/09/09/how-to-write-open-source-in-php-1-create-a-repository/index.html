@@ -115,12 +115,15 @@
     <li class="list-inline-item mr-3">
         <em class="fas fa-calendar fa-fw"></em>
         <time datetime="2016-09-Fri">
-            
-                            Fri, Sep 9, 2016
+            <strike>
+                            Sep, 2016
             
             </strike>        </time>
     </li>
 
+            <li class="list-inline-item mr-3 text-success">
+            <em class="fas fa-fw fa-sync"></em> Updated Feb, 2021
+        </li>
     
             <li class="list-inline-item mr-3">
             <em class="fas fa-fw fa-comments"></em>
@@ -135,17 +138,27 @@
     </ul>
 
             
+                            <div class="card border-success card-bigger mt-5">
+                    <div class="card-header text-white bg-success">
+                        <strong>This post was updated at February 2021</strong>
+                    </div>
+                                            <div class="card-body pb-2">
+                            <p>Added new tip on package naming, little details.</p>
+                        </div>
+                                    </div>
+
+                <br>
             
             <div class="card card-bigger mb-5">
                 <div class="card-body pb-2">
                     <p>Do you have some code you want to share but you don't know exactly how? Well, writing open-source is complex process.
 In this series, I'll break it down to <strong>the smallest steps possible</strong>, so that you
-can <strong>start your own OS project with zero-knowledge</strong> (OS = open-source).
+can <strong>start your own open-source project with zero-knowledge</strong>.
 Ready? Let's start with creating a Github repository!</p>
                 </div>
             </div>
 
-            <h2 id="meet-github-os-s-best-friend">Meet Github, OS's best friend</h2>
+            <h2 id="meet-github-os-s-best-friend">Meet GitHub, OS's best friend</h2>
 <p>If not already, <a href="https://github.com">register on Github</a>. It's a place where all open-source lives and breathes. For free!</p>
 <p>Then create a repository with <a href="https://github.com/new">New Repository</a> button.</p>
 <h3 id="name-repository-well-well-how">Name repository well... well how?</h3>
@@ -158,7 +171,7 @@ Ready? Let's start with creating a Github repository!</p>
 </ul>
 <p>Nice theory. What about some examples?</p>
 <ul>
-<li><strong>good names</strong>: <em>Datagrid</em>, <em>ImageResizer</em>, <em>DoctrineFilters</em></li>
+<li><strong>good names</strong>: <em>datagrid</em>, <em>image-resizer</em>, <em>doctrine-filters</em></li>
 <li><strong>bad names</strong>: <em>TomasPackage</em>, <em>DoctrineExtras</em>, <em>Translate</em></li>
 </ul>
 <p>That's all you need now. Hit &quot;Create repository&quot; and you are done!</p>
@@ -174,7 +187,7 @@ And call these commands there.</p>
 git init
 git add README.md
 git commit -m "first commit"
-git remote add origin git@github.com:TomasVotruba/OpenSourcePackageDemo.git
+git remote add origin git@github.com:tomasvotruba/open-source-package-demo.git
 git push -u origin master</code></pre>
 <h3 id="you-don-t-understand-those-geek-lines-i-ll-explain">You don't understand those geek lines? I'll explain</h3>
 <p>These commits can be divided into 2 groups:</p>
@@ -186,7 +199,7 @@ git push -u origin master</code></pre>
 <p>Create an empty repository git repository</p>
 <pre><code class="language-bash">git init</code></pre>
 <p>Add ONLINE address where we want publish your code</p>
-<pre><code class="language-bash">git remote add origin git@github.com:TomasVotruba/OpenSourcePackageDemo.git</code></pre>
+<pre><code class="language-bash">git remote add origin git@github.com:tomasvotruba/open-source-package-demo.git</code></pre>
 <h4 id="2-add-some-code">2. Add some code</h4>
 <p>Create a file README.md and add &quot;Unziping Package&quot; in it (this is just command line for geeks, I do this manually in my PHPStorm of course)</p>
 <pre><code class="language-bash">echo "Unziping Package" &gt;&gt; README.md</code></pre>
@@ -209,7 +222,7 @@ This helped me to integrate workflow to all my packages in the start. I've selec
 <h2 id="so-our-first-step-is-behind-us">So our first step is behind us</h2>
 <p>What have you learned today?</p>
 <ul>
-<li>That OS stands for open-source. You can also find <em>OSS</em> as for <em>open-source software</em>.</li>
+<li>That <em>OS</em> stands for <em>open-source</em>. You can also find <em>OSS</em> as for <em>open-source software</em>.</li>
 <li>How to <strong>create proper OS repository</strong>.</li>
 <li>How to <strong>add few lines there with git</strong>.</li>
 </ul>
@@ -219,12 +232,8 @@ This helped me to integrate workflow to all my packages in the start. I've selec
 <li>What are <strong>repository meta files</strong>.</li>
 <li>How and why to <strong>use badges</strong>.</li>
 </ul>
-<hr />
-<h2 id="hate-me-please">Hate me, please!</h2>
-<p>Did you came across some error or wtf? Is it boring, too long or too vague?
-Just write me a comment. I want to make this series bulletproof and as much as helpful as possible.</p>
-<p><strong>You will help thousands of others if you help me to fix one issue.</strong></p>
-<p>Thank you!</p>
+<p><br></p>
+<p>Happy coding!</p>
 
             <br>
 
@@ -329,7 +338,7 @@ Just write me a comment. I want to make this series bulletproof and as much as h
     <meta property="og:title" content="How to write open-source in PHP 1: Create a repository on Github" />
     <meta property="og:description" content="Do you have some code you want to share but you don&#039;t know exactly how? Well, writing open-source is complex process.
 In this series, I&#039;ll break it down to the smallest steps possible, so that you
-can start your own OS project with zero-knowledge (OS = open-source).
+can **start your own open-source project with zero-knowledge**.
 Ready? Let&#039;s start with creating a Github repository!
 " />
     <meta property="og:url" content="/blog/2016/09/09/how-to-write-open-source-in-php-1-create-a-repository" />
@@ -339,6 +348,6 @@ Ready? Let&#039;s start with creating a Github repository!
     <meta name="twitter:title" content="How to write open-source in PHP 1: Create a repository on Github" />
     <meta name="twitter:description" content="Do you have some code you want to share but you don&#039;t know exactly how? Well, writing open-source is complex process.
 In this series, I&#039;ll break it down to the smallest steps possible, so that you
-can start your own OS project with zero-knowledge (OS = open-source).
+can **start your own open-source project with zero-knowledge**.
 Ready? Let&#039;s start with creating a Github repository!
 " />

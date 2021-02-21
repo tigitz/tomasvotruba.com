@@ -115,12 +115,15 @@
     <li class="list-inline-item mr-3">
         <em class="fas fa-calendar fa-fw"></em>
         <time datetime="2018-11-Thu">
-            
-                            Thu, Nov 22, 2018
+            <strike>
+                            Nov, 2018
             
             </strike>        </time>
     </li>
 
+            <li class="list-inline-item mr-3 text-success">
+            <em class="fas fa-fw fa-sync"></em> Updated Feb, 2021
+        </li>
     
             <li class="list-inline-item mr-3">
             <em class="fas fa-fw fa-comments"></em>
@@ -135,29 +138,39 @@
     </ul>
 
             
+                            <div class="card border-success card-bigger mt-5">
+                    <div class="card-header text-white bg-success">
+                        <strong>This post was updated at February 2021</strong>
+                    </div>
+                                            <div class="card-body pb-2">
+                            <p>Changed from Travis to GitHub Actions, from post-split testing to local split testing.</p>
+                        </div>
+                                    </div>
+
+                <br>
             
             <div class="card card-bigger mb-5">
                 <div class="card-body pb-2">
-                    <p>You already have a monorepo, you have at least 2 packages, autoloaded with composer and splitting works.
-Now you're about to set up testing and code quality tools.
+                    <p>Do you have a monorepo, with 2 packages at least, autoloaded with composer and splitting works?
+Good! Now you're about to set up testing and code quality tools.
 <br><br>
 How to make testing so tight no bug can escape?</p>
                 </div>
             </div>
 
-            <p>There are 3 layers you test your monorepo in. Often projects go just a few of them:</p>
+            <p>There are 3 layers you test your monorepo in. Most projects have 2 of them max.:</p>
 <ul>
 <li><strong>Testing Monorepo</strong> (Symfony, Sylius)</li>
 <li><strong>Testing Standalone Packages in Monorepo</strong> (Symfony, Sylius)</li>
 <li><strong>After Split Testing</strong></li>
 </ul>
-<p>I'm not sure why the last one is often skipped. Surprisingly, it's very easy to setup - add <code>.travis.yml</code> and enable the repository testing on Travis.</p>
-<p>Now you know, what testing layers there are. It's time to look <strong>why each layer is important</strong>.</p>
+<p>I'm not sure why the last one is often skipped. Surprisingly, it's very easy to setup - a matter of single a new workflow file in <code>.github/workflows</code>.</p>
+<p>Now we know the 3 testing layers. It's time to look <strong>why each particular layer is important</strong>.</p>
 <h2 id="1-testing-monorepo">1. Testing Monorepo</h2>
-<pre><code class="language-bash">/packages
+<pre><code class="language-bash">/.github/workflows/...
+/packages
     /first-package
     /second-package
-.travis.yml
 phpunit.xml</code></pre>
 <h3 id="why-is-it-important">Why is it Important?</h3>
 <p>Monorepo is more complex than the classic package. The developers who use it needs to study more nested directories, special rules and exceptions he didn't have to before. He's already exhausted by learning all this and he's barely some energy left to contribute.</p>
@@ -166,66 +179,39 @@ phpunit.xml</code></pre>
 <pre><code class="language-bash">vendor/bin/phpunit</code></pre>
 <p>One run and I we can see test are passing or failing. Must have.</p>
 <h2 id="2-testing-standalone-packages-in-monorepo">2. Testing Standalone Packages in Monorepo</h2>
-<pre><code class="language-diff"> /packages
+<pre><code class="language-diff"> /.github/workflows/...
+ /packages
      /first-package
 +        phpunit.xml
      /second-package
 +        phpunit.xml
- .travis.yml
  phpunit.xml</code></pre>
-<p>In this layer, each package has own PHPUnit setup. It still uses root <code>vendor/autoload.php</code>, but the testing scope is more similar to standalone package testing. If's <em>faking</em> after split testing for poor people.</p>
+<p>In this layer, each package has own PHPUnit setup. It still uses root <code>vendor/autoload.php</code>, but the testing scope is more similar to standalone package testing. If's <em>faking</em> split testing for poor people.</p>
 <pre><code class="language-bash">vendor/bin/phpunit packages/first-package
 vendor/bin/phpunit packages/second-package</code></pre>
 <h3 id="why-is-it-important">Why is it Important?</h3>
 <p>PHPUnit <strong>has own autoloading so it autoloads tests</strong> without relying on your <code>composer.json</code>. It's for historical reasons and also the fact, it's not standard to autoload test files or even user PSR-4 naming in them.</p>
 <p><br></p>
-<p><strong>Use PSR-4 in your tests</strong>:</p>
-<ul>
-<li><code>/packages/first-package/src/SomeClass.php</code> → <code>FirstPackage\SomeClass</code></li>
-<li><code>/packages/first-package/tests/SomeClassTests.php</code> → <code>FirstPackage\Tests\SomeClassTest</code></li>
-</ul>
-<p>PHPStan and Rector are already forcing you to do it because they need to know the exact class type of every element to works correctly.</p>
-<p>Thank you!</p>
-<p><br></p>
-<p>Back to testing...</p>
-<p>So when you run e.g. <code>vendor/bin/phpunit packages</code>, you basically tell the PHPUnit <em>autoload <code>packages</code> directory</em>.</p>
+<p>So when we run e.g. <code>vendor/bin/phpunit packages</code>, we basically tell the PHPUnit <em>autoload <code>packages</code> directory</em>.</p>
 <p>What happens, when:</p>
 <ul>
-<li><code>packages/first-package/tests/Fixture/SomeClass.php</code> is used in test</li>
-<li>in <code>packages/second-package/tests/UnrelatedTest.php</code>?</li>
+<li><code>packages/first-package/tests/Fixture/SomeClass.php</code> is used in test in</li>
+<li><code>packages/second-package/tests/UnrelatedTest.php</code>?</li>
 </ul>
 <p><em class="fas fa-3x fa-times text-danger"></em></p>
 <p><strong>It will silently pass</strong>. Monorepo has many classes you work with and some test classes can be accidentally reused in another package. Your test run says it passes, even though it's broken.</p>
 <p>You'll find out eventually when <code>second-package</code> is downloaded and break the code to somebody but isn't automated testing suppose to prevent that?</p>
-<h2 id="3-after-split-testing">3. After Split testing</h2>
-<pre><code class="language-diff"> /packages
-     /first-package
-         phpunit.xml
-+        .travis.yml
-     /second-package
-         phpunit.xml
-+        .travis.yml
- .travis.yml
- phpunit.xml</code></pre>
-<p>In each <code>.travis.yml</code> you put script to run tests:</p>
-<pre><code class="language-yaml">script:
-    - vendor/bin/phpunit</code></pre>
-<p>It will trigger standalone Travis for each package after splitting the monorepo:</p>
-<ul>
-<li><code>our-project/our-project</code> - monorepo running...</li>
-<li><code>our-project/first-package</code> - Travis running...</li>
-<li><code>our-project/second-package</code> - Travis running...</li>
-</ul>
+<h2 id="3-split-testing">3. Split Testing</h2>
 <h3 id="why-is-it-important">Why is it Important?</h3>
-<p>This is like a double condom with birth control - the best quality testing you can get. It's <strong>almost identical with real use when programmer downloads</strong> a package by <code>our-project/second-package</code>.</p>
-<p>It will download:</p>
+<p>This is like a double condom with birth control - the best quality testing we can get. It's <strong>almost identical with real use when programmer downloads</strong> a package by <code>packages/second-package</code>.</p>
+<p>Our goal is to autoload:</p>
 <ul>
-<li>the second-package code in <code>/src</code></li>
-<li>dependencies from <code>composer.json</code> <strong>ONLY</strong> of that package</li>
+<li>the second-package code in <code>packages/second-package/src</code></li>
+<li>dependencies from <code>packages/second-package/composer.json</code> <strong>ONLY</strong></li>
 </ul>
 <p><br></p>
-<p>I think you've figured out by now the why by seeing <strong>ONLY</strong>. You can't find this bug in layer 1 or 2.</p>
-<p>Our first package uses Doctrine <code>/packages/first-package/composer.json</code></p>
+<p>You've figured out by now <em>the why</em> by seeing <strong>ONLY</strong>. You can't find this bug in layer 1 or 2.</p>
+<p>Our first package uses Doctrine <code>packages/first-package/composer.json</code></p>
 <pre><code class="language-json">{
     "name": "our-project/first-package",
     "require": {
@@ -233,39 +219,28 @@ vendor/bin/phpunit packages/second-package</code></pre>
         "doctrine/orm": "^2.7"
     }
 }</code></pre>
-<p>At the same time, <code>second-package</code> has this class:</p>
-<pre><code class="language-php">&lt;?php
-
-namespace OurProject\SecondPackage;
+<p>At the same time, <code>second-package</code> is using the Doctrine class:</p>
+<pre><code class="language-php">namespace OurProject\SecondPackage;
 
 use Doctrine\ORM\EntityManagerInterface;
 
-class ProductController
+final class ProductController
 {
     public function __construct(EntityManagerInterface $entityManager)
     {
     }
 }</code></pre>
-<p>And this <code>composer.json</code>:</p>
+<p>But does <strong>not require Doctrine</strong> it in <code>composer.json</code>:</p>
 <pre><code class="language-json">{
     "name": "our-project/second-package",
     "require": {
         "php": "^7.2"
     }
 }</code></pre>
-<p>What happens, when we run one all previous layers?</p>
-<pre><code class="language-yaml">vendor/bin/phpunit
-vendor/bin/phpunit packages/first-package
-vendor/bin/phpunit packages/second-package</code></pre>
-<p><em class="fas fa-3x fa-times text-danger"></em></p>
-<p><strong>It will silently pass</strong>, because our monorepo has <code>doctrine/orm</code> installed, thanks to dependency in <code>first-package</code> (it's actually propagated by <a href="/blog/2018/10/08/new-in-symplify-5-create-merge-and-split-monorepo-with-1-command/#3-merge-code-composer-json-code">tools</a> to root <code>composer.json</code>).</p>
-<p>This is <strong>the most common error while developing with monorepo first year</strong>. You add dependencies here and there, you add a couple of new packages and code grows and grows.</p>
-<p>That's why after split testing is so important. Travis will tell you this instantly.</p>
-<h2 id="the-better-your-test-are-the-more-you-focus-on-coding">The Better Your Test Are, The More You Focus on Coding</h2>
-<p>Of course, you can manage these mutual dependencies by manual testing, in code-reviews, have a tool that will scan the code and composer it to <code>composer.json</code> requirements and so on. Their options are very stressful for developers because they need to automated work manually - imagine you'd check each space on each line instead of using Easy Coding Standard.</p>
-<p><strong>So instead of focusing on machines work, just add <code>.travis.yml</code> to each of your packages and let Travis handle that.</strong></p>
-<p>Travis has a purpose and you can focus on what you enjoy the most - coding.</p>
-<p>Win-win :)</p>
+<p>How does the GitHub Action <strong>workflow look like exactly</strong>? Checkout <a href="/blog/2020/02/10/how-to-test-monorepo-after-split-before-actual-split/">How to Test Monorepo After Split Before Actual Split</a>.</p>
+<p>That's why after split testing is so important. GitHub Action will tell us!</p>
+<p><br></p>
+<p>Happy coding!</p>
 
             <br>
 
@@ -376,8 +351,8 @@ vendor/bin/phpunit packages/second-package</code></pre>
 
         <meta property="og:type" content="article" />
     <meta property="og:title" content="How to Test Monorepo in 3 Layers" />
-    <meta property="og:description" content="You already have a monorepo, you have at least 2 packages, autoloaded with composer and splitting works.
- Now you&#039;re about to set up testing and code quality tools.
+    <meta property="og:description" content="Do you have a monorepo, with 2 packages at least, autoloaded with composer and splitting works?
+Good! Now you&#039;re about to set up testing and code quality tools.
 
 How to make testing so tight no bug can escape?
 " />
@@ -386,8 +361,8 @@ How to make testing so tight no bug can escape?
         <meta name="twitter:card" content="summary" />
     <meta name="twitter:site" content="@votrubaT">
     <meta name="twitter:title" content="How to Test Monorepo in 3 Layers" />
-    <meta name="twitter:description" content="You already have a monorepo, you have at least 2 packages, autoloaded with composer and splitting works.
- Now you&#039;re about to set up testing and code quality tools.
+    <meta name="twitter:description" content="Do you have a monorepo, with 2 packages at least, autoloaded with composer and splitting works?
+Good! Now you&#039;re about to set up testing and code quality tools.
 
 How to make testing so tight no bug can escape?
 " />

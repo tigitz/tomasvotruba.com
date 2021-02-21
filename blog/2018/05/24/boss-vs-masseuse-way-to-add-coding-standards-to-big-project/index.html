@@ -115,12 +115,15 @@
     <li class="list-inline-item mr-3">
         <em class="fas fa-calendar fa-fw"></em>
         <time datetime="2018-05-Thu">
-            
-                            Thu, May 24, 2018
+            <strike>
+                            May, 2018
             
             </strike>        </time>
     </li>
 
+            <li class="list-inline-item mr-3 text-success">
+            <em class="fas fa-fw fa-sync"></em> Updated Feb, 2021
+        </li>
     
             <li class="list-inline-item mr-3">
             <em class="fas fa-fw fa-comments"></em>
@@ -135,6 +138,16 @@
     </ul>
 
             
+                            <div class="card border-success card-bigger mt-5">
+                    <div class="card-header text-white bg-success">
+                        <strong>This post was updated at February 2021</strong>
+                    </div>
+                                            <div class="card-body pb-2">
+                            <p>Use new Symplify 9 syntax for PHPStan rule registration.</p>
+                        </div>
+                                    </div>
+
+                <br>
             
             <div class="card card-bigger mb-5">
                 <div class="card-body pb-2">
@@ -174,39 +187,47 @@ vendor/bin/phpcs --standard=PSR2 /app /src</code></pre>
 <p><strong>If your coding standard should have only 1 rule - this is the one.</strong></p>
 <pre><code class="language-yaml"># phpstan.neon
 includes:
-    - vendor/symplify/coding-standard/packages/cognitive-complexity/config/cognitive-complexity-rules.neon
+    - vendor/symplify/phpstan-rules/packages/cognitive-complexity/config/cognitive-complexity-services.neon
 
-parameters:
-    symplify:
-        max_cognitive_complexity: 8 # default</code></pre>
+services:
+    -
+        class: Symplify\PHPStanRules\CognitiveComplexity\Rules\FunctionLikeCognitiveComplexityRule
+        tags: [phpstan.rules.rule]
+        arguments:
+            maxMethodCognitiveComplexity: 8</code></pre>
 <p>But when you run your tool (<code>vendor/bin/phpstan analyse /src</code>), it will probably drop dozens of errors. And we don't want to go to the boss approach.</p>
 <p><br></p>
 <p>Saying that, <strong>we make the rule so free, that your code passes it</strong>:</p>
-<pre><code class="language-yaml"># phpstan.neon
-parameters:
-    symplify:
-        max_cognitive_complexity: 50</code></pre>
-<p>Still 10 errors?</p>
-<pre><code class="language-yaml"># phpstan.neon
-parameters:
-    symplify:
-        max_cognitive_complexity: 100</code></pre>
+<pre><code class="language-diff"> services:
+     -
+         class: Symplify\PHPStanRules\CognitiveComplexity\Rules\FunctionLikeCognitiveComplexityRule
+         tags: [phpstan.rules.rule]
+         arguments:
+-            maxMethodCognitiveComplexity: 8
++            maxMethodCognitiveComplexity: 50</code></pre>
 <p><strong>0 errors!</strong></p>
-<h3 id="great-job-done">Great Job Done!</h3>
-<p>You can now add this to your <code>.travis.yml</code> or any other CI tools and make the PR merge and take a 2 weeks break.</p>
+<p>You can now add this to your GitHub Actions and make the PR. Merge it and take a 2 weeks break.</p>
+<p><br></p>
 <p>Then decrease the criteria for 10 %:</p>
-<pre><code class="language-yaml"># phpstan.neon
-parameters:
-    symplify:
-        max_cognitive_complexity: 90</code></pre>
-<p>and fix only 3-4 cases that will pop-up. One touch at a time. Then make a PR, merge &amp; take a break again. &quot;<a href="https://www.youtube.com/watch?v=f4oWpvJ0f8Q">Rinse &amp; Repeat</a>&quot;.</p>
+<pre><code class="language-diff"> services:
+     -
+         class: Symplify\PHPStanRules\CognitiveComplexity\Rules\FunctionLikeCognitiveComplexityRule
+         tags: [phpstan.rules.rule]
+         arguments:
+-            maxMethodCognitiveComplexity: 8
++            maxMethodCognitiveComplexity: 45</code></pre>
+<ul>
+<li>Fix couple the cases that will appear.</li>
+<li>One at a time.</li>
+<li>Then repeat previous workflow: PR, merge and take a week break.</li>
+</ul>
 <p>When <strong>you feel ready</strong>, you can add 1 more checker, make a rule more strict... you get the idea to enjoy your massage :).</p>
 <h2 id="proven-practice">Proven Practice</h2>
 <p>This way I was able to add coding standards to quite a big codebase in <a href="https://github.com/lekarna">Lekarna.cz</a> a few years ago with not many troubles, and learn how they work along the way.</p>
 <p><br></p>
 <p><strong>I wish you the same experience in your huge project.</strong></p>
 <p><br><br></p>
-<p>Enjoy the Massage!</p>
+<p>Happy coding!</p>
 
             <br>
 

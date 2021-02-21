@@ -115,12 +115,15 @@
     <li class="list-inline-item mr-3">
         <em class="fas fa-calendar fa-fw"></em>
         <time datetime="2016-09-Fri">
-            
-                            Fri, Sep 16, 2016
+            <strike>
+                            Sep, 2016
             
             </strike>        </time>
     </li>
 
+            <li class="list-inline-item mr-3 text-success">
+            <em class="fas fa-fw fa-sync"></em> Updated Feb, 2021
+        </li>
     
             <li class="list-inline-item mr-3">
             <em class="fas fa-fw fa-comments"></em>
@@ -135,6 +138,16 @@
     </ul>
 
             
+                            <div class="card border-success card-bigger mt-5">
+                    <div class="card-header text-white bg-success">
+                        <strong>This post was updated at February 2021</strong>
+                    </div>
+                                            <div class="card-body pb-2">
+                            <p>The thephpleague/skeleton is falling behind last 3 years, promoting deprecated practise, so it was dropped. Scrutinizer to PHPStan, ECS added.</p>
+                        </div>
+                                    </div>
+
+                <br>
             
             <div class="card card-bigger mb-5">
                 <div class="card-body pb-2">
@@ -155,7 +168,7 @@ To estimate the value they need <strong>to answer 4 important questions</strong>
 <p>I will let you think about them a little bit. We will relate with specific files to them in second part of this article.</p>
 <h2 id="use-solid-skeleton-start-solid-brand">Use solid skeleton → start solid brand</h2>
 <p>Now, the first step that can positively influence all the 4 answers is <strong>using a skeleton</strong> with prepared metadata files. Guys from <a href="https://thephpleague.com">The PHP League</a> already did the job for you and created a <a href="https://github.com/thephpleague/skeleton">skeleton</a> package.</p>
-<h2 id="how-to-get-skeleton-code-to-your-local-repository-in-4-steps">How to get skeleton code to your local repository in 4 steps</h2>
+<h2 id="how-to-get-skeleton-code-to-your-local-repository-in-4-steps">How to get Skeleton code to your local Repository in 4 steps</h2>
 <ol>
 <li>Go to repository on Github and click on <em>Clone or download</em></li>
 <li>Then <em>Download a ZIP</em></li>
@@ -178,7 +191,7 @@ directories and I'm ready to roll. This is because:</p>
 <li>e.g. A new PHP version is out, I tune my continuous integration (CI) setup etc.</li>
 </ul></li>
 </ul>
-<h2 id="what-is-the-purpose-of-these-files">What is the purpose of these files</h2>
+<h2 id="what-is-the-purpose-of-these-files">What is the Purpose of these Files?</h2>
 <p>Now we look on every directory and file and how it's related to the 4 key questions.
 Just to remind you, the end user is interested in:</p>
 <ol>
@@ -233,40 +246,31 @@ Just to remind you, the end user is interested in:</p>
 <ul>
 <li><strong>Trust</strong>: Without this I would not trust you know anything about open-source.</li>
 </ul>
-<h3 id="code-scrutinzer-yml-code"><code>.scrutinzer.yml</code></h3>
+<h3 id="code-ecs-php-code"><code>ecs.php</code></h3>
 <p><em>Meaning</em></p>
 <ul>
-<li>configuration for <a href="https://scrutinizer-ci.com">Scrutinizer</a> - code quality and code coverage tool</li>
-<li>to enable it, <a href="https://scrutinizer-ci.com/login">login</a> and new repository
-<ul>
-<li>I recommend you to login in via Github, since it adds hooks to your repository</li>
-</ul></li>
-<li>it would be triggered every time your commit to master or create a PR</li>
-</ul>
-<p><em>Profit</em></p>
-<div>
-    <img src="/assets/images/posts/2016/open-source/quality-and-coverage.png" alt="Code quality and coverage badges in README"><br><em>Code quality and coverage badges in README</em>
-</div>
-<p><br></p>
-<ul>
-<li><strong>Quality</strong>: Tests are fine, but with 5 % coverage, they have no added value. When you have 90% coverage, you got attention.
-Also there is code quality score from 0 to 10. It tells you about code complexity, which is the most important. <strong>Simple code is easier to maintain and debug</strong>.
-I will show you how to get 10 with bit of practise later.</li>
-</ul>
-<h3 id="code-travis-yml-code"><code>.travis.yml</code></h3>
-<p><em>Meaning</em></p>
-<ul>
-<li>configuration for <a href="https://travis-ci.org">Travis</a> - continuous integration tool for tests</li>
-<li>to enable it, go register there and add the repository</li>
+<li>config for <a href="https://github.com/symplify/easy-coding-standard">Easy Coding Standard</a> - the easiest tool for coding standard</li>
+<li>it checks code to keep it in one compatible coding standard format</li>
 </ul>
 <p><em>Profit</em></p>
 <ul>
-<li><strong>Trust</strong>: Do you have test but you don't run them for every change? How can I know the code works?</li>
+<li><strong>Quality</strong>: coders can contribute in any format their like and the coding standard tool will take care of it for them</li>
+</ul>
+<h3 id="code-phpstan-neon-code"><code>phpstan.neon</code></h3>
+<p><em>Meaning</em></p>
+<ul>
+<li>configuration for <a href="https://phpstan.org/">PHPStan</a> - <em>the</em> best static analyzer to PHP</li>
+<li>it run on every commit, checking obvious mistakes for you, like call on possible <code>null</code></li>
+</ul>
+<p><em>Profit</em></p>
+<ul>
+<li><strong>Trust</strong>: you and your contributors can stop thinking about detailed code and go a relax - everyone can contribute easily</li>
+<li><strong>Quality</strong>: tested code is perceived better quality</li>
 </ul>
 <h3 id="code-composer-json-code"><code>composer.json</code></h3>
 <ul>
 <li>list of dependencies</li>
-<li>also configuration for <a href="https://packagist.org">Packagist</a>, where you need to add your package, so it can be installed by others</li>
+<li>configuration for <a href="https://packagist.org">Packagist</a>, where you need to add your package, so it can be installed by others</li>
 <li>to enable it, you have to:
 <ul>
 <li>go there</li>
@@ -320,7 +324,7 @@ I will show you how to get 10 with bit of practise later.</li>
 <li>Last version is probably 2.5, but not sure. Do they update manually? - <strong>CONFUSING</strong></li>
 <li>Why is master promoted on first place? Should I use that? - <strong>CONFUSING</strong></li>
 </ul>
-<p><small>From <a href="https://github.com/doctrine/doctrine2/blob/master/README.md">Doctrine2 repository</a>.</small></p>
+<p><small>From <a href="https://github.com/doctrine/orm/blob/master/README.md">Doctrine2 repository</a>.</small></p>
 <img src="/assets/images/posts/2016/open-source/badge-1.png" alt="Well informative badge">
 <ul>
 <li>Test are passing - <strong>GOOD</strong></li>
@@ -329,8 +333,7 @@ I will show you how to get 10 with bit of practise later.</li>
 <li>It has 166 downloads. Here it depends on the age of package. → Go check release date! - <strong>GOOD</strong></li>
 <li>It's tagged and has stable version. - <strong>GOOD</strong></li>
 </ul>
-<p><small>From <a href="https://github.com/Symplify/ControllerAutowire/blob/master/README.md">Symplify/ControllerAutowire repository</a>.</small></p>
-<h2 id="what-have-we-done-today">What have we done today?</h2>
+<h2 id="what-have-we-done-today">What have we Done Today?</h2>
 <ul>
 <li>Where to go when <strong>starting a new repository</strong>.</li>
 <li>What is <strong>the purpose meta files</strong>.</li>
@@ -342,12 +345,8 @@ I will show you how to get 10 with bit of practise later.</li>
 <li>How do <strong>releases</strong> work a what is <strong>semantic versioning</strong>.</li>
 <li>How to <strong>pick min PHP version and package versions in composer</strong>.</li>
 </ul>
-<hr />
-<h2 id="hate-me-please">Hate me, please!</h2>
-<p>Did you came across some error or wtf? Is it boring, too long or too vague?
-Just send me a comment. I want to make this series bulletproof and as helpful as possible.</p>
-<p><strong>You will help thousands of others if you help me to fix one issue.</strong></p>
-<p>Thank you!</p>
+<p><br></p>
+<p>Happy coding!</p>
 
             <br>
 
@@ -458,7 +457,7 @@ Just send me a comment. I want to make this series bulletproof and as helpful as
 
         <meta property="og:type" content="article" />
     <meta property="og:title" content="How to write open-source in PHP 2: Rise value of your package with help of skeleton" />
-    <meta property="og:description" content="After creating a repo, we have to fill it with something useful. Our code! Of course, but we also need some metadata files.
+    <meta property="og:description" content="After creating a repo, we have to fill it with something useful. Our code! Of course, but we also need some **metadata files**.
 What are they for? Is there some prepared code we can use? What are badges for? I will answer all these questions today.
 " />
     <meta property="og:url" content="/blog/2016/09/16/how-to-write-open-source-in-php-2-enjoy-skeletons" />
@@ -466,6 +465,6 @@ What are they for? Is there some prepared code we can use? What are badges for? 
         <meta name="twitter:card" content="summary" />
     <meta name="twitter:site" content="@votrubaT">
     <meta name="twitter:title" content="How to write open-source in PHP 2: Rise value of your package with help of skeleton" />
-    <meta name="twitter:description" content="After creating a repo, we have to fill it with something useful. Our code! Of course, but we also need some metadata files.
+    <meta name="twitter:description" content="After creating a repo, we have to fill it with something useful. Our code! Of course, but we also need some **metadata files**.
 What are they for? Is there some prepared code we can use? What are badges for? I will answer all these questions today.
 " />
