@@ -85,7 +85,7 @@
                 Clusters
             </a>
 
-            <a href="/projects" class="col-3 col-sm-3 ">
+            <a href="/php-framework-trends" class="col-3 col-sm-3 ">
                 <em class="fas fa-chart-bar"></em>
                 <br>
                 Trends
@@ -115,12 +115,15 @@
     <li class="list-inline-item mr-3">
         <em class="fas fa-calendar fa-fw"></em>
         <time datetime="2020-10-Mon">
-            
-                            Mon, Oct 12, 2020
+            <strike>
+                            Oct, 2020
             
             </strike>        </time>
     </li>
 
+            <li class="list-inline-item mr-3 text-success">
+            <em class="fas fa-fw fa-sync"></em> Updated Feb, 2021
+        </li>
     
             <li class="list-inline-item mr-3">
             <em class="fas fa-fw fa-comments"></em>
@@ -135,6 +138,16 @@
     </ul>
 
             
+                            <div class="card border-success card-bigger mt-5">
+                    <div class="card-header text-white bg-success">
+                        <strong>This post was updated at February 2021</strong>
+                    </div>
+                                            <div class="card-body pb-2">
+                            <p>From Kodiak to native <a href="https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/automatically-merging-a-pull-request">GitHub Auto-merge</a></p>
+                        </div>
+                                    </div>
+
+                <br>
             
             <div class="card card-bigger mb-5">
                 <div class="card-body pb-2">
@@ -153,7 +166,7 @@ Here is an idea - <strong>don't merge any pull-request from now on</strong>...</
 <blockquote class="blockquote text-center mt-5 mb-5">
 <p>&quot;<strong>Can you automate</strong> responsibility developers have to think about?
 <br>
-Please do it!
+Just do it!
 <br>
 They will be able to focus more and produce better quality code.&quot;</p>
 </blockquote>
@@ -162,34 +175,26 @@ They will be able to focus more and produce better quality code.&quot;</p>
 <p>In <a href="https://github.com/rectorphp/rector/pulse/monthly">Rector</a> and <a href="https://github.com/symplify/symplify/pulse/monthly">Symplify</a> <a href="/cluster/monorepo-from-zero-to-hero">mono-repositories</a> we had 240 merge-request for just last month.</p>
 <p>That's <strong>240 distractions with ~5 minutes upkeep</strong> = 20 hours wasted by brain-waiting and much more work ruined.</p>
 <h2 id="delegate-and-automate-merge-request">Delegate and Automate Merge Request</h2>
-<p>What if I told you just a few percent of these manually? The rest is done by <a href="https://github.com/marketplace/kodiakhq">Kodiak</a>. That's not my full-time on-demand coworker, but Github Application that <strong>handles automated merging</strong>.</p>
-<p>How does <em>Kodiak</em> work? You mark the pull-request with the &quot;automerge&quot; tag, then - if CI passes - the pull-request is merged. So instead of waiting 240 times for CI feedback, you'll <strong>add the tag when you finish the review</strong>. Then the pull-request is closed, and you can focus on the next work in the peace.</p>
-<h2 id="4-steps-to-setup-kodiak">4 Steps to Setup Kodiak</h2>
+<p>What if I told you just a few percent of these manually? The rest is done by GitHub Auto-merge.</p>
+<p>How does <em>GitHub Auto-merge</em> work? You mark the pull-request with the &quot;automerge&quot; tag, then - if CI passes - the pull-request is merged. So instead of waiting 240 times for CI feedback, you'll <strong>add the tag when you finish the review</strong>. Then the pull-request is closed, and you can focus on the next work in the peace.</p>
+<h2 id="4-steps-to-setup-auto-merge">4 Steps to Setup Auto-Merge</h2>
 <h3 id="1-go-to-setting-of-your-github-repository">1. Go to Setting of your GitHub Repository</h3>
 <img src="/assets/images/posts/2020/kodiak/kodiak_branches_1.png" alt="" class="img-thumbnail mt-3">
 <h3 id="2-add-branch-checks-for-code-master-code">2. Add Branch Checks for <code>master</code></h3>
 <img src="/assets/images/posts/2020/kodiak/kodiak_branches_2.png" alt="" class="img-thumbnail mt-3">
 <h3 id="3-select-jobs-that-are-required-to-pass">3. Select Jobs that are Required to Pass</h3>
 <img src="/assets/images/posts/2020/kodiak/kodiak_require.png" alt="" class="img-thumbnail mt-3">
-<h3 id="4-enable-kodiak">4. Enable Kodiak</h3>
-<p>Go to <a href="https://github.com/marketplace/kodiakhq">marketplace</a> and enable it.</p>
-<h3 id="5-add-code-kodiak-toml-code-setup-to-the-repository-code">5. Add <code>.kodiak.toml</code> Setup To the Repository code</h3>
-<pre><code class="language-yaml"># .kodiak.toml
-version = 1
-
-# this saves deleting merged branches manually
-merge.delete_branch_on_merge = true</code></pre>
+<h3 id="4-enable-github-auto-merge">4. Enable GitHub Auto-merge</h3>
+<p>Go to your project settings, e.g. <a href="https://github.com/symplify/symplify/settings">https://github.com/symplify/symplify/settings</a></p>
+<img src="https://user-images.githubusercontent.com/924196/108640310-3270be80-7499-11eb-93e8-ceb380be00e0.png"  class="img-thumbnail mt-3">
 <p><br></p>
-<p>Now Kodiak is enabled and waiting for your work!</p>
-<h2 id="1-step-to-automerge-pull-request-with-kodiak">1 Step to Automerge Pull-Request with Kodiak</h2>
-<h3 id="1-after-you-decide-the-pr-is-ready-add-the-quot-automerge-quot-tag">1. After You Decide the PR is Ready, add the &quot;automerge&quot; tag</h3>
-<img src="/assets/images/posts/2020/kodiak/koidak_tag.png" alt="" class="img-thumbnail mt-3">
-<p>Then you're finished. The Kodiak will handle the rest...</p>
-<p><br></p>
-<p>Kodiak waits for the CI to pass...</p>
-<img src="/assets/images/posts/2020/kodiak/kodiak_waiting.png" alt="" class="img-thumbnail mt-3">
-<p>...then merges and deletes branch:</p>
-<img src="/assets/images/posts/2020/kodiak/kodiak_merge.png" alt="" class="img-thumbnail mt-3">
+<p>Now GitHub is enabled and waiting for your work!</p>
+<h2 id="1-step-to-automerge-pull-request-with-github">1 Step to Automerge Pull-Request with GitHub</h2>
+<p>Is your PR ready? Go down and enable the automerge:</p>
+<img src="https://user-images.githubusercontent.com/924196/108640368-8380b280-7499-11eb-9545-e9c96f6d4cb5.png" class="img-thumbnail">
+<p>GitHub waits for the CI to pass and then merges and deletes branch:</p>
+<img src="https://user-images.githubusercontent.com/924196/108640447-f0944800-7499-11eb-81ab-05870aa999f9.png" alt="" class="img-thumbnail">
+<p><em class="fas fa-fw fa-check text-success fa-2x"></em></p>
 <p><br></p>
 <p>Now you've one less to think about for the rest of your life.</p>
 <p><br></p>
