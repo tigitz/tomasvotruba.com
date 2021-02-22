@@ -205,7 +205,7 @@ $this-&gt;sort($changes, null);</code></pre>
 <p>It seems the priority was chosen or not. If we put this sentence in the code:</p>
 <pre><code class="language-diff">-$this-&gt;sort($changes, null);
 +$this-&gt;sort($changes, 'none');</code></pre>
-<p>But! Should we use strings around the project without any boundaries?</p>
+<p>But should we use strings around the project without any boundaries?</p>
 <h2 id="5-extract-the-enum">5. Extract the Enum</h2>
 <p>No. There should be at least constants:</p>
 <pre><code class="language-diff">-$this-&gt;sort($changes, 'packages');
