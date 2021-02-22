@@ -164,7 +164,7 @@ I was wondering how difficult it is to get rid of nullable parameters in a proje
 <p><br></p>
 <p>Why is this step necessary for success? When you read a post about <a href="/blog/2019/01/24/how-to-kill-parents">&quot;every class should be final&quot;</a>, you might think that's a good idea. It's easy to get hyped in software, so you try to put <code>final</code> everywhere in your code right from Monday. Soon, your project has <code>final</code> in some classes that you worked with. Your colleagues are not hyped yet, and you also broke few Doctrine entities by making them <code>final</code>. Your argument is not very trustworthy now, and people don't like to keep the rule that doesn't have clear boundaries.</p>
 <p><br></p>
-<p>By writing a <strong>PHPStan rule first, we avoid this whole mess</strong>. Also, we realize the ideal statements like &quot;every <x> should be <y>&quot; have to be adapted into practical coding habits. While I was writing a <code>ForbiddenNullableParameterRule</code> I learned that:</p>
+<p>By writing a <strong>PHPStan rule first, we avoid this whole mess</strong>. Also, we realize the ideal statements like &quot;every <em>x</em> should be <em>y</em>&quot; have to be adapted into practical coding habits. While I was writing a <code>ForbiddenNullableParameterRule</code> I learned that:</p>
 <ul>
 <li>nullable <code>$param</code> required by <code>interface</code> from <code>/vendor</code> - we should skip these because refactoring the world is not a weekend goal</li>
 <li>we need to forbid specific types first to keep refactoring gradually</li>
