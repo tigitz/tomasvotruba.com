@@ -194,7 +194,7 @@ I was wondering how difficult it is to get rid of nullable parameters in a proje
  {
      // ...
  }</code></pre>
-<p>Now we've removed the nullable parameter, mission complete! All we need to do now is to fix dozens of new PHPStan errors.</p>
+<p>We've removed the nullable parameter - mission complete! All we need to do now is to fix dozens of new PHPStan errors.</p>
 <p>I realized that <code>?string</code> is a code smell for enum only in hindsight, but I started to be suspicious.</p>
 <p>I looked into code and tests for the values that the <code>$priority</code> argument can take. To my surprise, they were the same values over and over again:</p>
 <pre><code class="language-php">$this-&gt;sort($changes, 'packages');
