@@ -182,8 +182,10 @@ class SomeClass
     which would naturally suggest that <strong>helper methods appear after the methods they are helping</strong>.<br>
     This would lead to maximum readability of the code structure."
     </p>
-    <footer class="blockquote-footer text-right"><a href="https://softwareengineering.stackexchange.com/a/186421/148956">Anthony Pegram</a>, Clean Code reader
-    </footer></blockquote>
+    <footer class="blockquote-footer text-right">
+        <a href="https://softwareengineering.stackexchange.com/a/186421/148956">Anthony Pegram</a>, Clean Code reader
+    </footer>
+</blockquote>
 <h2 id="nice-theory-bro-but-real-life">Nice Theory, Bro, but... Real-Life?</h2>
 <p>It's easy to spot and correct the example above...</p>
 <pre><code class="language-php">&lt;?php
@@ -211,7 +213,9 @@ class SomeClass
 }</code></pre>
 <p>...but in real life pull-requests are usually longer than 20 lines:</p>
 <div class="text-center mb-5">
-    <img src="/assets/images/posts/2018/private-method-order/example.png" class="img-thumbnail"><p>
+    <img src="/assets/images/posts/2018/private-method-order/example.png" class="img-thumbnail">
+
+    <p>
         Taken from <a href="https://github.com/shopsys/shopsys/pull/554/files">my 5 days-old-PR</a>
     </p>
 </div>

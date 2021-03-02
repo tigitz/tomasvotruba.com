@@ -147,7 +147,9 @@ Or maybe you're successful, you grow and have 10 such projects.
 
             <p>This idea came originally from tech companies with large code bases and constantly growing products:</p>
 <div class="text-center">
-    <img src="/assets/images/posts/2018/multi-symfony/intro.png" class="img-thumbnail"><br><em>From <a href="https://danluu.com/monorepo/">the first post about monorepo</a> there is</em>
+    <img src="/assets/images/posts/2018/multi-symfony/intro.png" class="img-thumbnail">
+    <br>
+    <em>From <a href="https://danluu.com/monorepo/">the first post about monorepo</a> there is</em>
 </div>
 <p><br></p>
 <p>Yet I never saw such approach in PHP world. I mean, I saw monoliths but never a monorepo. Last year I started to work more closely with Shopsys and they did one crazy thing - <a href="https://github.com/shopsys/shopsys/tree/master/project-base">put the sandbox project into monorepo repository</a>. Instead of having 2 repositories - <strong>monorepo and showcase project separated</strong> - like <a href="https://github.com/symfony/symfony">Symfony</a> and its <a href="https://github.com/symfony/demo">Demo</a>, Laravel, CakePHP, Nette or basically any PHP framework I've seen, <strong> it is just one</strong>.</p>
@@ -172,7 +174,9 @@ I'm right in the very start of using this architecture, so you'll have the knowl
 <h3 id="1-del-app-del-unique-namespace">1. <del>App</del> Unique Namespace</h3>
 <p>If there are 2 <code>App\Kernel</code> classes the application would break. Pick a name that is specific for the project - here it's &quot;OpenTraining&quot; - and rename it in <code>namespace App\</code>, <code>namespace App;</code>, <code>use App\</code> in PHP code. Don't forget the <code>composer.json</code> as well.</p>
 <div class="text-center">
-    <img src="/assets/images/posts/2018/multi-symfony/replace.png" class="img-thumbnail"><br><em>PHPStorm → Replace in path</em>
+    <img src="/assets/images/posts/2018/multi-symfony/replace.png" class="img-thumbnail">
+    <br>
+    <em>PHPStorm → Replace in path</em>
 </div>
 <pre><code class="language-diff">-namespace App;
 +namespace OpenTraining;

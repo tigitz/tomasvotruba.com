@@ -179,12 +179,14 @@ final class ComputerEntrance implements MatrixEntranceInterface
 }</code></pre>
 <p>Programmers won't have to think about raping your classes in the night - <strong>they just use the interface you provide</strong>.</p>
 <div class="text-center">
-    <img src="/assets/images/posts/2017/extendable-open-source/override.jpg" class="img-thumbnail"></div>
+    <img src="/assets/images/posts/2017/extendable-open-source/override.jpg" class="img-thumbnail">
+</div>
 <p><strong>This is code-embodied composition over inheritance</strong>. No documentation nor Wikipedia links required.</p>
 <h2 id="2-go-to-party-events-when-in-the-mood">2. Go to Party Events, when in the Mood</h2>
 <p>Back to Matrix world: imagine you can listen to every phone booth. Let's say you <strong>write a script, that sends you sms with geo location of the booth every time it gets called</strong> (favorite tool for agent Smith ;-)).</p>
 <div class="text-center">
-    <img src="/assets/images/posts/2017/extendable-open-source/booth.png" class="img-thumbnail"></div>
+    <img src="/assets/images/posts/2017/extendable-open-source/booth.png" class="img-thumbnail">
+</div>
 <p>This approach is implemented in PHP under name of EventDispatcher. While working with Symfony, <strong>events gave me very similar feeling of freedom</strong> - <a href="https://symfony.com/doc/current/reference/events.html#kernel-events">in docs</a> as well in small book <a href="https://leanpub.com/a-year-with-symfony">A Year with Symfony</a>.</p>
 <p>Do you want simple example of such listening script? <a href="/blog/2019/08/05/standalone-symfony-event-dispatcher-from-the-scratch/">Check this tested post</a> with all code snippets you need.</p>
 <h3 id="while-on-event-listen-carefully">While on Event, Listen Carefully</h3>
@@ -248,7 +250,8 @@ if ($booth-&gt;isCalled()) {
 </ul>
 <h3 id="back-to-the-matrix">Back to the Matrix</h3>
 <div class="text-center">
-    <img src="/assets/images/posts/2017/extendable-open-source/renderer.jpg" class="img-thumbnail"></div>
+    <img src="/assets/images/posts/2017/extendable-open-source/renderer.jpg" class="img-thumbnail">
+</div>
 <p>Let's say we have a service to render Matrix. It might look like this:</p>
 <pre><code class="language-php">final class MatrixRenderer()
 {

@@ -242,7 +242,8 @@ Travis is basically a terminal, that runs few command lines. What would prevent 
 </ul>
 <p>In the end, it should look like this:</p>
 <div class="text-center">
-    <img src="/assets/images/posts/2018/monorepo-split/token-after.png" class="img-thumbnail"></div>
+    <img src="/assets/images/posts/2018/monorepo-split/token-after.png" class="img-thumbnail">
+</div>
 <p><em>If you got lost in this tl;dr;s, try <a href="https://developer.ibm.com/recipes/tutorials/separating-continuous-integration-from-continuous-deployment-using-github-and-travis-ci">this nice post with so many screenshots</a>.</em></p>
 <h3 id="github-and-travis-protects-you">GitHub and Travis Protects You</h3>
 <p>Now the best part. If you accidentally commit your access token in <code>.travis.yml</code> (like I did while testing), <strong>GitHub will immediately disable it</strong> and sends you an email (to bad I found that out the next day after 4 hours of debugging with that token).</p>

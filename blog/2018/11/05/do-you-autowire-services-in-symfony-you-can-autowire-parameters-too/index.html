@@ -237,20 +237,31 @@ class FirstClass
      OpenProject\:
          resource: "../src"</code></pre>
 <p>Not bad, at least compared to the previous solution.</p>
-<table class="table table-bordered table-responsive mt-4 mb-4"><thead class="thead-inverse"><tr><th class="w-25">New Service?</th>
+<table class="table table-bordered table-responsive mt-4 mb-4">
+    <thead class="thead-inverse">
+        <tr>
+            <th class="w-25">New Service?</th>
             <th class="w-50">New Parameter?</th>
-        </tr></thead><tr><td>
-            <ul><li>create a PHP class</li>
-                <li>require it in the constructor</li>
-            </ul></td>
+        </tr>
+    </thead>
+    <tr>
         <td>
-            <ul><li>create a parameter</li>
+            <ul>
+                <li>create a PHP class</li>
+                <li>require it in the constructor</li>
+            </ul>
+        </td>
+        <td>
+            <ul>
+                <li>create a parameter</li>
                 <li>require it in the constructor</li>
                 <li class="text-danger">bind it in config</li>
                 <li class="text-danger">bind it in every config where it is required by service</li>
                 <li class="text-danger">also, remove it from every config where it's not used anymore - otherwise you'll get nice Symfony exception</li>
-            </ul></td>
-    </tr></table>
+            </ul>
+        </td>
+    </tr>
+</table>
 <p>It's that simple! <em>Just kidding, again.</em></p>
 <h2 id="autowired-parameters-in-symfony">Autowired Parameters in Symfony</h2>
 <blockquote class="blockquote text-center mt-5 mb-5">

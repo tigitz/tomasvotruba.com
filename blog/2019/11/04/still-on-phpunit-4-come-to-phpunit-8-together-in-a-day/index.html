@@ -162,25 +162,40 @@ To my surprise, <strong>upgrading PHPUnit tests was</strong>. So I was thinking,
 <p>Before we dive into the upgrading of our tests, we need to <strong>look at minimal PHP version</strong> required by each PHPUnit.
 The <a href="https://github.com/sebastianbergmann/phpunit/wiki/Development-and-Release-Process">PHPUnit release process</a> states, <strong>that each new PHPUnit major version requires a newer minor PHP version</strong>.</p>
 <p>What does that mean?</p>
-<table class="table table-bordered table-responsive"><thead class="thead-inverse"><tr><th>PHPUnit</th>
+<table class="table table-bordered table-responsive">
+    <thead class="thead-inverse">
+        <tr>
+            <th>PHPUnit</th>
             <th>Required PHP version</th>
             <th>Relase Year</th>
-        </tr></thead><tr><td>PHPUnit 4</td>
+        </tr>
+    </thead>
+    <tr>
+        <td>PHPUnit 4</td>
         <td>PHP 5.3-5.6</td>
         <td>2015</td>
-    </tr><tr><td>PHPUnit 5</td>
+    </tr>
+    <tr>
+        <td>PHPUnit 5</td>
         <td>PHP 5.6-7.4</td>
         <td>2016</td>
-    </tr><tr><td>PHPUnit 6</td>
+    </tr>
+    <tr>
+        <td>PHPUnit 6</td>
         <td>PHP 7.0-7.4</td>
         <td>2017</td>
-    </tr><tr><td>PHPUnit 7</td>
+    </tr>
+    <tr>
+        <td>PHPUnit 7</td>
         <td>PHP 7.1-7.4</td>
         <td>2018</td>
-    </tr><tr><td>PHPUnit 8</td>
+    </tr>
+    <tr>
+        <td>PHPUnit 8</td>
         <td>PHP 7.2-7.4</td>
         <td>2019</td>
-    </tr></table>
+    </tr>
+</table>
 <p>We need to plan and combine the PHP upgrade.</p>
 <p>This is <strong>the full path</strong> we'll go through:</p>
 <ul>

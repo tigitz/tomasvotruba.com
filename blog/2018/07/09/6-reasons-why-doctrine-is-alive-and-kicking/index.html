@@ -152,7 +152,8 @@ I don't know if that post helped it, but since then many <strong>things changed 
 <p>In <a href="https://www.doctrine-project.org/2017/07/25/php-7.1-requirement-and-composer.html">the official post</a> they explain why this not a BC (back-compatibility) break and I must say I really like it and often refer to it:</p>
 <blockquote class="blockquote mt-5 mb-5">
     One question we frequently hear is, "isn't dropping support for a PHP version a BC break"? In a nutshell, no. <strong>A BC break happens when there is an incompatible change that your package manager can't handle</strong>. For example, changing a method signature in a minor version is a no-go, since the composer version constraints mentioned above assume any minor upgrade can safely be used.
-    <br><br>
+    <br>
+    <br>
 However, when we drop support for an older version of PHP, <strong>composer will not consider the new version if the PHP version requirement is no longer fulfilled</strong>. Thus, you won't end up with a fatal error due to a wrong method signature, you just won't get the new version.
 </blockquote>
 <p>Until we agree on regular PHP minor version bumping as a community, I think it's the best to jump to <em>the unicorn</em> versions. Those with the biggest impact, the most stable and helpful - and go PHP 7.1 as one.</p>
@@ -165,7 +166,9 @@ However, when we drop support for an older version of PHP, <strong>composer will
 <img src="/assets/images/posts/2018/doctrine-alive/yaml-drop.png" class="img-thumbnail">
 <p>Now it's clear the Doctrine 3.0 will include this drop. This is very similar to PHP 7.1 change. The most healthy benefit is that maintainers don't have to constantly think about PHP, XML, YAML and Annotation support in everything they do - just in case it might be related to it. Instead, <strong>the focus is now more narrow, clear and as a side effect - development is more enjoyable</strong>.</p>
 <div class="text-center">
-    <img src="/assets/images/posts/2018/doctrine-alive/balloon.jpg" class="img-thumbnail"><br><em>
+    <img src="/assets/images/posts/2018/doctrine-alive/balloon.jpg" class="img-thumbnail">
+    <br>
+    <em>
         It's like a hot air balloon.<br>
         If you have too many sandbags, you won't fly as high you want no matter how hard you try.
         <br>
@@ -184,7 +187,8 @@ However, when we drop support for an older version of PHP, <strong>composer will
 <img src="/assets/images/posts/2018/doctrine-alive/contrib.png" class="img-thumbnail">
 <p>Don't take me wrong, both development and popularization are important, but if the project is not moving ahead, the popularization only vendor-lock know-ledge to slowly deprecating code.</p>
 <div class="text-center">
-    <img src="/assets/images/posts/2018/doctrine-alive/hide.jpg" class="img-thumbnail"><em>
+    <img src="/assets/images/posts/2018/doctrine-alive/hide.jpg" class="img-thumbnail">
+    <em>
         So don't forget to hide from time to time from the public and deep-work on your project.<br>
         The world will wait in excitement for your news.
     </em>

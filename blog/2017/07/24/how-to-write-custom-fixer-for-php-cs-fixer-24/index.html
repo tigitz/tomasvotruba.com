@@ -166,13 +166,17 @@ Today we'll explore a bit younger tool - <a href="https://github.com/FriendsOfPH
 <p>That main difference of PHP CS Fixer to PHP_CodeSniffer is that <strong>every Fixer has to fix issues it finds</strong>. That's why there is no <code>LineLengthFixer</code>, because fixing line length is difficult to automate.</p>
 <p>Personally I like PHP CS Fixer a bit more, <strong>because of more friendlier API, active community and openness to 3rd party packages</strong>:</p>
 <div class="text-center">
-    <img src="/assets/images/posts/2017/php-cs-fixer-intro/php-cs-fixer-require.png" class="img-thumbnail"><br><a href="https://github.com/FriendsOfPHP/PHP-CS-Fixer/blob/1c10240da97479274fd40a136c3857ff94f7f93f/composer.json#L16-L33">
+    <img src="/assets/images/posts/2017/php-cs-fixer-intro/php-cs-fixer-require.png" class="img-thumbnail">
+    <br>
+    <a href="https://github.com/FriendsOfPHP/PHP-CS-Fixer/blob/1c10240da97479274fd40a136c3857ff94f7f93f/composer.json#L16-L33">
         <code>composer.json</code> from PHP CS Fixer
     </a>
 </div>
 <p><br></p>
 <div class="text-center">
-    <img src="/assets/images/posts/2017/php-cs-fixer-intro/code-sniffer-require.png" class="img-thumbnail"><br><a href="https://github.com/squizlabs/PHP_CodeSniffer/blob/1e440f47e304e640217645e843cdacaacc5339b6/composer.json#L27-L32"><code>composer.json</code> from PHP_CodeSniffer</a>
+    <img src="/assets/images/posts/2017/php-cs-fixer-intro/code-sniffer-require.png" class="img-thumbnail">
+    <br>
+    <a href="https://github.com/squizlabs/PHP_CodeSniffer/blob/1e440f47e304e640217645e843cdacaacc5339b6/composer.json#L27-L32"><code>composer.json</code> from PHP_CodeSniffer</a>
 </div>
 <p><br></p>
 <p>Apart that, they are similar: they share <a href="/blog/2017/07/17/how-to-write-custom-sniff-for-code-sniffer-3/#1-token">tokens</a>,

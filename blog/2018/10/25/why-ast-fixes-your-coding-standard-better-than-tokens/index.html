@@ -145,7 +145,9 @@
             <h2 id="tokens">Tokens</h2>
 <p>PHP CS Fixer can upgrade to few features of new PHP using just <code>token_get_all()</code>:</p>
 <div class="text-center">
-    <img src="/assets/images/posts/2018/ast-tokens/php-cs-fixer-migrate.png" class="img-thumbnail"><p><a href="https://github.com/FriendsOfPHP/PHP-CS-Fixer/blob/03e13fb91c775a151dc57ae51e80ba3f2abe7da6/src/RuleSet.php#L209-L240"><code>RuleSet.php</code></a></p>
+    <img src="/assets/images/posts/2018/ast-tokens/php-cs-fixer-migrate.png" class="img-thumbnail">
+
+    <p><a href="https://github.com/FriendsOfPHP/PHP-CS-Fixer/blob/03e13fb91c775a151dc57ae51e80ba3f2abe7da6/src/RuleSet.php#L209-L240"><code>RuleSet.php</code></a></p>
 </div>
 <h2 id="ast">AST</h2>
 <p><a href="https://github.com/rectorphp/rector">Rector</a> can solve rather low-level changes in <a href="https://github.com/rectorphp/rector/issues/424">code quality</a> level:</p>
@@ -231,11 +233,19 @@
 Well, there isn't - <strong>it's a trap</strong>. Both for the programmer and for PHP to interpret it.</p>
 <p>So this change will not only make your code more readable but also faster. A nice side effect, right?</p>
 <p>Let's briefly compare how tokens and AST approach this:</p>
-<table class="table table-bordered table-responsive mt-5 mb-5"><thead class="thead-inverse"><tr><th class="text-center w-50">Tokens</th>
+<table class="table table-bordered table-responsive mt-5 mb-5">
+    <thead class="thead-inverse">
+        <tr>
+            <th class="text-center w-50">Tokens</th>
             <th class="text-center w-50">AST</th>
-        </tr></thead><tr><td>PHP_CodeSniffer</td>
+        </tr>
+    </thead>
+    <tr>
+        <td>PHP_CodeSniffer</td>
         <td>Rector</td>
-    </tr><tr><td>
+    </tr>
+    <tr>
+        <td>
             <a href="https://github.com/slevomat/coding-standard/blob/5ae298bdb3bbdf573d506d0da3e8c6eadde6ba12/SlevomatCodingStandard/Sniffs/Variables/UselessVariableSniff.php">
                 <code>UselessVariableSniff</code>
             </a>
@@ -245,11 +255,16 @@ Well, there isn't - <strong>it's a trap</strong>. Both for the programmer and fo
                 <code>SimplifyUselessVariableRector</code>
             </a>
         </td>
-    </tr><tr><td><strong>329 lines</strong></td>
+    </tr>
+    <tr>
+        <td><strong>329 lines</strong></td>
         <td><strong>120 lines</strong></td>
-    </tr><tr><td>2 helper services</td>
+    </tr>
+    <tr>
+        <td>2 helper services</td>
         <td>1 helper service</td>
-    </tr></table>
+    </tr>
+</table>
 <p>Note that it would be very difficult to write both versions shorter and keep reliability high and I believe <a href="https://github.com/kukulich">kukulich</a> is very good at implementing Sniffs effectively. <strong>It's a matter of used technology, not implementation skill</strong>.</p>
 <p>To sum up, <strong>the AST version takes only 36,47 % of code what token version</strong>.</p>
 <p><br></p>
