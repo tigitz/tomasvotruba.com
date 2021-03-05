@@ -8,12 +8,100 @@
         <title>Tomas Votruba writes about PHP and education</title>
         <link>https://tomasvotruba.com/</link>
         <description>PHP, Communities and Communication posts by Tomas Votruba</description>
-        <pubDate>Fri, 05 Mar 2021 00:30:59 +0000</pubDate>
+        <pubDate>Fri, 05 Mar 2021 17:16:23 +0000</pubDate>
         <atom:link href="https://tomasvotruba.com/rss.xml" rel="self" type="application/rss+xml" />
 
-        <lastBuildDate>Mon, 22 Feb 2021 00:00:00 +0000</lastBuildDate>
+        <lastBuildDate>Mon, 01 Mar 2021 00:00:00 +0000</lastBuildDate>
 
                             
+            <item>
+                <title><![CDATA[ The Best Time to Switch Gitlab to GitHub ]]></title>
+                <link>https://tomasvotruba.com/blog/best-time-to-switch-gitlab-to-github</link>
+                <description><![CDATA[ <p>I'm known for using GitHub, a true paradise for any open-source project. But I don't have much experience with private projects pricing for this and other services like GitLab or Bitbucket.
+<br>
+<br>
+I assumed they all were at a similar price layer. After today's call with one of my clients, I've learned about one benefit of GitHub Actions for private projects I didn't consider before. <strong>So much it's worth the switch.</strong></p> ]]></description>
+                <content:encoded><![CDATA[ <p>Let's take typical arguments why Gitlab CI is not better than GitHub, one by one.</p>
+<h2 id="1-gitlab-has-much-more-features-than-github">1. GitLab has Much more Features than GitHub</h2>
+<p>When we compare CI services, this is one of the typical arguments for Gitlab. I find it as useful as this: &quot;This manual has 100x more pages. It must be better&quot;.</p>
+<p>Honestly, I have trouble finding simple settings like total CI minutes, so I have to call Honza and get mentoring on navigation. That's not how a product should work. GitHub is growing on the features too. They also put effort into improving DX/UX, so these features are easy to use.</p>
+<h2 id="2-gitlab-has-more-advanced-ci">2. GitLab has More Advanced CI</h2>
+<p>This statement used to be true when the only CI GitHub had was Travis - an external service that got popular mainly thanks to the free tier for open-source projects.</p>
+<p>GitHub introduced a new CI service <a href="https://github.blog/changelog/2018-10-16-github-actions-limited-beta/">in late 2018</a>. I recall it did not seems useful to me because most of the configuration happened in Javascript. Can you imagine configuring your Symfony services config in Javascript? I don't.</p>
+<p>But they switched to YAML as well and, as a bonus, added open-source storage for &quot;Workflows&quot;. Think of it <strong>as a composer package for your CI</strong>. Do you want to publish your project via SSH? No need to learn how it works in detail and risk security breaches by invalid configuration. Just use SSH Workflow and complete needed ENV variables.</p>
+<p>That was a breaking point for me to give GitHub Actions a try and switch all my open-source projects <a href="/blog/2020/01/27/switch-travis-to-github-actions-to-reduce-stress/">from Travis to GitHub</a>.</p>
+<h2 id="3-gitlab-has-faster-ci">3. GitLab has Faster CI</h2>
+<p>I'm not sure how about 2019 and before because I was not using GitHub.
+Actions yet. We run GetRector.org on Gitlab in 2018 because Gitlab had better Docker support in CI... and it had a CI :)</p>
+<p>Since the switch from Travis/Gitlab to GitHub Actions, we've experienced much faster CI reactions. When a new commit was pushed on the former, it took 20-40 seconds until the CI server noticed. But on GitHub Actions, it's a matter of 5-10 seconds. That's blazing fast.</p>
+<p><a href="https://github.com/JanMikes">Honza Mikes</a> explained it to me: it might be related to Microsoft Azure. Since Azure and GitHub both belong to Microsoft, they probably have an internal bridge with priority speed. Corporation co-operation well done :)</p>
+<h2 id="4-gitlab-is-cheaper-than-github">4. GitLab is Cheaper than GitHub</h2>
+<p>This used to be true back in 2015 when GitLab allowed unlimited private repositories to an unlimited amount of users. That was a game changed, as GitHub had this as paid service. I recall that was a massive spike in developer interest on Twitter just because of this exclusive feature.</p>
+<p>As time went by and both companies grew, GitHub introduced private repositories for free too.</p>
+<p><a href="https://techcrunch.com/2021/01/26/gitlab-reshuffles-its-paid-subscription-plans/">In January 2021 <strong>Gitlab introduced new pricing</strong></a>. Before we get into that, I came across post about similar topic back from 2018 - <a href="https://mlaccetti.medium.com/how-gitlab-will-lose-business-bea8fb2f0fd4">How #GitLab Will Lose Business</a>. Quoting:</p>
+<blockquote class="blockquote">
+    When we got the license in 2017, it was roughly $3.25/user/mo (billed annually, works out to be $39) ... this year ... it would be $19/user/mo (billed annually, works out to be $228) — a 585% increase!
+</blockquote>
+<p>But today, pricing is about something different.</p>
+<h2 id="5-2020-it-s-all-about-ci-minutes-baby">5. 2020: It's all About CI Minutes, Baby</h2>
+<p>During consulting, I teach companies to switch positions with their CI. It's not rare that in smaller companies with up to 15 devs, the CI is set up once for a particular job, but no-one knows how to use it practically. Everyone is trying to make a build pass. That's it.</p>
+<p>Instead, <strong>the CI should be a helpful buddy</strong>, that you can delegate any tedious works - from updated, from finding bugs... to checking that new pricing has been released, and next month it will cost you much more :).</p>
+<p>We had few bugs with renamed classes and constant outside PHP in one project, usually too late or after a detailed code-review. Twig, Latte, NEON of YAML always had to be checked manually. That's such a waste of human attention and energy. Today, we don't know about these bugs because CI is taking care of them.</p>
+<p><br></p>
+<p>Saying that, <strong>the more we delegate to CI, the more minutes we spend</strong>. The more population Earth has, the more food we eat, even if we focus on optimizations like cached Container Builds. This reflects the pricing models of both services.</p>
+<p>Do you recall how much time do you spend in your CI per pull-request run? How much is that a day... or a month?</p>
+<p>From my personal experience, basic CI setup with two developers took around <strong>2000-5000 minutes a month</strong>. Both services have a limit of 3000 minutes/month for one-tier. If you cross it, you have to pay more or stop using it.</p>
+<p>But that's <strong>just bare setup</strong>. Once we add:</p>
+<ul>
+<li>monorepo split</li>
+<li>template checks</li>
+<li>config checks</li>
+<li>translation validation</li>
+<li><a href="https://tomasvotruba.com/blog/2020/12/14/new-in-symplify-9-more-than-110-phpstan-rules/">custom PHPStan rules</a></li>
+<li>automated <a href="https://tomasvotruba.com/blog/2020/12/28/why-coding-standards-should-not-be-part-of-ci/">coding standard merging</a></li>
+<li>or Rector run...</li>
+</ul>
+<p>...we can easily get over 10 000-15 000 minutes month.</p>
+<p><br></p>
+<p>Now the interesting parts comes. Let's compare compare <a href="https://github.com/pricing">GitHub pricing</a> and <a href="https://about.gitlab.com/pricing/">GitLab pricing</a> from today:</p>
+<img src="https://user-images.githubusercontent.com/924196/110146332-b9e3f900-7dda-11eb-99fd-9ffb500095fc.png" class="img-thumbnail mb-2">
+<p><em>Gitlab pricing</em></p>
+<p><br></p>
+<img src="https://user-images.githubusercontent.com/924196/110146328-b94b6280-7dda-11eb-97a2-332bbc0fd8f0.png" class="img-thumbnail mb-2">
+<p><em>GitHub pricing</em></p>
+<p><br></p>
+<p>If we take it by the best price per minute:</p>
+<ul>
+<li>3 000 minutes/4 $ from GitHub</li>
+<li>10 000 minutes/19 $ from Gitlab</li>
+<li><strong>50 000 minutes/21 $ from GitHub</strong></li>
+<li>50 000 minutes/99 $ from Gitlab</li>
+</ul>
+<p>For only 2 $, you get 40 000 extra minutes. That's madness, and that's the last why you should switch.</p>
+<p><br></p>
+<p>I think GitHub might take advantage of this an go from <em>21 $</em> to <em>69 $</em> without loosing an advantage. But it seems their product does not focus on profit, but <strong>on us - customers</strong>:</p>
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">In a world where rich companies take more and more, this is an amazing move by <a href="https://twitter.com/github?ref_src=twsrc%5Etfw">@github</a> <br><br>Thank you for taking whole open-source community to a brand new level for last 5 years ❤️️<br><br>I'm very happy to be one of your customers <a href="https://t.co/RbtpdA9s9W">pic.twitter.com/RbtpdA9s9W</a></p>— Tomas Votruba (@VotrubaT) <a href="https://twitter.com/VotrubaT/status/1360353684396380171?ref_src=twsrc%5Etfw">February 12, 2021</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<p><br></p>
+<h2 id="the-best-of-both-worlds">The Best of Both Worlds</h2>
+<p>These 2 services are back and forth in a fight over customers, and that's great. Healthy competition between 2 companies brings value to everyone - motivation for the company to grow, new features to the users, and innovations in the field.</p>
+<p>I'm delighted to have experienced GitHub and Gitlab on both open-source and private projects and see their struggle for a better product.</p>
+<p><br></p>
+<p>Do you want to switch from GitLab/Travis/Bitbucket to GitHub? Are you afraid of too high learning costs? <a href="https://tomasvotruba.com/contact/">Hire me</a> to get it done fast.</p>
+<p>Are you standing behind Gitlab even with its pricing? Let me know in the comments why.</p>
+<p><br></p>
+<p>Happy coding!</p> ]]></content:encoded>
+                <guid isPermaLink="false">https://tomasvotruba.com/blog/best-time-to-switch-gitlab-to-github</guid>
+                <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
+
+                                <pubDate>Mon, 01 Mar 2021 00:00:00 +0000</pubDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
+                
+                <comments>https://tomasvotruba.com/blog/best-time-to-switch-gitlab-to-github#disqus_thread</comments>
+            </item>
+                    
             <item>
                 <title><![CDATA[ It&#039;s not Null, it&#039;s Enum ]]></title>
                 <link>https://tomasvotruba.com/blog/its-not-null-null-its-enum</link>
@@ -133,9 +221,9 @@ final class PackageCategoryPriority
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 22 Feb 2021 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/its-not-null-null-its-enum#disqus_thread</comments>
             </item>
@@ -411,9 +499,9 @@ $latte-&gt;render('template.latte', [
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 15 Feb 2021 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2021/02/15/how-dangerous-is-your-nette-template-assign#disqus_thread</comments>
             </item>
@@ -739,9 +827,9 @@ $this-&gt;template-&gt;welcomeHere .= PHP_EOL . 'Thank you!';
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Thu, 11 Feb 2021 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2021/02/11/tree-coding-vs-bush-coding#disqus_thread</comments>
             </item>
@@ -881,9 +969,9 @@ final class Client
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 08 Feb 2021 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2021/02/08/how-to-prepare-your-neon-config-for-php-8-and-make-them-more-readable#disqus_thread</comments>
             </item>
@@ -1074,9 +1162,9 @@ Thank you for reporting!</p>
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 01 Feb 2021 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2021/02/01/effective-debug-tricks-narrow-scoping#disqus_thread</comments>
             </item>
@@ -1251,9 +1339,9 @@ final class ProductPresenter extends AbstractPresenter
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 25 Jan 2021 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2021/01/25/4-phpstan-rule-that-bring-order-to-nette-injects#disqus_thread</comments>
             </item>
@@ -1463,9 +1551,9 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 18 Jan 2021 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2021/01/18/4-ways-symplify-makes-working-with-symfony-more-fun#disqus_thread</comments>
             </item>
@@ -1616,9 +1704,9 @@ services:
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 11 Jan 2021 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2021/01/11/how-to-detect-complex-duplicated-methods-with-phpstan#disqus_thread</comments>
             </item>
@@ -1795,9 +1883,9 @@ While <code>@return int</code> gets promoted to child methods, <code>@template</
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 04 Jan 2021 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2021/01/04/phpstan-abstract-parent-generics-dummies#disqus_thread</comments>
             </item>
@@ -1874,9 +1962,9 @@ One run can take 3 mins on average. That's 45 minutes. What happens when a codin
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 28 Dec 2020 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2020/12/28/why-coding-standards-should-not-be-part-of-ci#disqus_thread</comments>
             </item>
@@ -2076,9 +2164,9 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 21 Dec 2020 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2020/12/21/5-new-combos-opened-by-symfony-52-and-php-80#disqus_thread</comments>
             </item>
@@ -2160,9 +2248,9 @@ Was it worth it? Hell yea!</p> ]]></description>
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 14 Dec 2020 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2020/12/14/new-in-symplify-9-more-than-110-phpstan-rules#disqus_thread</comments>
             </item>
@@ -2273,9 +2361,9 @@ Rector 0.9 and ECS 9 build on Skipper, so be sure to use its syntax in <code>ecs
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Thu, 10 Dec 2020 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2020/12/10/new-in-symplify-9-skipper-skipping-files-and-rules-made-simple#disqus_thread</comments>
             </item>
@@ -2352,9 +2440,9 @@ final class SomeClass
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 07 Dec 2020 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2020/12/07/new-in-symplify-9-markdown-diff#disqus_thread</comments>
             </item>
@@ -2488,9 +2576,9 @@ return new CodeSample('bad code', 'good code');</code></pre>
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 30 Nov 2020 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2020/11/30/new-in-symplify-9-documentation-generator-for-php-cs-fixer-code-sniffer-phpstan-rector-rules#disqus_thread</comments>
             </item>
@@ -2603,9 +2691,9 @@ vendor/bin/easy-ci php-json
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 23 Nov 2020 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2020/11/23/how-to-get-dynamic-php-version-matrix-in-github-actions#disqus_thread</comments>
             </item>
@@ -2762,9 +2850,9 @@ foreach ($matrix['packages'] as $package) {
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 16 Nov 2020 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2020/11/16/how-to-make-dynamic-matrix-in-github-actions#disqus_thread</comments>
             </item>
@@ -2929,9 +3017,9 @@ jobs:
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 09 Nov 2020 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2020/11/09/new-in-symplify-9-monorepo-split-with-github-action#disqus_thread</comments>
             </item>
@@ -2998,9 +3086,9 @@ It takes ~4&nbsp;minutes of waiting for Travis to notice, then 3 minutes to spli
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 02 Nov 2020 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2020/11/02/symplify-monorepo-builder-split-fractal-of-bad-design#disqus_thread</comments>
             </item>
@@ -3119,9 +3207,9 @@ class SomeClass
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Sat, 31 Oct 2020 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2020/10/31/new-in-symplify-9-composer-json-manipulator-in-object-api#disqus_thread</comments>
             </item>
@@ -3279,9 +3367,9 @@ final class PackageScoperApplication extends Application
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 26 Oct 2020 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2020/10/26/the-bullet-proof-symfony-command-naming#disqus_thread</comments>
             </item>
@@ -3396,9 +3484,9 @@ jobs:
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 19 Oct 2020 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2020/10/19/how-to-split-test-monorepo-with-composer-2#disqus_thread</comments>
             </item>
@@ -3547,9 +3635,9 @@ final class SomeStatic
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 05 Oct 2020 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2020/10/05/how-to-reveal-static-call-relationships-in-your-code#disqus_thread</comments>
             </item>
@@ -3619,9 +3707,9 @@ A small tip that made my everyday work with CI more colorful.</p> ]]></descripti
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 28 Sep 2020 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2020/09/28/how-to-add-colors-to-continuious-integration-output#disqus_thread</comments>
             </item>
@@ -3732,9 +3820,9 @@ final class SomeService
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 21 Sep 2020 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2020/09/21/symfony-autobind-parameter-is-dead-long-live-constant-parameters#disqus_thread</comments>
             </item>
@@ -3803,9 +3891,9 @@ composer fix-cs</code></pre>
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 14 Sep 2020 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2020/09/14/how-to-apply-coding-standard-on-php-snippets-in-markdown-files#disqus_thread</comments>
             </item>
@@ -3874,9 +3962,9 @@ services:
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 07 Sep 2020 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2020/09/07/introducing-object-calisthenics-rules-for-phpstan#disqus_thread</comments>
             </item>
@@ -4050,9 +4138,9 @@ foreach ($infectables as $infectable) {
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 31 Aug 2020 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2020/08/31/how-static-methods-kills-you-like-corona#disqus_thread</comments>
             </item>
@@ -4267,9 +4355,9 @@ return static function (DoctrineConfigurator $doctrineConfigurator): void {
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 24 Aug 2020 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2020/08/24/what-if-we-remove-strings-from-symfony-extension-configuratoin#disqus_thread</comments>
             </item>
@@ -4988,9 +5076,9 @@ If we have to worry about every single line of code, we slowly freeze.
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 10 Aug 2020 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2020/08/10/4-ways-to-make-your-nette-project-more-readable#disqus_thread</comments>
             </item>
@@ -5082,9 +5170,9 @@ I don't know what to say! You do care, and that's a great gesture
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 03 Aug 2020 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2020/08/03/how-give-away-1500-eur--in-1-tweet-and-help-25-people-learn-something-new#disqus_thread</comments>
             </item>
@@ -5344,9 +5432,9 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 20 Jul 2020 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2020/07/20/how-to-update-hundreds-of-test-fixtures-with-single-phpunit-run#disqus_thread</comments>
             </item>
@@ -5527,9 +5615,9 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Thu, 16 Jul 2020 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2020/07/16/10-cool-features-you-get-after-switching-from-yaml-to-php-configs#disqus_thread</comments>
             </item>
@@ -5646,9 +5734,9 @@ final class FirstTryTest extends TestCase
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 13 Jul 2020 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2020/07/13/the-most-effetive-test-i-found-in-7-years-of-testing#disqus_thread</comments>
             </item>
@@ -5969,9 +6057,9 @@ abstract class AbstactSomePresenter
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Thu, 02 Jul 2020 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2020/07/02/how-to-patch-package-in-vendor-yet-allow-its-updates#disqus_thread</comments>
             </item>
@@ -6058,9 +6146,9 @@ I'm just finishing the reading of <a href="https://www.amazon.com/The-Inevitable
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 29 Jun 2020 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2020/06/29/how-will-programming-look-like-in-2025#disqus_thread</comments>
             </item>
@@ -6182,9 +6270,9 @@ and write future compatible code your children will thank you for.
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 22 Jun 2020 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2020/06/22/why-class-constants-should-be-typed#disqus_thread</comments>
             </item>
@@ -6764,9 +6852,9 @@ final class ProductRepository extends AbstractRepository
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 01 Jun 2020 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2020/06/01/inject-or-required-will-get-you-any-service-fast#disqus_thread</comments>
             </item>
@@ -6987,9 +7075,9 @@ $this-&gt;eventDispatcher-&gt;dispatch(new PostAddedEvent($post));</code></pre>
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 18 May 2020 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2020/05/18/the-future-of-pehapkari-meetups-and-trainings-you#disqus_thread</comments>
             </item>
@@ -7581,9 +7669,9 @@ Keep in mind these steps should generally be relevant to most PHP projects.</p>
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 27 Apr 2020 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2020/04/27/forget-complex-migrations-use-cleaning-lady-checklist#disqus_thread</comments>
             </item>
@@ -7784,9 +7872,9 @@ It's for easy and clear use.</p>
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 20 Apr 2020 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2020/04/20/how-to-hydrate-arrays-to-objects-via-constructor#disqus_thread</comments>
             </item>
@@ -8090,9 +8178,9 @@ final class ContactController extends AbstractController
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 13 Apr 2020 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2020/04/13/how-to-migrate-spaghetti-to-304-symfony-5-controllers-over-weekend#disqus_thread</comments>
             </item>
@@ -8307,9 +8395,9 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 30 Mar 2020 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2020/03/30/dont-show-your-privates-to-public#disqus_thread</comments>
             </item>
@@ -8672,9 +8760,9 @@ imports:
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 16 Mar 2020 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2020/03/16/statie-is-dead-long-live-symfony-static-dumper#disqus_thread</comments>
             </item>
@@ -8801,9 +8889,9 @@ I'll write about in the next post, which will focus only on migration.</p>
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 09 Mar 2020 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2020/03/09/art-of-letting-go#disqus_thread</comments>
             </item>
@@ -8928,9 +9016,9 @@ Take care of your codebase, and your codebase will take care of you when you're 
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 02 Mar 2020 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2020/03/02/we-do-not-need-senior-developers-we-need-senior-code-bases#disqus_thread</comments>
             </item>
@@ -9079,9 +9167,9 @@ composer.json</code></pre>
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 17 Feb 2020 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2020/02/17/local-packages-3-years-later#disqus_thread</comments>
             </item>
@@ -9247,9 +9335,9 @@ jobs:
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 10 Feb 2020 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2020/02/10/how-to-test-monorepo-after-split-before-actual-split#disqus_thread</comments>
             </item>
@@ -9344,9 +9432,9 @@ How can we do better?
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 03 Feb 2020 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2020/02/03/how-to-run-rector-and-phpstan-on-huge-project-in-3-seconds-with-phpstorm#disqus_thread</comments>
             </item>
@@ -9542,9 +9630,9 @@ This sucks a lot. I tried to have GitHub Actions on <a href="https://github.com/
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 27 Jan 2020 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2020/01/27/switch-travis-to-github-actions-to-reduce-stress#disqus_thread</comments>
             </item>
@@ -9589,9 +9677,9 @@ Does it though in 2020?</p> ]]></description>
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 20 Jan 2020 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2020/01/20/introducing-phar-for-easy-coding-standard#disqus_thread</comments>
             </item>
@@ -9683,9 +9771,9 @@ Which and how can we improve?</p> ]]></description>
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 13 Jan 2020 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2020/01/13/why-is-first-instant-feedback-crucial-to-developers#disqus_thread</comments>
             </item>
@@ -10483,9 +10571,9 @@ vendor/bin/rector process src --config vendor/rector/rector/config/set/doctrine-
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 30 Dec 2019 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2019/12/30/doctrine-behaviors-2-0-reloaded#disqus_thread</comments>
             </item>
@@ -10688,9 +10776,9 @@ jobs:
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 23 Dec 2019 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2019/12/23/5-things-i-improve-when-i-get-to-new-repository#disqus_thread</comments>
             </item>
@@ -10941,9 +11029,9 @@ php -S localhost:8000 -t public</code></pre>
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 16 Dec 2019 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2019/12/16/8-steps-you-can-make-before-huge-upgrade-to-make-it-faster-cheaper-and-more-stable#disqus_thread</comments>
             </item>
@@ -11361,9 +11449,9 @@ Check this PR on Rector
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 02 Dec 2019 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2019/12/02/how-to-box-symfony-app-to-phar-without-killing-yourself#disqus_thread</comments>
             </item>
@@ -11510,9 +11598,9 @@ If it's two, it's too long.
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 25 Nov 2019 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2019/11/25/the-single-best-skill-to-master-command-line#disqus_thread</comments>
             </item>
@@ -12337,9 +12425,9 @@ This is it.</p> ]]></description>
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 28 Oct 2019 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2019/10/28/all-you-always-wanted-to-know-about-monorepo-but-were-afraid-to-ask#disqus_thread</comments>
             </item>
@@ -12418,9 +12506,9 @@ To make that happen, each article would have to be checked for compatibility wit
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 16 Sep 2019 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2019/09/16/why-software-articles-must-be-ci-tested#disqus_thread</comments>
             </item>
@@ -12819,9 +12907,9 @@ jobs:
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 02 Sep 2019 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2019/09/02/how-to-speedup-test-coverage-on-travis-by-95-percent#disqus_thread</comments>
             </item>
@@ -13232,9 +13320,9 @@ Provide a list of codes for all countries in the world, and in a few minutes you
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 19 Aug 2019 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2019/08/19/do-we-have-more-than-1024-php-groups-in-the-world#disqus_thread</comments>
             </item>
@@ -14557,9 +14645,9 @@ So I migrate them to composer scripts, so people can actually use them without h
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 01 Jul 2019 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2019/07/01/5-workflow-tips-every-php-developer-should-know#disqus_thread</comments>
             </item>
@@ -14661,9 +14749,9 @@ fs
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 24 Jun 2019 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2019/06/24/do-you-use-php-codesniffer-and-php-cs-fixer-phpstorm-plugin-you-are-slow-and-expensive#disqus_thread</comments>
             </item>
@@ -14979,9 +15067,9 @@ var_dump($response);</code></pre>
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 17 Jun 2019 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2019/06/17/how-to-upgrade-meetup-com-api-to-oauth2-with-guzzle#disqus_thread</comments>
             </item>
@@ -15127,9 +15215,9 @@ $input-&gt;getOption('resource');</code></pre>
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Thu, 16 May 2019 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2019/05/16/don-t-ever-use-listeners#disqus_thread</comments>
             </item>
@@ -15300,9 +15388,9 @@ One-Time donation through PayPal
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Thu, 09 May 2019 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2019/05/09/is-rector-saving-you-time-support-it-on-patreon#disqus_thread</comments>
             </item>
@@ -15386,9 +15474,9 @@ Or 8.1, when 8 becomes more mature?</p>
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 06 May 2019 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2019/05/06/end-of-gophp71-org#disqus_thread</comments>
             </item>
@@ -15529,9 +15617,9 @@ Ops, I forgot to tell you. Let's fix it because I'd love to meet you and hear ab
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 29 Apr 2019 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2019/04/29/rector-european-tour-in-may-june-2019#disqus_thread</comments>
             </item>
@@ -15686,9 +15774,9 @@ final class PriceCalculatorFactory
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Thu, 25 Apr 2019 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2019/04/25/don-t-give-up-your-php-code-for-compiler-passes-so-easily#disqus_thread</comments>
             </item>
@@ -15754,9 +15842,9 @@ So when I looked at stats of <a href="/package-downloads-by-version/#laravel-fra
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Thu, 18 Apr 2019 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2019/04/18/symfony-4-2-is-used-2-times-more-than-symfony-3-4#disqus_thread</comments>
             </item>
@@ -15894,9 +15982,9 @@ $this-&gt;productRepository-&gt;save($product);</code></pre>
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 15 Apr 2019 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2019/04/15/pattern-refactoring#disqus_thread</comments>
             </item>
@@ -16054,9 +16142,9 @@ $this-&gt;productRepository-&gt;save($product);</code></pre>
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Thu, 11 Apr 2019 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2019/04/11/trends-of-php-frameworks-in-numbers#disqus_thread</comments>
             </item>
@@ -16158,9 +16246,9 @@ It's a company setting, that you can feel in the atmosphere of Symfony conferenc
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 08 Apr 2019 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2019/04/08/what-you-lose-by-switching-to-symfony#disqus_thread</comments>
             </item>
@@ -16432,9 +16520,9 @@ rules in these tools, we'll learn how to build them</strong> to solve your probl
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 01 Apr 2019 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2019/04/01/removing-static-there-and-back-again#disqus_thread</comments>
             </item>
@@ -16698,9 +16786,9 @@ Success!</code></pre>
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Thu, 28 Mar 2019 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2019/03/28/how-to-mock-final-classes-in-phpunit#disqus_thread</comments>
             </item>
@@ -17471,9 +17559,9 @@ Today we'll look on <strong>package vendor-locks</strong> caused by brain drain.
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 11 Mar 2019 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2019/03/11/why-we-migrated-from-nette-to-symfony-in-3-weeks-part-3#disqus_thread</comments>
             </item>
@@ -17550,9 +17638,9 @@ Today we'll look on one of the core reasons for this migration - <strong>escapin
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Thu, 07 Mar 2019 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2019/03/07/why-we-migrated-from-nette-to-symfony-in-3-weeks-part-2#disqus_thread</comments>
             </item>
@@ -17833,9 +17921,9 @@ vendor/bin/rector proces</code></pre>
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 25 Feb 2019 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2019/02/25/5-tips-to-effective-work-with-github-repository#disqus_thread</comments>
             </item>
@@ -17942,9 +18030,9 @@ $this-&gt;translation-&gt;translate('Hi, my name is %name%', [
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Thu, 21 Feb 2019 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2019/02/21/how-we-migrated-from-nette-to-symfony-in-3-weeks-part-1#disqus_thread</comments>
             </item>
@@ -18072,9 +18160,9 @@ vendor/bin/monorepo-builder release v7.0.0-beta6 --stage after-release</code></p
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 18 Feb 2019 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2019/02/18/how-we-automated-shopsys-packages-release-from-2-days-to-1-console-command#disqus_thread</comments>
             </item>
@@ -18265,9 +18353,9 @@ final class HTMLPurifierFactory
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Thu, 14 Feb 2019 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2019/02/14/why-config-coding-sucks#disqus_thread</comments>
             </item>
@@ -18469,9 +18557,9 @@ function safeReplaceCallback($pattern, $callback, $subject)
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Thu, 07 Feb 2019 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2019/02/07/what-i-learned-by-using-thecodingmachine-safe#disqus_thread</comments>
             </item>
@@ -18670,9 +18758,9 @@ E.g. the latest released Symfony version is <code>4.2.x</code>, next one will be
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Thu, 31 Jan 2019 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2019/01/31/monorepo-composer-magic#disqus_thread</comments>
             </item>
@@ -18750,9 +18838,9 @@ $service; // PHPStorm: object of "Type"</code></pre>
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 28 Jan 2019 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2019/01/28/2-files-that-your-symfony-application-misses#disqus_thread</comments>
             </item>
@@ -18963,9 +19051,9 @@ class ResponseFactory
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Thu, 24 Jan 2019 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2019/01/24/how-to-kill-parents#disqus_thread</comments>
             </item>
@@ -19077,9 +19165,9 @@ parameters:
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 21 Jan 2019 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2019/01/21/friends-of-php-is-opening-api-with-250-meetups-a-month#disqus_thread</comments>
             </item>
@@ -19172,9 +19260,9 @@ gulp</code></pre>
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Thu, 10 Jan 2019 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2019/01/10/9-steps-to-migrate-from-jekyll-to-statie#disqus_thread</comments>
             </item>
@@ -19231,9 +19319,9 @@ gulp</code></pre>
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 31 Dec 2018 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2018/12/31/your-most-favorite-posts-in-2018#disqus_thread</comments>
             </item>
@@ -19314,9 +19402,9 @@ I want to write about you, my dear reader and contributor. <strong>I would not m
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 24 Dec 2018 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2018/12/24/thank-you#disqus_thread</comments>
             </item>
@@ -19506,9 +19594,9 @@ Instead of watching the 45-min talk, <strong>enjoy 9 cherry picked tips in 4,5-m
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Thu, 13 Dec 2018 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2018/12/13/kirill-smelov-s-phpstorm-tips-in-9-gifs#disqus_thread</comments>
             </item>
@@ -19812,9 +19900,9 @@ Don't learn to code. <strong>Learn how to think.</strong></p> ]]></description>
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Thu, 06 Dec 2018 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2018/12/06/dont-learn-to-code#disqus_thread</comments>
             </item>
@@ -19891,9 +19979,9 @@ How to prevent that and keep your content quality high?</p> ]]></description>
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 03 Dec 2018 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2018/12/03/it-bloggers-deprecate-your-posts-to-stop-spreading-legacy#disqus_thread</comments>
             </item>
@@ -20185,9 +20273,9 @@ final class AppKernel extends Kernel
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Thu, 29 Nov 2018 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2018/11/29/how-to-manage-configuration-in-symfony-without-bundle-extension-and-configuraiton#disqus_thread</comments>
             </item>
@@ -20549,9 +20637,9 @@ $rootNode
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 26 Nov 2018 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2018/11/26/14-tips-to-write-php-code-that-is-hard-to-maintain-and-upgrade#disqus_thread</comments>
             </item>
@@ -20711,9 +20799,9 @@ Before monorepo hype takes over private PHP projects, I think <strong>you should
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 19 Nov 2018 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2018/11/19/when-you-should-use-monorepo-and-when-local-packages#disqus_thread</comments>
             </item>
@@ -21277,9 +21365,9 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Thu, 01 Nov 2018 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2018/11/01/how-teach-your-team-private-method-sorting-in-3-mins#disqus_thread</comments>
             </item>
@@ -21450,9 +21538,9 @@ for ($i = 0; $i &lt; strlen($secret); ++$i) {
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 29 Oct 2018 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2018/10/29/7-tips-to-get-the-most-out-of-travis-ci#disqus_thread</comments>
             </item>
@@ -21614,9 +21702,9 @@ Well, there isn't - <strong>it's a trap</strong>. Both for the programmer and fo
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Thu, 25 Oct 2018 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2018/10/25/why-ast-fixes-your-coding-standard-better-than-tokens#disqus_thread</comments>
             </item>
@@ -21820,9 +21908,9 @@ There is huge PHP community I never knew about, with many awesome people... not 
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Thu, 18 Oct 2018 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2018/10/18/how-i-almost-missed-my-talk-in-php-asia-conference#disqus_thread</comments>
             </item>
@@ -21888,9 +21976,9 @@ This book is about <strong>hackers' minds</strong>.</p>
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 15 Oct 2018 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2018/10/15/what-is-your-third-door-book-review#disqus_thread</comments>
             </item>
@@ -22066,9 +22154,9 @@ Your readers will have <strong>50 % more brain energy to improve your code</stro
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Thu, 11 Oct 2018 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2018/10/11/hi-my-name-is-tom-conctat-vs-in-sprintf-vs-in-string-variables#disqus_thread</comments>
             </item>
@@ -22279,9 +22367,9 @@ Regex <code>\b(is)\b</code> applied to <code>"This island is beautiful"</code> r
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 01 Oct 2018 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2018/10/01/new-in-symplify-5-generate-rich-precise-and-smart-changelog-in-seconds#disqus_thread</comments>
             </item>
@@ -22311,9 +22399,9 @@ I often ask myself: What values should it spread around the world? Where do I ta
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Thu, 27 Sep 2018 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2018/09/27/open-source-behind-the-scenes-finding-the-rector-vision#disqus_thread</comments>
             </item>
@@ -22531,9 +22619,9 @@ var_dump($parameterBag-&gt;get('festivals'));
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Thu, 20 Sep 2018 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2018/09/20/new-in-symplify-5-3-new-cool-features-of-package-builder#disqus_thread</comments>
             </item>
@@ -22833,9 +22921,9 @@ Only you can choose if you let in 150 incoherent tweets of 10 page from a book i
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Thu, 13 Sep 2018 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2018/09/13/your-brain-is-your-garden#disqus_thread</comments>
             </item>
@@ -22906,9 +22994,9 @@ Now I support PHP 7.1 and 7.2 and it's just a fine amount of PHP versions to mai
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 10 Sep 2018 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2018/09/10/5-advices-i-would-love-to-get-before-starting-to-maintain-open-source#disqus_thread</comments>
             </item>
@@ -23027,9 +23115,9 @@ See the <a href="https://github.com/TomasVotruba/open-project/blob/master/monore
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Thu, 06 Sep 2018 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2018/09/06/how-to-develop-multiple-symfony-applications-fast-while-keeping-the-quality#disqus_thread</comments>
             </item>
@@ -23231,9 +23319,9 @@ cd ../..</code></pre>
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 03 Sep 2018 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2018/09/03/4-ways-to-add-global-option-or-argument-to-symfony-console-application#disqus_thread</comments>
             </item>
@@ -23320,9 +23408,9 @@ final class ApiGenTest extends TestCase
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Thu, 30 Aug 2018 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2018/08/30/ways-i-fucked-up-open-source-code-mock-everything-and-test-units#disqus_thread</comments>
             </item>
@@ -23579,9 +23667,9 @@ public function __construct()
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 27 Aug 2018 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2018/08/27/why-and-how-to-avoid-the-memory-lock#disqus_thread</comments>
             </item>
@@ -23631,9 +23719,9 @@ public function __construct()
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Thu, 23 Aug 2018 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2018/08/23/9-features-of-symfony-plugin-you-should-not-miss-in-gifs#disqus_thread</comments>
             </item>
@@ -23860,9 +23948,9 @@ If artificial intelligence could figure this all out for us, we'd be screwed :).
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 20 Aug 2018 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2018/08/20/painful-experience-over-solutions-extend-configuratin-in-easy-admin-bundle-with-collector#disqus_thread</comments>
             </item>
@@ -23987,9 +24075,9 @@ try {
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Thu, 16 Aug 2018 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2018/08/16/whats-new-in-php-73-in-30-seconds-in-diffs#disqus_thread</comments>
             </item>
@@ -24131,9 +24219,9 @@ $splFileInfo-&gt;getBasename('.' . $splFileInfo-&gt;getExtension());
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 13 Aug 2018 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2018/08/13/hidden-gems-of-php-packages-symfony-finder-and-spl-file-info#disqus_thread</comments>
             </item>
@@ -24234,9 +24322,9 @@ Then I moved to coworking center into open-space and suddenly - it stopped. I be
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Thu, 09 Aug 2018 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2018/08/09/why-is-your-company-losing-money-by-not-open-sourcing-2-code-quality#disqus_thread</comments>
             </item>
@@ -24415,9 +24503,9 @@ final class SomeCommand extends Command
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 06 Aug 2018 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2018/08/06/stylish-and-standard-console-output-with-symfony-style#disqus_thread</comments>
             </item>
@@ -24582,9 +24670,9 @@ exit($application-&gt;run());</code></pre>
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Thu, 02 Aug 2018 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2018/08/02/5-gotchas-of-the-bin-file-in-php-cli-applications#disqus_thread</comments>
             </item>
@@ -24718,9 +24806,9 @@ return strpos('Content', $lookingFor) === strlen($lookingFor);</code></pre>
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 30 Jul 2018 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2018/07/30/hidden-gems-of-php-packages-nette-utils#disqus_thread</comments>
             </item>
@@ -24806,9 +24894,9 @@ So instead of posting a job offer and paying agencies which knows nothing about 
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Thu, 26 Jul 2018 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2018/07/26/why-is-your-company-losing-money-by-not-open-sourcing-1-hiring#disqus_thread</comments>
             </item>
@@ -24916,9 +25004,9 @@ After all, <a href="https://xkcd.com/simplewriter">1000 words</a> are all you ne
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 23 Jul 2018 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2018/07/23/5-signs-should-never-have-a-talk-abroad#disqus_thread</comments>
             </item>
@@ -25034,9 +25122,9 @@ Leo <a href="https://zenhabits.net">writes</a> minimalist tips from daily life t
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Thu, 12 Jul 2018 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2018/07/12/20-notes-from-peace-is-every-step-book#disqus_thread</comments>
             </item>
@@ -25112,9 +25200,9 @@ However, when we drop support for an older version of PHP, <strong>composer will
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 09 Jul 2018 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2018/07/09/6-reasons-why-doctrine-is-alive-and-kicking#disqus_thread</comments>
             </item>
@@ -25479,9 +25567,9 @@ at level 2, and somebody only wants the level 10, if there is something new he c
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 02 Jul 2018 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2018/07/02/cluster-more-interactive-than-book-deeper-than-post#disqus_thread</comments>
             </item>
@@ -25563,9 +25651,9 @@ Do you buy &quot;a Symfony book&quot; and read it? And then you know Symfony? Yo
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Thu, 28 Jun 2018 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2018/06/28/dont-read-books#disqus_thread</comments>
             </item>
@@ -25706,9 +25794,9 @@ vendor/bin/changelog-linker dump-merges --dry-run --in-packages --in-categories<
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 25 Jun 2018 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2018/06/25/let-changelog-linker-generate-changelog-for-you#disqus_thread</comments>
             </item>
@@ -25752,9 +25840,9 @@ More posts to come on this topic.</p>
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Thu, 21 Jun 2018 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2018/06/21/open-source-is-selfish#disqus_thread</comments>
             </item>
@@ -25897,9 +25985,9 @@ You ask her: &quot;On scale 1 to 10, how confident do you feel you'll make the t
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 18 Jun 2018 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2018/06/18/14-surprising-tip-from-selling-is-human-to-influence-others#disqus_thread</comments>
             </item>
@@ -26063,9 +26151,9 @@ Why the collector class doesn't implement the interface and other questions will
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Thu, 14 Jun 2018 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2018/06/14/collector-pattern-for-dummies#disqus_thread</comments>
             </item>
@@ -26713,9 +26801,9 @@ Today, we look on the answer.</p> ]]></description>
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Thu, 31 May 2018 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2018/05/31/symfony-vs-laravel-vs-nette-which-php-framework-you-should-choose#disqus_thread</comments>
             </item>
@@ -26877,9 +26965,9 @@ function createApplication()
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 28 May 2018 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2018/05/28/build-your-first-symfony-console-application-with-dependency-injection-under-4-files#disqus_thread</comments>
             </item>
@@ -27774,9 +27862,9 @@ $application-&gt;run();</code></pre>
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 07 May 2018 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2018/05/07/why-you-should-combine-symfony-console-and-dependency-injection#disqus_thread</comments>
             </item>
@@ -27855,9 +27943,9 @@ It might be a multi-layer network, it might be a deep-learning network, it might
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Thu, 03 May 2018 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2018/05/03/how-do-you-treat-your-own-first-ai#disqus_thread</comments>
             </item>
@@ -27922,9 +28010,9 @@ Today we'll climb together.</p> ]]></description>
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 30 Apr 2018 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2018/04/30/programming-climbing-a-huge-mountain#disqus_thread</comments>
             </item>
@@ -28158,9 +28246,9 @@ Uff, I just get headache by writing this code.</p>
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Thu, 26 Apr 2018 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2018/04/26/how-i-got-into-static-trap-and-made-fool-of-myself#disqus_thread</comments>
             </item>
@@ -28422,9 +28510,9 @@ I've abandoned this [action inject] approach because it makes it harder to diffe
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 23 Apr 2018 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2018/04/23/how-to-slowly-turn-your-symfony-project-to-legacy-with-action-injection#disqus_thread</comments>
             </item>
@@ -28502,9 +28590,9 @@ Today I'll share with you <strong>5 tips that proven useful during my programmin
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Thu, 19 Apr 2018 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2018/04/19/4-tips-to-get-emotions-to-your-blogging-about-programming#disqus_thread</comments>
             </item>
@@ -28614,9 +28702,9 @@ $value = false;</code></pre>
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 16 Apr 2018 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2018/04/16/5-steps-to-your-first-fixer-or-sniff-test#disqus_thread</comments>
             </item>
@@ -28703,9 +28791,9 @@ This post is <em>the best of</em> selection just for you and if you feel you lik
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Thu, 12 Apr 2018 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2018/04/12/the-best-5-of-256-bloghacks-book#disqus_thread</comments>
             </item>
@@ -28771,9 +28859,9 @@ if ($isNotTrue) {
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 09 Apr 2018 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2018/04/09/try-psr-12-on-your-code-today#disqus_thread</comments>
             </item>
@@ -29035,9 +29123,9 @@ final class AppKernel extends Kernel
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Thu, 05 Apr 2018 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2018/04/05/4-ways-to-speedup-your-symfony-development-with-packagebuilder#disqus_thread</comments>
             </item>
@@ -29209,9 +29297,9 @@ vendor/bin/ecs --config vendor/rector/rector/ecs-after-rector.php --fix</code></
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 02 Apr 2018 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2018/04/02/rectify-turn-repositories-to-services-in-symfony#disqus_thread</comments>
             </item>
@@ -29547,9 +29635,9 @@ For me, the PHP was not about tools, blogs under 5 minutes or the fastest framew
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Thu, 22 Mar 2018 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2018/03/22/how-teaching-suicides-itself-by-killing-the-passion#disqus_thread</comments>
             </item>
@@ -29745,9 +29833,9 @@ And if they don't, they're stupid and they should learn that first.</p>
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 19 Mar 2018 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2018/03/19/how-to-criticize-like-a-senior-programmer#disqus_thread</comments>
             </item>
@@ -29775,9 +29863,9 @@ And if they don't, they're stupid and they should learn that first.</p>
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Thu, 15 Mar 2018 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2018/03/15/monorepo-on-the-rise-in-php#disqus_thread</comments>
             </item>
@@ -30055,9 +30143,9 @@ public function add()
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 05 Mar 2018 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2018/03/05/rector-part-3-why-instant-upgrades#disqus_thread</comments>
             </item>
@@ -30254,9 +30342,9 @@ That's what <a href="https://ondrej.mirtes.cz">Ondřej Mirtes</a> uses in <a hre
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 26 Feb 2018 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2018/02/26/rector-part-2-maturity-of-php-ecocystem-and-founding-fathers#disqus_thread</comments>
             </item>
@@ -30520,9 +30608,9 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 12 Feb 2018 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2018/02/12/sleep-shorter-to-get-62-percent-smarter#disqus_thread</comments>
             </item>
@@ -30706,9 +30794,9 @@ See pull-request #620
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 29 Jan 2018 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2018/01/29/how-to-deal-with-haters-in-comments-and-github#disqus_thread</comments>
             </item>
@@ -30882,9 +30970,9 @@ services:
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 22 Jan 2018 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2018/01/22/how-to-get-parameter-in-symfony-controller-the-clean-way#disqus_thread</comments>
             </item>
@@ -31215,9 +31303,9 @@ else will handle cleaning up the city</strong> #yolo</p>
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 08 Jan 2018 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2018/01/08/clean-and-decoupled-controllers-commands-and-event-subscribers-once-and-for-all-with-delegator-pattern#disqus_thread</comments>
             </item>
@@ -31517,9 +31605,9 @@ final class FileSystemTest extends TestCase
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 25 Dec 2017 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2017/12/25/composer-local-packages-for-dummies#disqus_thread</comments>
             </item>
@@ -31597,9 +31685,9 @@ Artificial Intelligence is now in same level as mobile phones playing mp3s. Or <
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 04 Dec 2017 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2017/12/04/life30-what-will-you-do-when-ai-takes-over-the-world#disqus_thread</comments>
             </item>
@@ -31674,9 +31762,9 @@ How is adoption going in open-source and why it should continue from bleeding-ed
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 27 Nov 2017 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2017/11/27/united-php-71-adoption-6-months-later#disqus_thread</comments>
             </item>
@@ -31764,9 +31852,9 @@ I gave feedback on Jobs.cz, Skrz.cz and few more ads and this is <strong>summary
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 20 Nov 2017 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2017/11/20/how-to-write-interesting-job-offers-for-programmers#disqus_thread</comments>
             </item>
@@ -31848,9 +31936,9 @@ But remember - you have 3 years, they will end and so will this nice-and-easy pe
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 13 Nov 2017 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2017/11/13/7-tips-you-should-know-before-going-to-university#disqus_thread</comments>
             </item>
@@ -32014,9 +32102,9 @@ It means <strong>it will be updated as new versions of code used here will appea
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 06 Nov 2017 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2017/11/06/how-to-change-php-code-with-abstract-syntax-tree#disqus_thread</comments>
             </item>
@@ -32154,9 +32242,9 @@ Are you ready?</p> ]]></description>
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 30 Oct 2017 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2017/10/30/what-can-you-learn-from-menstruation-and-symfony-releases#disqus_thread</comments>
             </item>
@@ -32217,9 +32305,9 @@ That would be ok, if you're used to full inbox, where your brain is programmed t
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 23 Oct 2017 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2017/10/23/imbox-zero#disqus_thread</comments>
             </item>
@@ -32666,9 +32754,9 @@ How to get such feedback?</p> ]]></description>
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 09 Oct 2017 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2017/10/09/how-to-get-the-most-valuable-feedback-you-can-get#disqus_thread</comments>
             </item>
@@ -32724,9 +32812,9 @@ Are you tired of reading technical books? Take a rest with these 3.</p> ]]></des
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 25 Sep 2017 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2017/09/25/3-non-it-books-that-help-you-to-become-better-programmer#disqus_thread</comments>
             </item>
@@ -32942,9 +33030,9 @@ class Html
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 11 Sep 2017 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2017/09/11/how-to-write-open-source-in-php-3-deprecating-code#disqus_thread</comments>
             </item>
@@ -33348,9 +33436,9 @@ foreach ($tokens as $token) {
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 31 Jul 2017 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2017/07/31/how-php-coding-standard-tools-actually-work#disqus_thread</comments>
             </item>
@@ -34049,9 +34137,9 @@ same thing - registers autowired controllers (and more) - and it has native supp
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 03 Jul 2017 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2017/07/03/how-to-deprecate-php-package-without-leaving-anyone-behind#disqus_thread</comments>
             </item>
@@ -34112,9 +34200,9 @@ We can do it! Thank you.</p> ]]></content:encoded>
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Mon, 05 Jun 2017 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2017/06/05/go-php-71#disqus_thread</comments>
             </item>
@@ -34168,9 +34256,9 @@ Answer a question they've asked, solve a problem for them or improve their work 
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Thu, 01 Jun 2017 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2017/06/01/thank-you-david#disqus_thread</comments>
             </item>
@@ -34377,9 +34465,9 @@ services:
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Sun, 07 May 2017 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2017/05/07/how-to-refactor-to-new-dependency-injection-features-in-symfony-3-3#disqus_thread</comments>
             </item>
@@ -34622,9 +34710,9 @@ if ($booth-&gt;isCalled()) {
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Fri, 14 Apr 2017 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2017/04/14/3-symfony-and-laravel-patterns-that-make-code-easy-to-extends-without-modification#disqus_thread</comments>
             </item>
@@ -34800,9 +34888,9 @@ I think it's about time to take it back to <strong>the simplest step</strong> an
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Wed, 22 Feb 2017 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2017/02/22/fast-and-easy-way-to-learn-complex-topics#disqus_thread</comments>
             </item>
@@ -34927,9 +35015,9 @@ class HomepagePresenter extends BasePresenter
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Wed, 15 Feb 2017 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2017/02/15/minimalistic-way-to-create-your-first-nette-extension#disqus_thread</comments>
             </item>
@@ -35172,9 +35260,9 @@ composer.json</code></pre>
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Tue, 31 Jan 2017 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2017/01/31/how-monolithic-repository-in-open-source-saved-my-laziness#disqus_thread</comments>
             </item>
@@ -35229,9 +35317,9 @@ script:
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Sat, 28 Jan 2017 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2017/01/28/why-I-switched-scrutinizer-for-phpstan-and-you-should-too#disqus_thread</comments>
             </item>
@@ -35323,9 +35411,9 @@ How did it go? Did you like that?</p>
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Fri, 20 Jan 2017 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2017/01/20/4-emotional-reasons-why-I-quit-my-twitter#disqus_thread</comments>
             </item>
@@ -35391,9 +35479,9 @@ O lidské psychice nás neučil terapeut s 10letou praxí, který pomohl stovká
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Sun, 15 Jan 2017 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2017/01/15/7-rad-ktere-bych-si-dal-pred-odchodem-na-vysokou-skolu#disqus_thread</comments>
             </item>
@@ -35540,9 +35628,9 @@ O lidské psychice nás neučil terapeut s 10letou praxí, který pomohl stovká
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Tue, 10 Jan 2017 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2017/01/10/jak-psat-zajimave-inzeraty-pro-ajtaky#disqus_thread</comments>
             </item>
@@ -35633,9 +35721,9 @@ This backfires.</p>
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2017/01/05/why-I-deleted-my-linkedin-account#disqus_thread</comments>
             </item>
@@ -35831,9 +35919,9 @@ decorator: # keyword used by Nette
                 <dc:creator><![CDATA[ Tomas Votruba ]]></dc:creator>
 
                                 <pubDate>Sat, 24 Dec 2016 00:00:00 +0000</pubDate>
-                                    <updated>2021-03-05UTC00:30:590</updated>
-                    <atom:updated>Fri, 05 Mar 2021 00:30:59 +0000</atom:updated>
-                    <lastBuildDate>Fri, 05 Mar 2021 00:30:59 +0000</lastBuildDate>
+                                    <updated>2021-03-05UTC17:16:230</updated>
+                    <atom:updated>Fri, 05 Mar 2021 17:16:23 +0000</atom:updated>
+                    <lastBuildDate>Fri, 05 Mar 2021 17:16:23 +0000</lastBuildDate>
                 
                 <comments>https://tomasvotruba.com/blog/2016/12/24/how-to-avoid-inject-thanks-to-decorator-feature-in-nette#disqus_thread</comments>
             </item>
