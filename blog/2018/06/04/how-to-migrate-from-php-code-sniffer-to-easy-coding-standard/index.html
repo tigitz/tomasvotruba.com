@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-    <title>How to Migrate From PHP_CodeSniffer to EasyCodingStandard in 7 Steps | Tomas Votruba</title>
+    <title>How to Migrate From PHP_CodeSniffer to ECS in 7 Steps | Tomas Votruba</title>
     <meta charset="utf-8">
     <meta name="robots" content="index, follow">
 
@@ -109,7 +109,7 @@
 </div>
 
         <div class="container-fluid" id="post">
-            <h1>How to Migrate From PHP_CodeSniffer to EasyCodingStandard in 7 Steps</h1>
+            <h1>How to Migrate From PHP_CodeSniffer to ECS in 7 Steps</h1>
 
             <ul class="list-inline post-metadata">
     <li class="list-inline-item mr-3">
@@ -152,7 +152,7 @@ Switch <strong>YAML</strong> to <strong>PHP</strong> configuration.</p>
             
             <div class="card card-bigger mb-5">
                 <div class="card-body pb-2">
-                    <p>Last year, I helped <a href="https://github.com/shopsys/coding-standards">Shopsys Coding Standards</a> and <a href="https://github.com/lmc-eu/php-coding-standard">LMC PHP Coding Standard</a> to migrate from PHP_CodeSniffer to EasyCodingStandard.
+                    <p>Last year, I helped <a href="https://github.com/shopsys/coding-standards">Shopsys Coding Standards</a> and <a href="https://github.com/lmc-eu/php-coding-standard">LMC PHP Coding Standard</a> to migrate from PHP_CodeSniffer to ECS.
 <br><br>
 There are <strong>a few simple A → B changes</strong>, but one has to know about them or will get stuck.
 <br><br>
@@ -235,13 +235,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     &lt;exclude name="Generic.Commenting.DocComment.ContentAfterOpen"/&gt;
 &lt;/rule&gt;</code></pre>
 <p>In EasyCodingStandard, we put that again under <code>skip</code> parameter in format <code>&lt;Sniff&gt;.&lt;CodeName&gt;</code>:</p>
-<pre><code class="language-php">&lt;?php
-
-// ecs.php
-
-declare(strict_types=1);
-
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+<pre><code class="language-php">use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\EasyCodingStandard\ValueObject\Option;
 use PHP_CodeSniffer\Standards\Generic\Sniffs\Commenting\DocCommentSniff;
 
@@ -268,13 +262,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     &lt;/rule&gt;
 &lt;/ruleset&gt;</code></pre>
 <p><strong>Put it under <code>skip</code> parameter:</strong></p>
-<pre><code class="language-php">&lt;?php
-
-// ecs.php
-
-declare(strict_types=1);
-
-use PHP_CodeSniffer\Standards\Generic\Sniffs\Commenting\DocCommentSniff;
+<pre><code class="language-php">use PHP_CodeSniffer\Standards\Generic\Sniffs\Commenting\DocCommentSniff;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\EasyCodingStandard\ValueObject\Option;
 
@@ -351,13 +339,13 @@ vendor/bin/phpcbf /path/to/project --standard=custom/location.xml</code></pre>
 <pre><code class="language-bash">vendor/bin/ecs check /path/to/project --config custom/location.php
 vendor/bin/ecs check /path/to/project --config custom/location.php --fix</code></pre>
 <p><br></p>
-<h3 id="give-it-a-try">Give it a Try...</h3>
+<h2 id="give-it-a-try">Give it a Try...</h2>
 <p>...and you won't regret it. Sylius, <a href="https://github.com/pestphp/drift">PestPHP</a>, LMC, Shopsys, Nette did and never came back.</p>
 <p><br></p>
 <p>Did I forget a step that you had to fight with? <strong>Please, let me know in the comments or just send PR to this post to add it</strong>, so we help other readers.</p>
 <p><br>
 <br></p>
-<p>In the next post we look on how to migrate from PHP CS Fixer!</p>
+<p>In the next post we look on <a href="/blog/2018/06/07/how-to-migrate-from-php-cs-fixer-to-easy-coding-standard/">how to migrate from PHP CS Fixer</a>!</p>
 
             <br>
 
@@ -467,8 +455,8 @@ vendor/bin/ecs check /path/to/project --config custom/location.php --fix</code><
 </html>
 
         <meta property="og:type" content="article" />
-    <meta property="og:title" content="How to Migrate From PHP_CodeSniffer to EasyCodingStandard in 7 Steps" />
-    <meta property="og:description" content="Last year, I helped [Shopsys Coding Standards](https://github.com/shopsys/coding-standards) and [LMC PHP Coding Standard](https://github.com/lmc-eu/php-coding-standard) to migrate from PHP_CodeSniffer to EasyCodingStandard.
+    <meta property="og:title" content="How to Migrate From PHP_CodeSniffer to ECS in 7 Steps" />
+    <meta property="og:description" content="Last year, I helped [Shopsys Coding Standards](https://github.com/shopsys/coding-standards) and [LMC PHP Coding Standard](https://github.com/lmc-eu/php-coding-standard) to migrate from PHP_CodeSniffer to ECS.
 
 There are **a few simple A → B changes**, but one has to know about them or will get stuck.
 
@@ -478,8 +466,8 @@ There are **a few simple A → B changes**, but one has to know about them or wi
 
         <meta name="twitter:card" content="summary" />
     <meta name="twitter:site" content="@votrubaT">
-    <meta name="twitter:title" content="How to Migrate From PHP_CodeSniffer to EasyCodingStandard in 7 Steps" />
-    <meta name="twitter:description" content="Last year, I helped [Shopsys Coding Standards](https://github.com/shopsys/coding-standards) and [LMC PHP Coding Standard](https://github.com/lmc-eu/php-coding-standard) to migrate from PHP_CodeSniffer to EasyCodingStandard.
+    <meta name="twitter:title" content="How to Migrate From PHP_CodeSniffer to ECS in 7 Steps" />
+    <meta name="twitter:description" content="Last year, I helped [Shopsys Coding Standards](https://github.com/shopsys/coding-standards) and [LMC PHP Coding Standard](https://github.com/lmc-eu/php-coding-standard) to migrate from PHP_CodeSniffer to ECS.
 
 There are **a few simple A → B changes**, but one has to know about them or will get stuck.
 

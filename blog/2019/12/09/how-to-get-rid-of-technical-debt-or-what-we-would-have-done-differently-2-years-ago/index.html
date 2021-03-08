@@ -197,13 +197,7 @@ The talk was not full of shallow tips, nor <a href="/blog/2019/08/26/how-we-migr
 <img src="/assets/images/posts/2019/spaceflow_10_points/04.png" class="img-thumbnail col-12 col-md-8">
 <h3 id="how-to-apply">How to Apply?</h3>
 <p>Just run <a href="https://github.com/symplify/easy-coding-standard">ECS</a> with following set:</p>
-<pre><code class="language-php">&lt;?php
-
-// ecs.php
-
-declare(strict_types=1);
-
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+<pre><code class="language-php">use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\CodingStandard\Fixer\LineLength\LineLengthFixer;
 use PhpCsFixer\Fixer\ClassNotation\FinalClassFixer;
 

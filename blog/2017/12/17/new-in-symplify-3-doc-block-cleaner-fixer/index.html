@@ -221,13 +221,7 @@ See pull-request #427
 <h3 id="1-install">1. Install</h3>
 <pre><code class="language-bash">composer require symplify/easy-coding-standard --dev</code></pre>
 <h3 id="2-create-config">2. Create Config</h3>
-<pre><code class="language-php">&lt;?php
-
-// ecs.php
-
-declare(strict_types=1);
-
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+<pre><code class="language-php">use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\CodingStandard\Fixer\Commenting\RemoveEmptyDocBlockFixer;
 use Symplify\CodingStandard\Fixer\Commenting\RemoveSuperfluousDocBlockWhitespaceFixer;
 use Symplify\CodingStandard\Fixer\Commenting\RemoveUselessDocBlockFixer;

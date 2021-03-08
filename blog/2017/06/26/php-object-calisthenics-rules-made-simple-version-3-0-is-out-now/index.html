@@ -195,13 +195,7 @@ They help you to get rid of &quot;else&quot; statements, method chaining, long c
 <h3 id="configure-what-you-need">Configure What You Need</h3>
 <p>As you can see in the bottom part of screenshot, most of rules are configurable. It allows you <strong>to adapt their strictness to your specific needs and needs of your project</strong>.</p>
 <p><em>Do you prefer to require min 4 chars?</em></p>
-<pre><code class="language-php">&lt;?php
-
-// ecs.php
-
-declare(strict_types=1);
-
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+<pre><code class="language-php">use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
     $services = $containerConfigurator-&gt;services();
@@ -209,13 +203,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         -&gt;property('minLength', 4);
 };</code></pre>
 <p><em>Do you want to add own allowed short names?</em></p>
-<pre><code class="language-php">&lt;?php
-
-// ecs.php
-
-declare(strict_types=1);
-
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+<pre><code class="language-php">use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
     $services = $containerConfigurator-&gt;services();

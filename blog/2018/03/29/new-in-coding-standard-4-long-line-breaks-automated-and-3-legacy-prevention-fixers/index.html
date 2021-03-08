@@ -166,13 +166,7 @@ Check the PR #749
 </a></p>
 <p><em>I'm so happy to announce this fixer, because it saved my so many times and also motivates me to use decoupling to smaller, SRP classes.</em></p>
 <p>If you use <code>LineLengthSniff</code>, you know it's painful to fix every error report it makes.</p>
-<pre><code class="language-php">&lt;?php
-
-// ecs.php
-
-declare(strict_types=1);
-
-use PHP_CodeSniffer\Standards\Generic\Sniffs\Files\LineLengthSniff;
+<pre><code class="language-php">use PHP_CodeSniffer\Standards\Generic\Sniffs\Files\LineLengthSniff;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
@@ -225,13 +219,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 <p>What if I told you that you'll have to never deal with this manually. Ever!</p>
 <p>Welcome <code>LineLengthFixer</code>.</p>
 <h3 id="how-to-register-it">How to Register It?</h3>
-<pre><code class="language-php">&lt;?php
-
-// ecs.php
-
-declare(strict_types=1);
-
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+<pre><code class="language-php">use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\CodingStandard\Fixer\LineLength\LineLengthFixer;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
@@ -250,13 +238,7 @@ Check the PR #751
 <li>Do you prefer shorter or longer lines?</li>
 <li>Do you want use breaks only and not inline short code?</li>
 </ul>
-<pre><code class="language-php">&lt;?php
-
-// ecs.php
-
-declare(strict_types=1);
-
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+<pre><code class="language-php">use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\CodingStandard\Fixer\LineLength\LineLengthFixer;
 
 return static function (ContainerConfigurator $containerConfigurator): void {

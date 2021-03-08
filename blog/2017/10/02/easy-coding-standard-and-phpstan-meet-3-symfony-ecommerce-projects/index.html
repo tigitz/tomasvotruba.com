@@ -216,13 +216,7 @@
 <h2 id="the-four-cleaners">The Four Cleaners</h2>
 <p>This is another <a href="/blog/2017/09/18/4-simple-checkers-for-coding-standard-haters-but-clean-code-lovers/">small and easy-to-understand set</a> I use to keep the code of open-source packages clean. In Sylius <a href="https://github.com/Sylius/Sylius/pull/8557">it removed 500 lines of unused code</a> just few days ago as of writing this article.</p>
 <p>The full set looks like this:</p>
-<pre><code class="language-php">&lt;?php
-
-// ecs.php
-
-declare(strict_types=1);
-
-use PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer;
+<pre><code class="language-php">use PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer;
 use PhpCsFixer\Fixer\Import\NoUnusedImportsFixer;
 use PhpCsFixer\Fixer\Import\OrderedImportsFixer;
 use SlevomatCodingStandard\Sniffs\Classes\UnusedPrivateElementsSniff;

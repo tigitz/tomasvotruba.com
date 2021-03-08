@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-    <title>New in Symplify 3: 4 Improvements in EasyCodingStandard | Tomas Votruba</title>
+    <title>A Tool that helps you to Migrate to ECS | Tomas Votruba</title>
     <meta charset="utf-8">
     <meta name="robots" content="index, follow">
 
@@ -28,7 +28,7 @@
         <link href="/assets/css/checklist.css" rel="stylesheet" type="text/css" />
 </head>
     <body>
-                <!-- post_id: 79 -->
+                <!-- post_id: 306 -->
 
         
 <div class="hidden-sm-down">
@@ -109,138 +109,73 @@
 </div>
 
         <div class="container-fluid" id="post">
-            <h1>New in Symplify&nbsp;3: 4&nbsp;Improvements in EasyCodingStandard</h1>
+            <h1>A Tool that helps you to Migrate to ECS</h1>
 
             <ul class="list-inline post-metadata">
     <li class="list-inline-item mr-3">
         <em class="fas fa-calendar fa-fw"></em>
-        <time datetime="2018-03-Thu">
-            <strike>
-                            Mar, 2018
+        <time datetime="2021-03-Mon">
+            
+                                            Mar 8
             
             </strike>        </time>
     </li>
 
-            <li class="list-inline-item mr-3 text-success">
-            <em class="fas fa-fw fa-sync"></em> Updated Aug, 2020
-        </li>
     
             <li class="list-inline-item mr-3">
             <em class="fas fa-fw fa-comments"></em>
-            <a href="/blog/2018/03/01/new-in-symplify-3-4-improvements-in-easy-coding-standard/#disqus_thread">X</a> comments
+            <a href="/blog/tool-that-helps-you-to-migrate-to-ecs/#disqus_thread">X</a> comments
         </li>
     
     
             <li class="list-inline-item mr-3 text-primary">
             <em class="fab fa-fw fa-github"></em>
-            <a href="https://github.com/tomasvotruba/tomasvotruba.com/edit/master/packages/blog/data/2018/2018-03-01-new-in-symplify-3-4-improvements-in-easy-coding-standard.md">Found a typo? Edit me</a>
+            <a href="https://github.com/tomasvotruba/tomasvotruba.com/edit/master/packages/blog/data/2021/2021-03-08-tool-that-helps-you-to-migrate-to-ecs.md">Found a typo? Edit me</a>
         </li>
     </ul>
 
             
-                            <div class="card border-success card-bigger mt-5">
-                    <div class="card-header text-white bg-success">
-                        <strong>This post was updated at August 2020</strong>
-                    </div>
-                                            <div class="card-body pb-2">
-                            <p>Updated with <strong>ECS 5</strong>, Neon to YAML migration and new simplified <code>skip</code> parameter syntax.<br>
-Updated ECS YAML to PHP configuration since <strong>ECS 8</strong>.</p>
-                        </div>
-                                    </div>
-
-                <br>
             
             <div class="card card-bigger mb-5">
                 <div class="card-body pb-2">
-                    <p>What is new in Easy Coding Standard 3?
-Nice diffs for fixable sniffs, smart excluding, support for sniff warnings and one more...</p>
+                    <p>Do you want to use ECS but still stuck on an older coding standard tool? I wrote a post <a href="/blog/2018/06/04/how-to-migrate-from-php-code-sniffer-to-easy-coding-standard/">how to migrate from PHP_CodeSniffer</a> and <a href="/blog/2018/06/07/how-to-migrate-from-php-cs-fixer-to-easy-coding-standard/">from PHP-CS-Fixer</a>.
+<br><br>
+But who has time to read the step-by-step manual and do manual work? Nobody. That's why today, we'll look at a tool that <strong>will handle the migration to ECS for you</strong>.</p>
                 </div>
             </div>
 
-            <h2 id="1-exclude-files-or-dirs">1. Exclude Files or Dirs</h2>
-<p>Do you have <code>src/Migrations</code> that you need to skip from your <code>vendor/bin/ecs check src</code> command?</p>
-<pre><code class="language-php">use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use Symplify\EasyCodingStandard\ValueObject\Option;
-
-return static function (ContainerConfigurator $containerConfigurator): void {
-    $parameters = $containerConfigurator-&gt;parameters();
-
-    $parameters-&gt;set(Option::EXCLUDE_PATHS, [
-        __DIR__ . '/src/Migrations/*Migration.php',
-    ]);
-};
-</code></pre>
-<p>With favorite <a href="http://php.net/manual/en/function.fnmatch.php"><code>fnmatch()</code> function</a> on board.</p>
-<h2 id="2-warnings-are-reported-for-specific-sniffs">2. Warnings are Reported for Specific Sniffs</h2>
-<p><a href="https://github.com/symplify/symplify/pull/481" class="btn btn-dark btn-sm mb-3 mt-2">
-<em class="fab fa-github"></em>
-&nbsp;
-Check the PR #481
-</a></p>
-<p>Sniff warnings are skipped by default, because it doesn't make sense to differentiate errors vs warnings. Yet some official Sniffs only produce warnings and that made them useless. Like <code>PHP_CodeSniffer\Standards\Squiz\Sniffs\PHP\CommentedOutCodeSniff</code>.</p>
-<p>That changed. New property <a href="https://github.com/symplify/symplify/blob/3d058becb57efefe2307c88ee94acbfbd15ebd1c/packages/EasyCodingStandard/packages/SniffRunner/src/File/File.php#L52"><code>$reportWarningsSniffs</code> in <code>Symplify\EasyCodingStandard\SniffRunner\File\File</code></a> now lists all sniffs, that report warnings in ECS as well.</p>
-<p><strong>Do you miss useful Sniff that reports only warnings?</strong> Send PR to add it.</p>
-<h2 id="3-nice-and-clear-diff-over-boring-table-report">3. Nice and Clear Diff over Boring Table Report</h2>
-<p><a href="https://github.com/symplify/symplify/pull/474" class="btn btn-dark btn-sm mb-3 mt-2">
-<em class="fab fa-github"></em>
-&nbsp;
-Check the PR #474
-</a></p>
-<p>Inspired by <a href="https://github.com/friendsofphp/php-cs-fixer">PHP CS Fixer</a> we've decided to <strong>use files diffs everywhere wherever it saves user daunting reading</strong>.</p>
-<p>When a <strong>fixable sniff found an error</strong>, ECS reported it like this:</p>
-<pre><code class="language-bash"> ------ --------------------------------------------------------------------------------------------
-  Line   src/Posts/Year2017/Ast/SomeClass.php
- ------ --------------------------------------------------------------------------------------------
-  10     Property $someProperty should use doc block instead of one liner
-         (SomeSniff)</code></pre>
-<p>But why bother with such detailed text information, if the ECS will fix it to better form anyway?</p>
-<p>From now on, <strong>it is reported the PHP CS Fixer-way like all the fixers</strong>:</p>
-<pre><code class="language-diff">@@ -1,14 +1,13 @@
- final class SomeClass
- {
-+    /**
-+     * @var SomeType
-+     */
--    /** @var SomeType */
-     private $someProperty;
- }
-
-    ----------- end diff -----------
-
-Applied checkers:
-
- - SomeSniff</code></pre>
-<p>Which one do you prefer?</p>
-<h2 id="4-skip-sniff-codes-instead-of-whole-sniffs">4. Skip Sniff Codes instead of Whole Sniffs</h2>
-<p><a href="https://github.com/symplify/symplify/pull/388" class="btn btn-dark btn-sm mb-3 mt-2">
-<em class="fab fa-github"></em>
-&nbsp;
-Check the PR #388
-</a></p>
-<p>If you wanted to skip specific part of sniff, you had to <strong>exclude whole sniff</strong> via &quot;skip&quot; option.
-But what if you liked all the other codes? <strong>Now you can:</strong></p>
-<pre><code class="language-php">use PHP_CodeSniffer\Standards\Generic\Sniffs\PHP\LowerCaseTypeSniff;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use Symplify\EasyCodingStandard\ValueObject\Option;
-
-return static function (ContainerConfigurator $containerConfigurator): void {
-    $parameters = $containerConfigurator-&gt;parameters();
-
-    $parameters-&gt;set(Option::SKIP, [
-        // old in Symplify 2
-        LowerCaseTypeSniff::class =&gt; null,
-
-        // new in Symplify 3
-        LowerCaseTypeSniff::class . '.SpecificCode' =&gt; null,
-
-        // new in Symplify 3 - only some files
-        LowerCaseTypeSniff::class . '.SpecificCode' =&gt; [
-            __DIR__ . '/src/Command/*'
-        ]
-    ]);
-};</code></pre>
-<p>Thanks <a href="https://github.com/ostrolucky">@ostrolucky</a> for taking adding fnmatch() skip of files.</p>
-<p>Enjoy the news and thanks to the people who push these tools further by every single PR or issue report!</p>
+            <p>More and more projects I worked with wanted to try ECS, but they didn't want to look at every rule in XML and write them in PHP. I helped the first 3 to do manually and guide them on differences in configuration and rule naming. It was daunting work.</p>
+<p>Are you interested <strong>in what way is ECS better</strong>? Check the mentioned posts:</p>
+<ul>
+<li><a href="/blog/2018/06/04/how-to-migrate-from-php-code-sniffer-to-easy-coding-standard">ECS vs PHP_CodeSniffer</a></li>
+<li><a href="/blog/2018/06/07/how-to-migrate-from-php-cs-fixer-to-easy-coding-standard">ECS vs PHP-CS-Fixer</a></li>
+</ul>
+<p><br></p>
+<p>When I was about to migrate 4th <code>phpcs.xml</code>, I didn't want to repeat copy-pasting, adding fully qualified names from dots, and so on. Some of you know from <a href="https://stars.github.com/profiles/tomasvotruba/">GitHub Stars profile</a>, that this physically hurts me more than most people.</p>
+<p>Luckily, I had to <a href="https://twitter.com/VotrubaT/status/1368894569853648900">go the toilet</a>. Suddenly I realized:</p>
+<blockquote class="blockquote text-center">
+"If I can do it, so can PHP tool"
+</blockquote>
+<p>That's how <strong><a href="https://github.com/symplify/sniffer-fixer-to-ecs-converter">Sniffer/Fixer to ECS Converter</a></strong> was born. The tool does what its name says.</p>
+<h2 id="2-steps-to-migrate-your-config">2 Steps to Migrate Your Config</h2>
+<ol>
+<li>Install the package</li>
+</ol>
+<pre><code class="language-bash">composer require symplify/sniffer-fixer-to-ecs-converter --dev</code></pre>
+<ol start="2">
+<li>Run the <code>convert</code> command</li>
+</ol>
+<p><strong>Migrate PHP_CodeSniffer config</strong></p>
+<pre><code class="language-bash">vendor/bin/sniffer-fixer-to-ecs-converter convert phpcs.xml</code></pre>
+<p><strong>Migrate PHP-CS-Fixer config</strong></p>
+<pre><code class="language-bash">vendor/bin/sniffer-fixer-to-ecs-converter convert .php_cs.dist</code></pre>
+<p>In both cases, a new config <code>converted-ecs.php</code> was created.</p>
+<p><br></p>
+<p>Now you can verify the config by running ECS.</p>
+<pre><code class="language-bash">composer require symplify/easy-coding-standard --dev
+vendor/bin/ecs check --config converted-ecs.php</code></pre>
+<p>If all is good, rename this config to <code>ecs.php</code> and remove your old config + tool from <code>composer.json</code>. Then you're ready to go.</p>
+<p>That's it!</p>
 <p><br></p>
 <p>Happy coding!</p>
 
@@ -248,12 +183,12 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
             <div class="row mb-5 mt-5">
                 <div class="col-12 mb-5">
-                                                                <a href="/blog/2018/02/26/rector-part-2-maturity-of-php-ecocystem-and-founding-fathers" class="d-block pt-4 pb-4 pl-4 pr-4 btn btn-success btn-wrappable">
+                                                                <a href="/blog/best-time-to-switch-gitlab-to-github" class="d-block pt-4 pb-4 pl-4 pr-4 btn btn-success btn-wrappable">
                             <em class="fas fa-fw fa-forward"></em>
                             <strong>Read Next</strong>
                             <br>
                             <span class="text-bigger">
-                                Rector: Part 2 - Maturity of PHP Ecosystem and Founding Fathers
+                                The Best Time to Switch Gitlab to GitHub
                             </span>
                         </a>
                                     </div>
@@ -352,15 +287,17 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 </html>
 
         <meta property="og:type" content="article" />
-    <meta property="og:title" content="New in Symplify 3: 4 Improvements in EasyCodingStandard" />
-    <meta property="og:description" content="What is new in Easy Coding Standard 3?
-Nice diffs for fixable sniffs, smart excluding, support for sniff warnings and one more...
+    <meta property="og:title" content="A Tool that helps you to Migrate to ECS" />
+    <meta property="og:description" content="Do you want to use ECS but still stuck on an older coding standard tool? I wrote a post [how to migrate from PHP_CodeSniffer](/blog/2018/06/04/how-to-migrate-from-php-code-sniffer-to-easy-coding-standard/) and [from PHP-CS-Fixer](/blog/2018/06/07/how-to-migrate-from-php-cs-fixer-to-easy-coding-standard/).
+
+But who has time to read the step-by-step manual and do manual work? Nobody. That&#039;s why today, we&#039;ll look at a tool that **will handle the migration to ECS for you**.
 " />
-    <meta property="og:url" content="/blog/2018/03/01/new-in-symplify-3-4-improvements-in-easy-coding-standard" />
+    <meta property="og:url" content="/blog/tool-that-helps-you-to-migrate-to-ecs" />
 
         <meta name="twitter:card" content="summary" />
     <meta name="twitter:site" content="@votrubaT">
-    <meta name="twitter:title" content="New in Symplify 3: 4 Improvements in EasyCodingStandard" />
-    <meta name="twitter:description" content="What is new in Easy Coding Standard 3?
-Nice diffs for fixable sniffs, smart excluding, support for sniff warnings and one more...
+    <meta name="twitter:title" content="A Tool that helps you to Migrate to ECS" />
+    <meta name="twitter:description" content="Do you want to use ECS but still stuck on an older coding standard tool? I wrote a post [how to migrate from PHP_CodeSniffer](/blog/2018/06/04/how-to-migrate-from-php-code-sniffer-to-easy-coding-standard/) and [from PHP-CS-Fixer](/blog/2018/06/07/how-to-migrate-from-php-cs-fixer-to-easy-coding-standard/).
+
+But who has time to read the step-by-step manual and do manual work? Nobody. That&#039;s why today, we&#039;ll look at a tool that **will handle the migration to ECS for you**.
 " />

@@ -314,13 +314,7 @@ final class ExceptionNameSniff implements Sniff
 <p>You can find <a href="https://github.com/symplify/symplify/blob/eeeaab688f6b349e55ab0b3179749dc9e5e49035/packages/CodingStandard/src/Sniffs/Naming/ExceptionNameSniff.php">final Sniff on Github</a> and use it right away of course.</p>
 <h2 id="how-to-run-it">How to run it?</h2>
 <p>With <a href="https://github.com/symplify/easy-coding-standard">ECS</a> put the class to <code>ecs.php</code>:</p>
-<pre><code class="language-php">&lt;?php
-
-// ecs.php
-
-declare(strict_types=1);
-
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+<pre><code class="language-php">use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\CodingStandard\Sniffs\Naming\ExceptionNameSniff;
 
 return static function (ContainerConfigurator $containerConfigurator): void {

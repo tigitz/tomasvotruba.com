@@ -166,13 +166,7 @@ Great! This post is for you. There are <a href="/blog/2017/07/31/how-php-coding-
 <img src="/assets/images/posts/2017/clean-checkers/dependency-drop.png" class="img-thumbnail">
 <p>It will not only make your code cleaner, but also can <strong>speed up you container build</strong> as a side effect.</p>
 <h2 id="4-simple-checkers">4 Simple Checkers</h2>
-<pre><code class="language-php">&lt;?php
-
-// ecs.php
-
-declare(strict_types=1);
-
-use PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer;
+<pre><code class="language-php">use PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer;
 use PhpCsFixer\Fixer\Import\NoUnusedImportsFixer;
 use PhpCsFixer\Fixer\Import\OrderedImportsFixer;
 use SlevomatCodingStandard\Sniffs\Classes\UnusedPrivateElementsSniff;

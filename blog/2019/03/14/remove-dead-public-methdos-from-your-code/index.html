@@ -199,13 +199,7 @@ class Person
 <p>...and we don't talk about brain wasted on linear operations. This is not the way.</p>
 <h2 id="how-to-find-them-in-1-minute">How to find them in 1 Minute?</h2>
 <p>There is one little sniff in <code>symplify/coding-standard</code> only few people know about. Set it up:</p>
-<pre><code class="language-php">&lt;?php
-
-// ecs.php
-
-declare(strict_types=1);
-
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+<pre><code class="language-php">use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
     $services = $containerConfigurator-&gt;services();

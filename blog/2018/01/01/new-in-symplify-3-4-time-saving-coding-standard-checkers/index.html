@@ -216,13 +216,7 @@ Check the pull-request
 <li>or <a href="https://github.com/phpDocumentor/ReflectionDocBlock/pull/137/files">phpDocumentor/ReflectionDocBlock PHP 7  pull-request</a></li>
 </ul>
 <p>When the official fixer is finished, I'd be happy to use it and recommend it. But <strong>right now you can use</strong>:</p>
-<pre><code class="language-php">&lt;?php
-
-// ecs.php
-
-declare(strict_types=1);
-
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+<pre><code class="language-php">use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\CodingStandard\Fixer\Strict\BlankLineAfterStrictTypesFixer;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
