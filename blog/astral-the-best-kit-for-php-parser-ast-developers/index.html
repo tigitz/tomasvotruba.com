@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <title>Astral - The Best Kit for php-parser AST Developers | Tomas Votruba</title>
+    <meta charset="utf-8">
+    <meta name="robots" content="index, follow">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
+    
+    <link rel="alternate" type="application/rss+xml" title="Tomas Votruba Blog RSS" href="/rss.xml">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/solid.css" integrity="sha384-wnAC7ln+XN0UKdcPvJvtqIH3jOjs9pnKnq9qX68ImXvOGz2JuFoEiCjT8jyZQX2z" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/brands.css" integrity="sha384-nT8r1Kzllf71iZl81CdFzObMsaLOhqBU1JD2+XoAALbdtWaXDOlWOZTR4v1ktjPE" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/fontawesome.css" integrity="sha384-HbmWTHay9psM8qyzEKPc8odH4DsOuzdejtnr+OFtDmOcIVnhgReQ4GZBH7uwcjf6" crossorigin="anonymous">
+
+        <link href="/assets/bootstrap/bootstrap.min.css" rel="stylesheet" type="text/css" />
+
+    <link href="/assets/prism/prism.css" rel="stylesheet" type="text/css" />
+
+        <link href="/assets/css/style.css" rel="stylesheet" type="text/css" />
+
+
+        <link href="/assets/css/checklist.css" rel="stylesheet" type="text/css" />
+</head>
+    <body>
+                <!-- post_id: 308 -->
+
+        
+<div class="hidden-sm-down">
+    <nav class="navbar">
+        <div class="container-fluid">
+            <ul>
+                <li id="logo">
+                    <img src="https://avatars1.githubusercontent.com/u/924196?s=60&v=4" class="me_avatar">
+                    Tomas Votruba
+                </li>
+                <li class="active">
+                    <a href="/">Blog</a>
+                </li>
+                <li class="">
+                    <a href="/php-framework-trends">Trends</a>
+                </li>
+                <li class="">
+                    <a href="/clusters">Clusters</a>
+                </li>
+                <li class="">
+                    <a href="/projects">Projects</a>
+                </li>
+                <li class="">
+                    <a href="/mission">Mission</a>
+                </li>
+                <li class="">
+                    <a href="/contact">Contact</a>
+                </li>
+                <li id="top-menu-search">
+                    <form method="get" action="https://www.google.com/search" itemprop="potentialAction" itemscope="" itemtype="https://schema.org/SearchAction">
+    <meta itemprop="target" content="https://www.google.com/search?q={q}"/>
+    <input name="sitesearch" value="tomasvotruba.com" type="hidden"/>
+    <input itemprop="query-input" type="text" id="search-query" class="form-control" required="required" name="q" placeholder="Search..." autocomplete="off"/>
+</form>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>
+
+<div class="hidden-md-up">
+    <nav class="navbar" id="mobile-menu">
+        <div class="container">
+            <a href="/" class="col-3 col-sm-3 active">
+                <em class="fas fa-book"></em>
+                <br>
+                Blog
+            </a>
+
+
+            <a href="/clusters" class="col-3 col-sm-3 ">
+                <em class="fas fa-share-alt"></em>
+                <br>
+                Clusters
+            </a>
+
+            <a href="/php-framework-trends" class="col-3 col-sm-3 ">
+                <em class="fas fa-chart-bar"></em>
+                <br>
+                Trends
+            </a>
+
+            <a href="/contact" class="col-3 col-sm-3 ">
+                <em class="fas fa-phone"></em>
+                <br>
+                Contact
+            </a>
+        </div>
+    </nav>
+
+    <div class="hidden-md-up text-center" id="top-menu-search-mobile">
+        <form method="get" action="https://www.google.com/search" itemprop="potentialAction" itemscope="" itemtype="https://schema.org/SearchAction">
+    <meta itemprop="target" content="https://www.google.com/search?q={q}"/>
+    <input name="sitesearch" value="tomasvotruba.com" type="hidden"/>
+    <input itemprop="query-input" type="text" id="search-query" class="form-control" required="required" name="q" placeholder="Search..." autocomplete="off"/>
+</form>
+    </div>
+</div>
+
+        <div class="container-fluid" id="post">
+            <h1>Astral - The Best Kit for php-parser AST Developers</h1>
+
+            <ul class="list-inline post-metadata">
+    <li class="list-inline-item mr-3">
+        <em class="fas fa-calendar fa-fw"></em>
+        <time datetime="2021-03-Mon">
+            
+                                            Mar 22
+            
+            </strike>        </time>
+    </li>
+
+    
+            <li class="list-inline-item mr-3">
+            <em class="fas fa-fw fa-comments"></em>
+            <a href="/blog/astral-the-best-kit-for-php-parser-ast-developers/#disqus_thread">X</a> comments
+        </li>
+    
+    
+            <li class="list-inline-item mr-3 text-primary">
+            <em class="fab fa-fw fa-github"></em>
+            <a href="https://github.com/tomasvotruba/tomasvotruba.com/edit/master/packages/blog/data/2021/2021-03-22-astral-the-best-kit-for-php-parser-ast-developers.md">Found a typo? Edit me</a>
+        </li>
+    </ul>
+
+            
+            
+            <div class="card card-bigger mb-5">
+                <div class="card-body pb-2">
+                    <p>Working with php-parser abstract syntax tree is fun. You can modify <a href="https://github.com/rectorphp/php-parser-nodes-docs#node-overview">any node</a> in the tree, change class method names or add new arguments.
+<br><br>
+Such work requires <strong>abstract and <a href="https://tomasvotruba.com/blog/2018/09/13/your-brain-is-your-garden/">deeply focused thinking</a></strong>. But sometimes, all we need is to get a method call name or constant value. That's completely different detailed nitpicking boring thinking...
+<br><br>
+That's where <strong>Astral package helps</strong>.</p>
+                </div>
+            </div>
+
+            <blockquote class="blockquote text-center mb-5">
+    Keeping simple changes in code,<br>
+    simple in AST as well.
+</blockquote>
+<h2 id="supports-native-php-rector-and-phpstan">Supports native php, Rector and PHPStan</h2>
+<p>The <a href="https://github.com/symplify/astral">Astral package</a> works for your php-parser code, Rector rules, and PHPStan rules too.</p>
+<pre><code class="language-bash">composer require symplify/astral</code></pre>
+<p><strong>A. For PHPStan</strong>, include the config in <code>phpstan.neon</code>:</p>
+<pre><code class="language-yaml">includes:
+    - vendor/symplify/astral/config/services.neon</code></pre>
+<p>We use this package in <a href="/blog/2020/12/14/new-in-symplify-9-more-than-110-phpstan-rules/">symplify/phpstan-rules</a> quite extensively.</p>
+<p><br></p>
+<p><strong>B. For your own php-parser code or Rector rule</strong>, add Symfony container with Bundle:</p>
+<pre><code class="language-php">// config/bundles.php
+return [
+    Symplify\Astral\Bundle\AstralBundle::class =&gt; ['all' =&gt; true],
+];</code></pre>
+<p>Now we have the package installed, so how can we use it in real code?</p>
+<h2 id="1-get-node-name">1. Get Node Name</h2>
+<p>Let's say we have this input code we want to process with AST:</p>
+<pre><code class="language-php">$someMethod-&gt;someCall(100);</code></pre>
+<p>We want to:</p>
+<ul>
+<li>get the name of the method call</li>
+<li>and argument value</li>
+<li>change the value if it is lower than 50</li>
+</ul>
+<p><br></p>
+<p>How can we get a node name in native php-parser? Usually, we have an input method that already passes the node we work with:</p>
+<pre><code class="language-php">use PhpParser\Node\Expr;
+use PhpParser\Node\Expr\MethodCall;
+use PhpParser\Node\Expr\Variable;
+
+final class SomeRule
+{
+    public function resolveNames(MethodCall $methodCall): array
+    {
+        if ($methodCall-&gt;name instanceof Expr) {
+            return [];
+        }
+
+        $methodName = $methodCall-&gt;name-&gt;toString();
+
+        if ($methodCall-&gt;var instanceof Variable) {
+            return [];
+        }
+
+        /** @var Variable $methodCallVariable */
+        $methodCallVariable = $methodCall-&gt;var;
+        if (! $methodCallVariable-&gt;name instanceof Expr) {
+            return [];
+        }
+
+        $methodCallerVariableName = (string) $methodCallVariable-&gt;name;
+
+        return [$methodName, $methodCallerVariableName];
+    }
+}</code></pre>
+<p>Good, now we have names of variable and the method name:</p>
+<ul>
+<li><code>$methodName</code> → <code>"someCall"</code></li>
+<li><code>$methodCallerVariableName</code> → <code>"someMethod"</code></li>
+</ul>
+<p>We haven't even started to write our AST logic, but the code is already pretty complicated. Could we do any better?</p>
+<p><br></p>
+<p><strong>How does the same logic look with Astral?</strong></p>
+<pre><code class="language-php">use PhpParser\Node\Expr\MethodCall;
+use Symplify\Astral\Naming\SimpleNameResolver;
+
+final class SomeRule
+{
+    public function __construct(
+        // PHP 8.0 promoted property syntax
+        private SimpleNameResolver $simpleNameResolver
+    ) {
+    }
+
+    public function resolveNames(MethodCall $methodCall): array
+    {
+        $methodName = $this-&gt;simpleNameResolver-&gt;getName($methodCall-&gt;name);
+        $methodCallerVariableName = $this-&gt;simpleNameResolver-&gt;getName($methodCall-&gt;var);
+
+        return [$methodName, $methodCallerVariableName];
+    }
+}</code></pre>
+<p>No boiler plate code, overly safe check for <code>Expr</code> or node type. The <code>getName()</code> just gets the name or <code>null</code> if it's not possible, e.g. for magical naming:</p>
+<pre><code class="language-php">$someMethod-&gt;${$someMethodName}(100);</code></pre>
+<p>Make use of other method that save you some work:</p>
+<pre><code class="language-php">$this-&gt;simpleNameResolver-&gt;isName($node, 'someExpectedName');
+$this-&gt;simpleNameResolver-&gt;isNames($node, ['assertTrue', 'assertFalse']);
+
+// useful for PHPStan class name
+$this-&gt;simpleNameResolver-&gt;getClassNameFromScope($scope);</code></pre>
+<p>And so on.</p>
+<h2 id="2-get-node-value">2. Get Node Value</h2>
+<p>While writing rules for Rector or PHPStan, we need to know the exact values of the argument. E.g., here we want to get <code>100</code>.</p>
+<pre><code class="language-php">$someMethod-&gt;someCall(100);</code></pre>
+<p>How can we get the 1st argument value of our method call with plain php-parser?</p>
+<pre><code class="language-php">use PhpParser\Node\Expr\MethodCall;
+use PhpParser\Node\Scalar\LNumber;
+use PhpParser\Node\Scalar\String_;
+use PHPStan\Node\Constant\ClassConstantFetch;
+
+final class SomeRule
+{
+    public function resolveFirstArgumentValue(MethodCall $methodCall)
+    {
+        if (count($methodCall-&gt;args) &lt; 1) {
+            return null;
+        }
+
+        $firstArgValue = $methodCall-&gt;args[0]-&gt;value;
+        if ($firstArgValue instanceof LNumber) {
+            return $firstArgValue-&gt;value;
+        }
+
+        if ($firstArgValue instanceof String_) {
+            return $firstArgValue-&gt;value;
+        }
+
+        if ($firstArgValue instanceof ClassConstantFetch) {
+            // ..
+        }
+
+        // ...
+    }
+}</code></pre>
+<p>You get the idea. We have to also account for non-direct known values like these:</p>
+<pre><code class="language-php">private const LIMIT = 100;
+
+$someMethod-&gt;someCall(self::LIMIT);</code></pre>
+<p><strong>How does Astral help here?</strong></p>
+<pre><code class="language-php">use PhpParser\Node\Expr\MethodCall;
+use Symplify\Astral\NodeValue\NodeValueResolver;
+
+final class SomeRule
+{
+    public function __construct(
+        private NodeValueResolver $nodeValueResolver
+    ) {
+
+    }
+    public function resolveFirstArgumentValue(MethodCall $methodCall)
+    {
+        if (count($methodCall-&gt;args) &lt; 1) {
+            return null;
+        }
+
+        $firstArgValue = $methodCall-&gt;args[0]-&gt;value;
+        // the 2nd argument is current file path, so Astral can resolve magical constants like __DIR__
+        // it is available in both Rector/PHPStan via $scope-&gt;getFile()
+        return $this-&gt;nodeValueResolver-&gt;resolve($firstArgValue, __FILE__);
+    }
+}</code></pre>
+<p>Straightforward and simple. The <code>NodeValueResolver</code> can deal with constant references to another class, with magical <code>__DIR__</code> or with <code>SomeClass::class</code> references.</p>
+<h2 id="3-change-the-node">3. Change the Node</h2>
+<p>Now we put all three parts together to demonstrate the real power of Astral. <strong>We already know that simple operations in AST are very hard to write</strong>. AST is a low-level language that has to account for various errors.</p>
+<p>How to change node in pure php-parser? It's a topic so extensive it would make a standalone post. Fortunately, there is one. I wrote <a href="https://tomasvotruba.com/blog/2017/11/06/how-to-change-php-code-with-abstract-syntax-tree/">How to change PHP code with Abstract Syntax Tree</a> 3 years ago. Beware, it's a lot of code simple method rename.</p>
+<p><br></p>
+<p>Here we'll use the handy Astral service <code>SimpleCallableNodeTraverser</code>. It's typical to be used in Rector rules, where we need to traverse deeper into nodes.</p>
+<p><strong>Enough theory, let the code talk:</strong></p>
+<pre><code class="language-php">use PhpParser\Node;
+use PhpParser\Node\Expr\MethodCall;
+use PhpParser\Node\Scalar\LNumber;
+use PhpParser\Node\Stmt\Class_;
+use Symplify\Astral\Naming\SimpleNameResolver;
+use Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser;
+use Symplify\Astral\NodeValue\NodeValueResolver;
+
+final class SomeRule
+{
+    public function __construct(
+        private NodeValueResolver $nodeValueResolver,
+        private SimpleNameResolver $simpleNameResolver,
+        private SimpleCallableNodeTraverser $simpleCallableNodeTraverser,
+    ) {
+    }
+
+    // here we traverse class, and we want to process method calls inside it
+    public function process(Class_ $class)
+    {
+        $this-&gt;simpleCallableNodeTraverser-&gt;traverseNodesWithCallable($class, function (Node $node) {
+            if (! $node instanceof MethodCall) {
+                return null;
+            }
+
+            return $this-&gt;processMethodCall($node);
+        });
+    }
+
+    private function processMethodCall(MethodCall $methodCall): ?Node
+    {
+        // with early return techinque, we skip all the nodes that does not match our needs
+        if (! $this-&gt;simpleNameResolver-&gt;isName($methodCall-&gt;name, 'someCall')) {
+            return null;
+        }
+
+        // we need at least 1 argument
+        if (! count($methodCall-&gt;args) &lt; 1) {
+            return null;
+        }
+
+        $argValue = $methodCall-&gt;args[0]-&gt;value;
+        $value = $this-&gt;nodeValueResolver-&gt;resolve($argValue, __FILE__);
+        if (! is_int($value)) {
+            return null;
+        }
+
+        // is the value lower than 50? skip it
+        if ($value &lt;= 50) {
+            return null;
+        }
+
+        // replaced with 100
+        $methodCall-&gt;args[0]-&gt;value = new LNumber(100);
+        return $methodCall;
+    }
+}</code></pre>
+<p>That's it!</p>
+<p><br></p>
+<h2 id="rule-of-the-thumb">Rule of the Thumb</h2>
+<p>Too much to absorb? I agree. Let's keep it simple - the most useful service is <code>SimpleNameResolver</code>. Try it next time you'll be writing the Rector rule, PHPStan rule, or extension. You'll be surprised how much boilerplate code you can save. Your code will be cleaner and easier to read.</p>
+<p>There is a couple of Astral features we haven't check yet. They're all in <a href="https://github.com/symplify/astral">README</a>.</p>
+<p><br></p>
+<p>Happy coding!</p>
+
+            <br>
+
+            <div class="row mb-5 mt-5">
+                <div class="col-12 mb-5">
+                                                                <a href="/blog/never-forget-symfony-config-options-again" class="d-block pt-4 pb-4 pl-4 pr-4 btn btn-success btn-wrappable">
+                            <em class="fas fa-fw fa-forward"></em>
+                            <strong>Read Next</strong>
+                            <br>
+                            <span class="text-bigger">
+                                Never Forget Symfony Config Options Again
+                            </span>
+                        </a>
+                                    </div>
+            </div>
+
+            <br>
+
+            <a name="comments"></a>
+            <div id="disqus_thread"></div>
+
+<script>
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+    /*
+    var disqus_config = function () {
+    this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = 'https://itsworthsharing.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+        </div>
+
+        <script id="dsq-count-scr" src="https://itsworthsharing.disqus.com/count.js" async defer></script>
+
+        <script src="/assets/js/jquery-3.3.1.slim.min.js"></script>
+<script src="/assets/js/cleaning-lady-checklist.js"></script>
+
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+
+<script>
+    ga=function(){ ga.q.push(arguments) };
+    ga.q=[];
+    ga.l=+new Date;
+    ga('create', 'UA-46082345-1', 'auto');
+    ga('send','pageview');
+</script>
+<script src="https://www.google-analytics.com/analytics.js" async defer></script>
+
+<script src="/assets/prism/prism.js"></script>
+
+<script>
+    // sortable table
+    $('.sortable_table').DataTable({
+        // see https://datatables.net/examples/basic_init/filter_only.html
+        "searching": false,
+        "paging": false,
+        "info": false,
+        "order": [[1, "desc"]],
+        // see https://datatables.net/examples/advanced_init/sort_direction_control.html
+        "aoColumns": [
+            null,
+            { "orderSequence": [ "desc", "asc" ] },
+            { "orderSequence": [ "desc", "asc" ] },
+            { "orderSequence": [ "desc", "asc" ] }
+        ]
+    });
+</script>
+
+<div class="text-center mt-5" id="footer">
+    <p class="mt-2">
+        Open-source is my life. Does it help yours? You can <a href="https://github.com/sponsors/TomasVotruba">Sponsor Me</a> &nbsp;
+        <em class="fas fa-heart text-danger fa-lg"></em>
+
+        &nbsp;
+        <span class="pl-2 pr-2">•</span>
+        &nbsp;
+
+        See <a href="/archive">Post Archive</a>
+
+        &nbsp;
+        <span class="pl-2 pr-2">•</span>
+        &nbsp;
+
+        <a href="/rss.xml">Get RSS</a>
+    </p>
+
+    <br>
+
+    <p>
+        Did you know my daily focus goes to <strong>turning working with legacy code into joy</strong>?
+
+        <br>
+
+        With awesome <a href="https://getrector.org/">Instant Refactoring tool called Rector</a>.
+    </p>
+</div>
+    </body>
+</html>
+
+        <meta property="og:type" content="article" />
+    <meta property="og:title" content="Astral - The Best Kit for php-parser AST Developers" />
+    <meta property="og:description" content="Working with php-parser abstract syntax tree is fun. You can modify [any node](https://github.com/rectorphp/php-parser-nodes-docs#node-overview) in the tree, change class method names or add new arguments.
+
+Such work requires **abstract and [deeply focused thinking](https://tomasvotruba.com/blog/2018/09/13/your-brain-is-your-garden/)**. But sometimes, all we need is to get a method call name or constant value. That&#039;s completely different detailed nitpicking boring thinking...
+
+That&#039;s where **Astral package helps**.
+" />
+    <meta property="og:url" content="/blog/astral-the-best-kit-for-php-parser-ast-developers" />
+
+        <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@votrubaT">
+    <meta name="twitter:title" content="Astral - The Best Kit for php-parser AST Developers" />
+    <meta name="twitter:description" content="Working with php-parser abstract syntax tree is fun. You can modify [any node](https://github.com/rectorphp/php-parser-nodes-docs#node-overview) in the tree, change class method names or add new arguments.
+
+Such work requires **abstract and [deeply focused thinking](https://tomasvotruba.com/blog/2018/09/13/your-brain-is-your-garden/)**. But sometimes, all we need is to get a method call name or constant value. That&#039;s completely different detailed nitpicking boring thinking...
+
+That&#039;s where **Astral package helps**.
+" />
