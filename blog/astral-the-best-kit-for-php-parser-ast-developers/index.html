@@ -232,7 +232,7 @@ final class SomeRule
     }
 }</code></pre>
 <p>No boiler plate code, overly safe check for <code>Expr</code> or node type. The <code>getName()</code> just gets the name or <code>null</code> if it's not possible, e.g. for magical naming:</p>
-<pre><code class="language-php">$someMethod-&gt;${$someMethodName}(100);</code></pre>
+<pre><code class="language-php">$someMethod-&gt;{$someMethodName}(100);</code></pre>
 <p>Make use of other method that save you some work:</p>
 <pre><code class="language-php">$this-&gt;simpleNameResolver-&gt;isName($node, 'someExpectedName');
 $this-&gt;simpleNameResolver-&gt;isNames($node, ['assertTrue', 'assertFalse']);
